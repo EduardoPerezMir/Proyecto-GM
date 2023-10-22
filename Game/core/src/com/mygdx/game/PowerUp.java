@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 public interface PowerUp {
-	void aplicarPowerUp(Tarro tarro);
+	void aplicarPowerUp(Object tarro);
 	
-	void quitarPowerUp(Tarro tarro);
+	void quitarPowerUp(Object tarro);
 }

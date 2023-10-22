@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,8 +15,12 @@ import java.util.List;
 public class PowerUpManager {
     private long lastDropTime;
     private Texture inmortabilidad;
+    Sound inicioPower;
+    Sound finPower;
     private Texture velocidad;
+    private Texture aumentarTarro;
     private Texture duplicarPuntos;
+    private Texture aumentarVelocidad;
     private float tiempoEntrePowerUps = 15.0f; // Tiempo en segundos entre PowerUps
     private float tiempoActivadoPowerUp = 0; // Tiempo de activación del power-up
     private float tiempoTranscurrido = 0;
@@ -28,17 +33,23 @@ public class PowerUpManager {
 
     private List<PowerUp> availablePowerUps; // Lista de power-ups disponibles
 
-    public PowerUpManager(Texture inmortabilidad, Texture velocidad, Texture duplicarPuntos) {
-        this.inmortabilidad = inmortabilidad;
+    public PowerUpManager(Texture inmortabilidad,Sound inicioPower,Sound finPower, Texture velocidad, Texture duplicarPuntos,Texture aumentarTarro,Texture aumentarVelocidad) {
+    	this.inicioPower = inicioPower;
+        this.finPower = finPower;
+        
+    	this.inmortabilidad = inmortabilidad;
         this.velocidad = velocidad;
         this.duplicarPuntos = duplicarPuntos;
-
+        this.aumentarTarro = aumentarTarro;
+        this.aumentarVelocidad = aumentarVelocidad;
         availablePowerUps = new ArrayList<>();
 
         // Agrega los diferentes tipos de power-ups disponibles a la lista
         availablePowerUps.add(new InmortalidadPowerUp());
         availablePowerUps.add(new AumentoVelocidadPowerUp());
         availablePowerUps.add(new DuplicarPuntosPowerUp());
+        availablePowerUps.add(new AumentoTamañoTarroPowerDown());
+        availablePowerUps.add(new AumentoVelocidadLluviaPowerDown());
 
         font = new BitmapFont(); // Inicializa la fuente para mostrar información
     }
@@ -61,16 +72,25 @@ public class PowerUpManager {
         powerUpInfo = new PowerUpInfo(newRectangle, randomPowerUp);
     }
 
-    // Método para activar un power-up y aplicarlo al jugador
-    public void activarPowerUp(PowerUp powerUp, Tarro tarro) {
-        powerUp.aplicarPowerUp(tarro);
-        powerUpActivo = powerUp;
-        tiempoActivadoPowerUp = TimeUtils.millis();
-        tiempoTranscurrido = 0;
+    // Método para activar un power-up y aplicarlo 
+    public void activarPowerUp(PowerUp powerUp, Tarro tarro,Lluvia lluvia,Sound inicioPower) {
+    	inicioPower.play();
+    	if (powerUp instanceof AumentoVelocidadLluviaPowerDown) {
+    		powerUp.aplicarPowerUp(lluvia);
+            powerUpActivo = powerUp;
+            tiempoActivadoPowerUp = TimeUtils.millis();
+            tiempoTranscurrido = 0;
+    	}
+    	else {
+    		powerUp.aplicarPowerUp(tarro);
+            powerUpActivo = powerUp;
+            tiempoActivadoPowerUp = TimeUtils.millis();
+            tiempoTranscurrido = 0;
+    	}
     }
 
     // Método para actualizar el movimiento de los power-ups y gestionar su activación y desactivación
-    public void actualizarMovimiento(Tarro tarro) {
+    public void actualizarMovimiento(Tarro tarro,Lluvia lluvia) {
         long currentTime = TimeUtils.millis();
         float delta = Gdx.graphics.getDeltaTime();
         
@@ -90,10 +110,10 @@ public class PowerUpManager {
                 return;
             }
             
-            // Si el power-up se superpone con el jugador, se activa
+            // Si el power-up se superpone con el tarro, se activa
             if (powerUpInfo.getRectangle().overlaps(tarro.getArea())) {
                 PowerUp powerUpChoque = powerUpInfo.getPowerUp();
-                activarPowerUp(powerUpChoque, tarro);
+                activarPowerUp(powerUpChoque, tarro,lluvia,inicioPower);
                 powerUpInfo = null;
             }
         }
@@ -104,9 +124,19 @@ public class PowerUpManager {
             
             // Si ha pasado suficiente tiempo, se desactiva el power-up
             if (tiempoTranscurrido >= duracionPowerUp * 1000) {
-                powerUpActivo.quitarPowerUp(tarro);
-                tiempoActivadoPowerUp = 0;
-                tiempoTranscurrido = 0;
+            	finPower.play();
+            	if (powerUpActivo instanceof AumentoVelocidadLluviaPowerDown) {
+            		powerUpActivo.quitarPowerUp(lluvia);
+                    tiempoActivadoPowerUp = 0;
+                    tiempoTranscurrido = 0;
+                }
+            	else
+            	{
+            		powerUpActivo.quitarPowerUp(tarro);
+                    tiempoActivadoPowerUp = 0;
+                    tiempoTranscurrido = 0;
+            	}
+            	
             }
         }
     }
@@ -124,6 +154,12 @@ public class PowerUpManager {
             if (powerUpInfo.getPowerUp() instanceof DuplicarPuntosPowerUp) {
                 batch.draw(duplicarPuntos, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
             }
+            if (powerUpInfo.getPowerUp() instanceof AumentoTamañoTarroPowerDown) {
+                batch.draw(aumentarTarro, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
+            }
+            if (powerUpInfo.getPowerUp() instanceof AumentoVelocidadLluviaPowerDown) {
+                batch.draw(aumentarVelocidad, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
+            }
         }
 
         if (tiempoActivadoPowerUp > 0) {
@@ -135,4 +171,14 @@ public class PowerUpManager {
             }
         }
     }
+    public void destruir() {
+    	inmortabilidad.dispose();
+    	velocidad.dispose();
+    	duplicarPuntos.dispose();
+    	aumentarTarro.dispose();
+    	aumentarVelocidad.dispose();
+    	inicioPower.dispose();
+    	finPower.dispose();
+    	
+     }
 }

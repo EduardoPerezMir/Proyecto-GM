@@ -27,7 +27,9 @@ public class GameScreen implements Screen {
         this.font = game.getFont();
 		  // load the images for the droplet and the bucket, 64x64 pixels each 	     
 		  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-		  tarro = new Tarro(new Texture(Gdx.files.internal("bucket.png")),hurtSound);
+		  Texture tarroI = new Texture(Gdx.files.internal("bucket.png"));
+		  Texture tarroGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
+		  tarro = new Tarro(tarroI,hurtSound,tarroGrande);
          
 	      // load the drop sound effect and the rain background "music" 
          Texture gota = new Texture(Gdx.files.internal("drop.png"));
@@ -40,9 +42,16 @@ public class GameScreen implements Screen {
          
          //PW
          Texture inmortabilidad = new Texture(Gdx.files.internal("inmortabilidad.png"));
+         
          Texture velocidad = new Texture(Gdx.files.internal("velocidad.png"));
          Texture duplicarPuntos = new Texture(Gdx.files.internal("duplicarpuntos.png"));
-         powerUps = new PowerUpManager(inmortabilidad,velocidad,duplicarPuntos);
+         Texture aumentarTarro = new Texture(Gdx.files.internal("tamañotarro.png"));
+         Texture aumentarVelocidad = new Texture(Gdx.files.internal("velocidadlluvia.png"));
+         
+         Sound inicioPower = Gdx.audio.newSound(Gdx.files.internal("soundinmortal.mp3"));
+         Sound finPower = Gdx.audio.newSound(Gdx.files.internal("endpower.mp3"));
+         
+         powerUps = new PowerUpManager(inmortabilidad,inicioPower,finPower,velocidad,duplicarPuntos,aumentarTarro,aumentarVelocidad);
          
 	      // camera
 	      camera = new OrthographicCamera();
@@ -76,7 +85,7 @@ public class GameScreen implements Screen {
 	        tarro.actualizarMovimiento();
 	        
 	        //Caida de PW
-	        powerUps.actualizarMovimiento(tarro);
+	        powerUps.actualizarMovimiento(tarro,lluvia);
 	        
 			// caida de la lluvia 
 	       if (!lluvia.actualizarMovimiento(tarro)) {
@@ -125,6 +134,7 @@ public class GameScreen implements Screen {
 	public void dispose() {
       tarro.destruir();
       lluvia.destruir();
+      powerUps.destruir();
 
 	}
 

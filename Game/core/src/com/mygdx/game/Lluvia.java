@@ -18,6 +18,7 @@ public class Lluvia {
     private Texture gotaMala;
     private Sound dropSound;
     private Music rainMusic;
+    private int velY=300;
 	   
 	public Lluvia(Texture gotaBuena, Texture gotaMala, Sound ss, Music mm) {
 		rainMusic = mm;
@@ -25,6 +26,10 @@ public class Lluvia {
 		this.gotaBuena = gotaBuena;
 		this.gotaMala = gotaMala;
 	}
+	
+	public void setVelocidad(double velo) {
+		   velY*=velo;
+	   }
 	
 	public void crear() {
 		rainDropsPos = new Array<Rectangle>();
@@ -58,7 +63,7 @@ public class Lluvia {
 	   // revisar si las gotas cayeron al suelo o chocaron con el tarro
 	   for (int i=0; i < rainDropsPos.size; i++ ) {
 		  Rectangle raindrop = rainDropsPos.get(i);
-	      raindrop.y -= 300 * Gdx.graphics.getDeltaTime();
+	      raindrop.y -= velY * Gdx.graphics.getDeltaTime();
 	      //cae al suelo y se elimina
 	      if(raindrop.y + 64 < 0) {
 	    	  rainDropsPos.removeIndex(i); 
