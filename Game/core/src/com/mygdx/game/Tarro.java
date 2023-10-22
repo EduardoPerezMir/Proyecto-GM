@@ -26,26 +26,27 @@ public class Tarro {
 	   
 	   private boolean esInmortal=false;
 	   private boolean seDebeAumentar=false;
-	   private boolean esTarroGrande=false;
+	   
+	   private Texture tarroActivo;
 	   
 	   public Tarro(Texture tarro, Sound ss,Texture tarroGrande) {
 		   bucketImage = tarro;
 		   bucketImageGrande = tarroGrande;
+		   tarroActivo = bucketImage;
 		   sonidoHerido = ss;
 	   }
 	   
 	   public void tamañoTarroGrande(boolean variable) {
-		   esTarroGrande = variable;
 		   if (variable) {
 			   tamaño=100;
-			   bucket.width = tamaño;
-			   bucket.height = tamaño;
+			   tarroActivo = bucketImageGrande;
 		   }
 		   else {
 			   tamaño=64;
-			   bucket.width = tamaño;
-			   bucket.height = tamaño;
+			   tarroActivo = bucketImage;
 		   }
+		   bucket.width = tamaño;
+		   bucket.height = tamaño;
 		   
 	   }
 	   
@@ -81,27 +82,19 @@ public class Tarro {
 			   sonidoHerido.play(); 
 		   }
 	   }
+	   
 	   public void dibujar(SpriteBatch batch) {
-		   if(!esTarroGrande) {
-			   if (!herido)  
-				   batch.draw(bucketImage, bucket.x, bucket.y);
-			   else {
-				   batch.draw(bucketImage, bucket.x, bucket.y+ MathUtils.random(-5,5));
-				   tiempoHerido--;
-				   if (tiempoHerido<=0) herido = false;
-			   }
+		   if (!herido) {
+			   batch.draw(tarroActivo, bucket.x, bucket.y);
+			   
 		   }
 		   else {
-			   if (!herido)  
-				   batch.draw(bucketImageGrande, bucket.x, bucket.y);
-			   else {
-				   batch.draw(bucketImageGrande, bucket.x, bucket.y+ MathUtils.random(-5,5));
-				   tiempoHerido--;
-				   if (tiempoHerido<=0) herido = false;
-			   }
+			   batch.draw(tarroActivo, bucket.x, bucket.y+ MathUtils.random(-5,5));
+			   tiempoHerido--;
+			   if (tiempoHerido<=0) herido = false;
 		   }
 		
-	   } 
+	   }
 	   
 	   public void setInmortal(boolean inmortal) {
 		   esInmortal = inmortal;
@@ -134,6 +127,7 @@ public class Tarro {
 	public void destruir() {
 		    bucketImage.dispose();
 		    bucketImageGrande.dispose();
+		    tarroActivo.dispose();
 	   }
 	
    public boolean estaHerido() {
