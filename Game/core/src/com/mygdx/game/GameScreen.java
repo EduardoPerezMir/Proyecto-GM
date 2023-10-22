@@ -17,8 +17,8 @@ public class GameScreen implements Screen {
 	private BitmapFont font;
 	private Tarro tarro;
 	private Lluvia lluvia;
-
-	   
+	private PowerUpManager powerUps;
+	
 	//boolean activo = true;
 
 	public GameScreen(final GameLluviaMenu game) {
@@ -37,13 +37,19 @@ public class GameScreen implements Screen {
         
 	     Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
          lluvia = new Lluvia(gota, gotaMala, dropSound, rainMusic);
-	      
+         
+         //PW
+         Texture inmortabilidad = new Texture(Gdx.files.internal("inmortabilidad.png"));
+         powerUps = new PowerUpManager(inmortabilidad);
+         
 	      // camera
 	      camera = new OrthographicCamera();
 	      camera.setToOrtho(false, 800, 480);
 	      batch = new SpriteBatch();
 	      // creacion del tarro
 	      tarro.crear();
+	      
+	      powerUps.crear();
 	      
 	      // creacion de la lluvia
 	      lluvia.crear();
@@ -65,7 +71,8 @@ public class GameScreen implements Screen {
 		
 		if (!tarro.estaHerido()) {
 			// movimiento del tarro desde teclado
-	        tarro.actualizarMovimiento();        
+	        tarro.actualizarMovimiento();
+	        powerUps.actualizarMovimiento(tarro);
 			// caida de la lluvia 
 	       if (!lluvia.actualizarMovimiento(tarro)) {
 	    	  //actualizar HigherScore
@@ -76,7 +83,7 @@ public class GameScreen implements Screen {
 	    	  dispose();
 	       }
 		}
-		
+		powerUps.actualizarDibujo(batch);
 		tarro.dibujar(batch);
 		lluvia.actualizarDibujoLluvia(batch);
 		
