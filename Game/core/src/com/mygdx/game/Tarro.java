@@ -38,15 +38,11 @@ public class Tarro {
 		   esTarroGrande = variable;
 		   if (variable) {
 			   tamaño=100;
-			   bucket.x = 800 / 2 - tamaño / 2;
-			   bucket.y = 20;
 			   bucket.width = tamaño;
 			   bucket.height = tamaño;
 		   }
 		   else {
 			   tamaño=64;
-			   bucket.x = 800 / 2 - tamaño / 2;
-			   bucket.y = 20;
 			   bucket.width = tamaño;
 			   bucket.height = tamaño;
 		   }
