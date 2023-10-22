@@ -16,14 +16,16 @@ public class Lluvia {
     private long lastDropTime;
     private Texture gotaBuena;
     private Texture gotaMala;
+    private Texture gotaAmarilla;
     private Sound dropSound;
     private Music rainMusic;
     private int velY=300;
 	   
-	public Lluvia(Texture gotaBuena, Texture gotaMala, Sound ss, Music mm) {
+	public Lluvia(Texture gotaBuena, Texture gotaAmarilla, Texture gotaMala, Sound ss, Music mm) {
 		rainMusic = mm;
 		dropSound = ss;
 		this.gotaBuena = gotaBuena;
+		this.gotaAmarilla = gotaAmarilla;
 		this.gotaMala = gotaMala;
 	}
 	
@@ -48,10 +50,15 @@ public class Lluvia {
 	      raindrop.height = 64;
 	      rainDropsPos.add(raindrop);
 	      // ver el tipo de gota
-	      if (MathUtils.random(1,10)<5)	    	  
+	      int azar = MathUtils.random(1,10);
+	      if (azar < 4)	    	  
 	         rainDropsType.add(1);
-	      else 
-	    	 rainDropsType.add(2);
+	      else {
+	    	 if (azar < 9)
+	    		 rainDropsType.add(2);
+	    	 else
+	    		 rainDropsType.add(3);
+	      }
 	      lastDropTime = TimeUtils.nanoTime();
 	   }
 	
@@ -70,6 +77,7 @@ public class Lluvia {
 	    	  rainDropsType.removeIndex(i);
 	      }
 	      if(raindrop.overlaps(tarro.getArea())) { //la gota choca con el tarro
+	    	int tipo = rainDropsType.get(i);
 	    	if(rainDropsType.get(i)==1) { // gota dañina
 	    	  tarro.dañar();
 	    	  if (tarro.getVidas()<=0)
@@ -77,7 +85,10 @@ public class Lluvia {
 	    	  rainDropsPos.removeIndex(i);
 	          rainDropsType.removeIndex(i);
 	      	}else { // gota a recolectar
-	    	  tarro.sumarPuntos(10);
+	      	  if (tipo == 2)
+	      		  tarro.sumarPuntos(10);
+	      	  else
+	      		tarro.sumarPuntos(30);
 	          dropSound.play();
 	          rainDropsPos.removeIndex(i);
 	          rainDropsType.removeIndex(i);
@@ -91,10 +102,15 @@ public class Lluvia {
 	   
 	  for (int i=0; i < rainDropsPos.size; i++ ) {
 		  Rectangle raindrop = rainDropsPos.get(i);
-		  if(rainDropsType.get(i)==1) // gota dañina
+		  int tipo = rainDropsType.get(i);
+		  if(tipo==1) // gota dañina
 	         batch.draw(gotaMala, raindrop.x, raindrop.y); 
-		  else
-			 batch.draw(gotaBuena, raindrop.x, raindrop.y); 
+		  else {
+			 if(tipo == 2)
+				 batch.draw(gotaBuena, raindrop.x, raindrop.y); 
+			 else
+				 batch.draw(gotaAmarilla, raindrop.x, raindrop.y); 
+		  }
 	   }
    }
    public void destruir() {
