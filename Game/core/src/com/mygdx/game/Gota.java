@@ -63,5 +63,5 @@ public abstract class Gota {
 		this.forma = forma;
 	}
 
-	public abstract boolean accionColisionTarro();
+	public abstract boolean accionColisionTarro(Tarro tarro);
 }
