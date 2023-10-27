@@ -14,13 +14,8 @@ import java.util.List;
 
 public class PowerUpManager {
     private long lastDropTime;
-    private Texture inmortabilidad;
     Sound inicioPower;
     Sound finPower;
-    private Texture velocidad;
-    private Texture aumentarTarro;
-    private Texture duplicarPuntos;
-    private Texture aumentarVelocidad;
     private float tiempoEntrePowerUps = 15.0f; // Tiempo en segundos entre PowerUps
     private float tiempoActivadoPowerUp = 0; // Tiempo de activación del power-up
     private float tiempoTranscurrido = 0;
@@ -31,25 +26,20 @@ public class PowerUpManager {
 
     private BitmapFont font; // Fuente para mostrar información
 
-    private List<PowerUp> availablePowerUps; // Lista de power-ups disponibles
+    private List<PowerUp> powersDisponibles; // Lista de power-ups disponibles
 
-    public PowerUpManager(Texture inmortabilidad,Sound inicioPower,Sound finPower, Texture velocidad, Texture duplicarPuntos,Texture aumentarTarro,Texture aumentarVelocidad) {
+    public PowerUpManager(Texture inmortalidad,Sound inicioPower,Sound finPower, Texture velocidad, Texture duplicarPuntos,Texture aumentarTarro,Texture aumentarVelocidad) {
     	this.inicioPower = inicioPower;
         this.finPower = finPower;
         
-    	this.inmortabilidad = inmortabilidad;
-        this.velocidad = velocidad;
-        this.duplicarPuntos = duplicarPuntos;
-        this.aumentarTarro = aumentarTarro;
-        this.aumentarVelocidad = aumentarVelocidad;
-        availablePowerUps = new ArrayList<>();
+        powersDisponibles = new ArrayList<>();
 
         // Agrega los diferentes tipos de power-ups disponibles a la lista
-        availablePowerUps.add(new InmortalidadPowerUp());
-        availablePowerUps.add(new AumentoVelocidadPowerUp());
-        availablePowerUps.add(new DuplicarPuntosPowerUp());
-        availablePowerUps.add(new AumentoTamañoTarroPowerDown());
-        availablePowerUps.add(new AumentoVelocidadLluviaPowerDown());
+        powersDisponibles.add(new InmortalidadPowerUp(inmortalidad));
+        powersDisponibles.add(new AumentoVelocidadPowerUp(velocidad));
+        powersDisponibles.add(new DuplicarPuntosPowerUp(duplicarPuntos));
+        powersDisponibles.add(new AumentoTamañoTarroPowerDown(aumentarTarro));
+        powersDisponibles.add(new AumentoVelocidadLluviaPowerDown(aumentarVelocidad));
 
         font = new BitmapFont(); // Inicializa la fuente para mostrar información
     }
@@ -68,7 +58,7 @@ public class PowerUpManager {
         newRectangle.width = 42;
         newRectangle.height = 64;
 
-        PowerUp randomPowerUp = availablePowerUps.get(MathUtils.random(availablePowerUps.size() - 1));
+        PowerUp randomPowerUp = powersDisponibles.get(MathUtils.random(powersDisponibles.size() - 1));
         powerUpInfo = new PowerUpInfo(newRectangle, randomPowerUp);
     }
 
@@ -79,7 +69,6 @@ public class PowerUpManager {
         powerUpActivo = powerUp;
         tiempoActivadoPowerUp = TimeUtils.millis();
         tiempoTranscurrido = 0;
- 
     }
 
     // Método para actualizar el movimiento de los power-ups y gestionar su activación y desactivación
@@ -121,8 +110,6 @@ public class PowerUpManager {
             	powerUpActivo.quitarPowerUp(tarro,lluvia);
                 tiempoActivadoPowerUp = 0;
                 tiempoTranscurrido = 0;
-                
-            	
             }
         }
     }
@@ -130,24 +117,9 @@ public class PowerUpManager {
     // Método para actualizar la representación gráfica de los power-ups y el tiempo restante de un power-up activo
     public void actualizarDibujo(SpriteBatch batch) {
         if (powerUpInfo != null) {
-        	
             // Dibuja el power-up actual si está disponible
+        	powerUpInfo.getPowerUp().dibujar(batch, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
         	
-            if (powerUpInfo.getPowerUp() instanceof InmortalidadPowerUp) {
-                batch.draw(inmortabilidad, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
-            }
-            if (powerUpInfo.getPowerUp() instanceof AumentoVelocidadPowerUp) {
-                batch.draw(velocidad, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
-            }
-            if (powerUpInfo.getPowerUp() instanceof DuplicarPuntosPowerUp) {
-                batch.draw(duplicarPuntos, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
-            }
-            if (powerUpInfo.getPowerUp() instanceof AumentoTamañoTarroPowerDown) {
-                batch.draw(aumentarTarro, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
-            }
-            if (powerUpInfo.getPowerUp() instanceof AumentoVelocidadLluviaPowerDown) {
-                batch.draw(aumentarVelocidad, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
-            }
         }
 
         if (tiempoActivadoPowerUp > 0) {
@@ -161,11 +133,6 @@ public class PowerUpManager {
     }
     
     public void destruir() {
-    	inmortabilidad.dispose();
-    	velocidad.dispose();
-    	duplicarPuntos.dispose();
-    	aumentarTarro.dispose();
-    	aumentarVelocidad.dispose();
     	inicioPower.dispose();
     	finPower.dispose();
     	
