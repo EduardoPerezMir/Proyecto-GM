@@ -14,15 +14,22 @@ public class Lluvia {
     private long lastDropTime;
     private Music rainMusic;
     private double velY2;
-	   
+	private double velYFuncionPuntaje;
+   
 	public Lluvia(Music mm) {
 		rainMusic = mm;
 		velY2 = 1;
+		velYFuncionPuntaje = 1;
 	}
 	
 	public void setVelocidad(double velY2)
 	{
 		this.velY2 *= velY2;
+	}
+	
+	public void incrementoVelocidadFuncionPuntaje(Tarro tarro)
+	{
+		velYFuncionPuntaje += 0.01 * 0.75;
 	}
 	
 	public void crear() {
@@ -59,7 +66,7 @@ public boolean actualizarMovimiento(Tarro tarro) {
 	   for (int i = 0; i < gotas.size; i++ ) {
 		  Gota gotaActual = gotas.get(i);
 		  Rectangle raindrop = gotaActual.getForma();
-	      raindrop.y -= gotaActual.getVelocidadCaida() * velY2 * Gdx.graphics.getDeltaTime();
+	      raindrop.y -= gotaActual.getVelocidadCaida() * velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
 	      gotaActual.setForma(raindrop);
 	      gotas.set(i, gotaActual);
 	      //cae al suelo y se elimina
@@ -69,6 +76,7 @@ public boolean actualizarMovimiento(Tarro tarro) {
 	      
 	      if(raindrop.overlaps(tarro.getArea())){//la gota choca con el tarro
 	    	flag = gotaActual.accionColisionTarro(tarro);
+	    	incrementoVelocidadFuncionPuntaje(tarro);
 	      	if (flag == false)
 	      		return false;
 	    	gotas.removeIndex(i);

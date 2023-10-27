@@ -62,7 +62,7 @@ public class Tarro {
 		}
 		public void sumarPuntos(int pp) {
 			if (seDebeAumentar)puntos+=(pp*2);
-			else puntos+=pp;
+			else puntos+=pp;	
 		}
 		
 	   public void crear() {
