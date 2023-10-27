@@ -3,11 +3,11 @@ package com.mygdx.game;
 public class AumentoVelocidadLluviaPowerDown implements PowerUp {
 
 	@Override
-	public void aplicarPowerUp(Object lluvia) {
-		((Lluvia) lluvia).setVelocidad(2);
+	public void aplicarPowerUp(Tarro tarro,Lluvia lluvia) {
+		lluvia.setVelocidad(2);
 	}
 
-	public void quitarPowerUp(Object lluvia) {
-		((Lluvia) lluvia).setVelocidad(0.5);
+	public void quitarPowerUp(Tarro tarro,Lluvia lluvia) {
+		lluvia.setVelocidad(0.5);
 	}
 }

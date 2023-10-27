@@ -75,18 +75,11 @@ public class PowerUpManager {
     // Método para activar un power-up y aplicarlo 
     public void activarPowerUp(PowerUp powerUp, Tarro tarro,Lluvia lluvia,Sound inicioPower) {
     	inicioPower.play();
-    	if (powerUp instanceof AumentoVelocidadLluviaPowerDown) {
-    		powerUp.aplicarPowerUp(lluvia);
-            powerUpActivo = powerUp;
-            tiempoActivadoPowerUp = TimeUtils.millis();
-            tiempoTranscurrido = 0;
-    	}
-    	else {
-    		powerUp.aplicarPowerUp(tarro);
-            powerUpActivo = powerUp;
-            tiempoActivadoPowerUp = TimeUtils.millis();
-            tiempoTranscurrido = 0;
-    	}
+    	powerUp.aplicarPowerUp(tarro,lluvia);
+        powerUpActivo = powerUp;
+        tiempoActivadoPowerUp = TimeUtils.millis();
+        tiempoTranscurrido = 0;
+ 
     }
 
     // Método para actualizar el movimiento de los power-ups y gestionar su activación y desactivación
@@ -125,17 +118,10 @@ public class PowerUpManager {
             // Si ha pasado suficiente tiempo, se desactiva el power-up
             if (tiempoTranscurrido >= duracionPowerUp * 1000) {
             	finPower.play();
-            	if (powerUpActivo instanceof AumentoVelocidadLluviaPowerDown) {
-            		powerUpActivo.quitarPowerUp(lluvia);
-                    tiempoActivadoPowerUp = 0;
-                    tiempoTranscurrido = 0;
-                }
-            	else
-            	{
-            		powerUpActivo.quitarPowerUp(tarro);
-                    tiempoActivadoPowerUp = 0;
-                    tiempoTranscurrido = 0;
-            	}
+            	powerUpActivo.quitarPowerUp(tarro,lluvia);
+                tiempoActivadoPowerUp = 0;
+                tiempoTranscurrido = 0;
+                
             	
             }
         }
@@ -144,7 +130,9 @@ public class PowerUpManager {
     // Método para actualizar la representación gráfica de los power-ups y el tiempo restante de un power-up activo
     public void actualizarDibujo(SpriteBatch batch) {
         if (powerUpInfo != null) {
+        	
             // Dibuja el power-up actual si está disponible
+        	
             if (powerUpInfo.getPowerUp() instanceof InmortalidadPowerUp) {
                 batch.draw(inmortabilidad, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
             }
