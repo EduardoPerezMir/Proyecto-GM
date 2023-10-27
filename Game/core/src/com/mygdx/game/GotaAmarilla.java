@@ -9,7 +9,7 @@ public class GotaAmarilla extends Gota {
 	
 	public GotaAmarilla() {
 		super(2, new Texture(Gdx.files.internal("dropYellow.png")), 30, 300);
-		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+		dropSound = Gdx.audio.newSound(Gdx.files.internal("dropYellow.mp3"));
 	}
 	
 	public boolean accionColisionTarro(Tarro tarro) {
