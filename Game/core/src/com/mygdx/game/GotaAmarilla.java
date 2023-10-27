@@ -8,12 +8,13 @@ public class GotaAmarilla extends Gota {
 	Sound dropSound;
 	
 	public GotaAmarilla() {
-		super(0, new Texture(Gdx.files.internal("dropYellow.png")), 0, 300);
+		super(2, new Texture(Gdx.files.internal("dropYellow.png")), 30, 300);
 		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 	}
 	
 	public boolean accionColisionTarro(Tarro tarro) {
-		tarro.sumarPuntos(30);
+		dropSound.play();
+		tarro.sumarPuntos(getPuntaje());
 		return true;
 	}
 }

@@ -22,50 +22,43 @@ public class GameScreen implements Screen {
 	//boolean activo = true;
 
 	public GameScreen(final GameLluviaMenu game) {
-		this.game = game;
-        this.batch = game.getBatch();
-        this.font = game.getFont();
+		  this.game = game;
+	      this.batch = game.getBatch();
+	      this.font = game.getFont();
 		  // load the images for the droplet and the bucket, 64x64 pixels each 	     
 		  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 		  Texture tarroI = new Texture(Gdx.files.internal("bucket.png"));
 		  Texture tarroGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
 		  tarro = new Tarro(tarroI,hurtSound,tarroGrande);
-         
-	      // load the drop sound effect and the rain background "music" 
-         Texture gota = new Texture(Gdx.files.internal("drop.png"));
-         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
-         Texture gotaAmarilla = new Texture(Gdx.files.internal("dropYellow.png"));
-         
-         
-         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        
-	     Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-         lluvia = new Lluvia(gota, gotaAmarilla, gotaMala, dropSound, rainMusic);
-         
-         //PW
-         Texture inmortabilidad = new Texture(Gdx.files.internal("inmortabilidad.png"));
-         
-         Texture velocidad = new Texture(Gdx.files.internal("velocidad.png"));
-         Texture duplicarPuntos = new Texture(Gdx.files.internal("duplicarpuntos.png"));
-         Texture aumentarTarro = new Texture(Gdx.files.internal("tamañotarro.png"));
-         Texture aumentarVelocidad = new Texture(Gdx.files.internal("velocidadlluvia.png"));
-         
-         Sound inicioPower = Gdx.audio.newSound(Gdx.files.internal("soundinmortal.mp3"));
-         Sound finPower = Gdx.audio.newSound(Gdx.files.internal("endpower.mp3"));
-         
-         powerUps = new PowerUpManager(inmortabilidad,inicioPower,finPower,velocidad,duplicarPuntos,aumentarTarro,aumentarVelocidad);
-         
-	      // camera
-	      camera = new OrthographicCamera();
-	      camera.setToOrtho(false, 800, 480);
-	      batch = new SpriteBatch();
-	      // creacion del tarro
-	      tarro.crear();
-	      
-	      powerUps.crear();
-	      
-	      // creacion de la lluvia
-	      lluvia.crear();
+		 
+		  // load the drop sound effect and the rain background "music" 
+		 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+		 lluvia = new Lluvia(rainMusic);
+		 
+		 //PW
+		 Texture inmortabilidad = new Texture(Gdx.files.internal("inmortabilidad.png"));
+		 
+		 Texture velocidad = new Texture(Gdx.files.internal("velocidad.png"));
+		 Texture duplicarPuntos = new Texture(Gdx.files.internal("duplicarpuntos.png"));
+		 Texture aumentarTarro = new Texture(Gdx.files.internal("tamañotarro.png"));
+		 Texture aumentarVelocidad = new Texture(Gdx.files.internal("velocidadlluvia.png"));
+		 
+		 Sound inicioPower = Gdx.audio.newSound(Gdx.files.internal("soundinmortal.mp3"));
+		 Sound finPower = Gdx.audio.newSound(Gdx.files.internal("endpower.mp3"));
+		 
+		 powerUps = new PowerUpManager(inmortabilidad,inicioPower,finPower,velocidad,duplicarPuntos,aumentarTarro,aumentarVelocidad);
+		 
+		  // camera
+		  camera = new OrthographicCamera();
+		  camera.setToOrtho(false, 800, 480);
+		  batch = new SpriteBatch();
+		  // creacion del tarro
+		  tarro.crear();
+		  
+		  powerUps.crear();
+		  
+		  // creacion de la lluvia
+		  lluvia.crear();
 	}
 
 	@Override
