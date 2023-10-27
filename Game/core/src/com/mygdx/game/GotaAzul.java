@@ -8,7 +8,7 @@ public class GotaAzul extends Gota {
 	Sound dropSound;
 	
 	public GotaAzul() {
-		super(1, new Texture(Gdx.files.internal("drop.png")), 10, 300);
+		super(new Texture(Gdx.files.internal("drop.png")), 10, 300);
 		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 	}
 	

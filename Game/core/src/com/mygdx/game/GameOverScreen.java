@@ -39,10 +39,9 @@ public class GameOverScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
 	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
+	        game.setHigherScore(0);
 	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
-	    }
-		
-		
+	    }		
 		
 		if (Gdx.input.isTouched()) {
 			game.setScreen(new GameScreen(game, dificultad));

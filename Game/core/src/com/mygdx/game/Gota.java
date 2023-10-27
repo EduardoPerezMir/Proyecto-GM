@@ -5,14 +5,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
 public abstract class Gota {
-	private int tipoGota;
 	private Texture textura;
 	private int puntaje;
 	private int velocidadCaida;
 	private Rectangle forma;
 	
-	public Gota(int tipoGota, Texture textura, int puntaje, int velocidadCaida) {
-		this.tipoGota = tipoGota;
+	public Gota(Texture textura, int puntaje, int velocidadCaida) {
 		this.textura = textura;
 		this.puntaje = puntaje;
 		this.velocidadCaida = velocidadCaida;
@@ -21,14 +19,6 @@ public abstract class Gota {
 		forma.y = 480;
 		forma.width = 42;
 		forma.height = 64; 
-	}
-	
-	public int getTipoGota() {
-		return tipoGota;
-	}
-	
-	public void setTipoGota(int tipoGota) {
-		this.tipoGota = tipoGota;
 	}
 
 	public Texture getTextura() {
@@ -62,6 +52,22 @@ public abstract class Gota {
 	public void setForma(Rectangle forma) {
 		this.forma = forma;
 	}
-
+	
+	public float getFormaX() {
+		return forma.x;
+	}
+	
+	public void setFormaX(float posX) {
+		this.forma.x = posX;
+	}
+	
+	public float getFormaY() {
+		return forma.y;
+	}
+	
+	public void setFormaY(float posY) {
+		this.forma.y = posY;
+	}
+	
 	public abstract boolean accionColisionTarro(Tarro tarro);
 }

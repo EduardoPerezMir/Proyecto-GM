@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 
-public class GotaMala extends Gota {
+public class GotaMala extends Gota {	
 	public GotaMala() {
-		super(0, new Texture(Gdx.files.internal("dropBad.png")), 0, 300);
+		super(new Texture(Gdx.files.internal("dropBad.png")), 0, 300);
 	}
 	
 	public boolean accionColisionTarro(Tarro tarro) {

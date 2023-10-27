@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen implements Screen {
-
 	final GameLluviaMenu game;
 	private SpriteBatch batch;
 	private BitmapFont font;
@@ -27,7 +26,9 @@ public class MainMenuScreen implements Screen {
     private Texture backgroundImage;
     private Skin basicSkinBotones;
     private Skin basicSkinTitulos;
+    private Skin basicSkinTutorial;
     private TextButton bienvenida;
+    private TextButton tutorial;
     private TextButton niveles;
     private TextButton optionButton1;
     private TextButton optionButton2;
@@ -61,17 +62,21 @@ public class MainMenuScreen implements Screen {
     
     private void createTableAndButtons() {
         table = new Table();
-        this.basicSkinBotones = createBasicSkin(1);
-        this.basicSkinTitulos = createBasicSkin(2);
-        this.bienvenida = new TextButton("Bienvenido a GameLluvia!!!", basicSkinTitulos);
-        this.niveles = new TextButton("Niveles", basicSkinTitulos);
-        this.optionButton1 = new TextButton("Fácil", basicSkinBotones);
-        this.optionButton2 = new TextButton("Medio", basicSkinBotones);
-        this.optionButton3 = new TextButton("Difícil", basicSkinBotones);
-        this.exitButton = new TextButton("Salir", basicSkinBotones);
+        basicSkinBotones = createBasicSkin(1);
+        basicSkinTitulos = createBasicSkin(2);
+        basicSkinTutorial = createBasicSkin(3);
+        bienvenida = new TextButton("Bienvenido a GameLluvia!!!", basicSkinTitulos);
+        tutorial = new TextButton("Tutorial", basicSkinTutorial);
+        niveles = new TextButton("Niveles", basicSkinTitulos);
+        optionButton1 = new TextButton("Fácil", basicSkinBotones);
+        optionButton2 = new TextButton("Medio", basicSkinBotones);
+        optionButton3 = new TextButton("Difícil", basicSkinBotones);
+        exitButton = new TextButton("Salir", basicSkinBotones);
         table.setFillParent(true);
         table.center();
         table.add(bienvenida).pad(10);
+        table.row();
+        table.add(tutorial).pad(10);
         table.row();
         table.add(niveles).pad(10);
         table.row();
@@ -85,6 +90,13 @@ public class MainMenuScreen implements Screen {
         stage.addActor(table);
       
         
+        tutorial.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	game.setScreen(new TutorialScreen(game)); 
+    	        dispose();
+            }
+        });
         
         optionButton1.addListener(new ClickListener() {
             @Override
@@ -124,7 +136,9 @@ public class MainMenuScreen implements Screen {
 	        Skin skin = new Skin();
 	        String nombreArchivo = "degrade.jpg";
 	        if (indicador == 2)
-		        nombreArchivo = "faded.jpg";	        	
+		        nombreArchivo = "faded.jpg";	
+	        if (indicador == 3)
+	        	nombreArchivo = "colorTutorial.jpg";
 
 	        // Configurar el estilo de botón
 	        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
@@ -134,7 +148,7 @@ public class MainMenuScreen implements Screen {
 	        buttonStyle.over =  new TextureRegionDrawable(new Texture(Gdx.files.internal(nombreArchivo)));
 	        buttonStyle.fontColor = Color.WHITE;
 	        
-	        if (indicador == 1) {
+	        if (indicador == 1 || indicador == 3) {
 		        Texture backgroundTexture = new Texture(Gdx.files.internal(nombreArchivo));
 		        skin.add("background", backgroundTexture);
 		        buttonStyle.up = skin.newDrawable("background");
