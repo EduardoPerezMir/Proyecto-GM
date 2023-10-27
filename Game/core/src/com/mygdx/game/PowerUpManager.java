@@ -155,10 +155,11 @@ public class PowerUpManager {
             float tiempoRestante = duracionPowerUp * 1000 - tiempoTranscurrido;
             if (tiempoRestante > 0) {
                 String formattedTime = String.format("Tiempo restante de power up: %.0fs", (tiempoRestante / 1000));
-                font.draw(batch, formattedTime, 10, 20);
+                font.draw(batch, formattedTime, 10, 30);
             }
         }
     }
+    
     public void destruir() {
     	inmortabilidad.dispose();
     	velocidad.dispose();

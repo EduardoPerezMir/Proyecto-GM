@@ -6,19 +6,22 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Input.Keys;
 
 public class GameOverScreen implements Screen {
 	private final GameLluviaMenu game;
 	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private OrthographicCamera camera;
-
-	public GameOverScreen(final GameLluviaMenu game) {
+	private int dificultad;
+	
+	public GameOverScreen(final GameLluviaMenu game, int dificultad) {
 		this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
+		this.dificultad = dificultad;
 	}
 
 	@Override
@@ -28,12 +31,21 @@ public class GameOverScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.draw(batch, "GAME OVER ", 100, 200);
-		font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 100);
+		font.draw(batch, "GAME OVER ", 350, 300);
+		font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 200);
+		font.draw(batch, "Presione ESC para volver al menú inicial.", 100, 100);
 		batch.end();
 
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
+	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
+	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
+	    }
+		
+		
+		
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
+			game.setScreen(new GameScreen(game, dificultad));
 			dispose();
 		}
 	}

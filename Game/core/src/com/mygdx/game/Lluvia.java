@@ -15,11 +15,13 @@ public class Lluvia {
     private Music rainMusic;
     private double velY2;
 	private double velYFuncionPuntaje;
-   
-	public Lluvia(Music mm) {
+	private int dificultad;
+	
+	public Lluvia(Music mm, int dificultad) {
 		rainMusic = mm;
 		velY2 = 1;
 		velYFuncionPuntaje = 1;
+		this.dificultad = dificultad;
 	}
 	
 	public void setVelocidad(double velY2)
@@ -41,19 +43,48 @@ public class Lluvia {
 	}
 	
 	private void crearGotaDeLluvia() {
-	      Gota nuevaGota;
+	      Gota nuevaGota = null;
 	      int azar = MathUtils.random(1,10);
 	      
-	      if (azar < 4)
-	    	 nuevaGota = new GotaMala();
-	      else {
-	    	 if (azar < 9)
-	    		 nuevaGota = new GotaAzul();
-	    	 else
-	    		 nuevaGota = new GotaAmarilla();
+	      if (dificultad == 1) {
+		      if (azar < 2)
+			    	 nuevaGota = new GotaMala();
+			      else {
+			    	 if (azar < 7)
+			    		 nuevaGota = new GotaAzul();
+			    	 else
+			    		 nuevaGota = new GotaAmarilla();
+			      }
 	      }
 	      
-	      gotas.add(nuevaGota);
+	      
+	      
+	      if (dificultad == 2) {
+		      if (azar < 4)
+			    	 nuevaGota = new GotaMala();
+			      else {
+			    	 if (azar < 8)
+			    		 nuevaGota = new GotaAzul();
+			    	 else
+			    		 nuevaGota = new GotaAmarilla();
+			      }
+	      }
+	      
+	      
+	      if (dificultad == 3) {
+		      if (azar < 7)
+			    	 nuevaGota = new GotaMala();
+			      else {
+			    	 if (azar < 9)
+			    		 nuevaGota = new GotaAzul();
+			    	 else
+			    		 nuevaGota = new GotaAmarilla();
+			      }
+	      }
+
+	      
+	      if (nuevaGota != null)
+	    	  gotas.add(nuevaGota);
 	      lastDropTime = TimeUtils.nanoTime();
 	   }
 

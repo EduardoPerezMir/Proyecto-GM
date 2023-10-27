@@ -18,22 +18,32 @@ public class GameScreen implements Screen {
 	private Tarro tarro;
 	private Lluvia lluvia;
 	private PowerUpManager powerUps;
-	
+	private int dificultad;
+	private String dificultadString;
 	//boolean activo = true;
 
-	public GameScreen(final GameLluviaMenu game) {
+	public GameScreen(final GameLluviaMenu game, int dificultad) {
 		  this.game = game;
 	      this.batch = game.getBatch();
 	      this.font = game.getFont();
+	      this.dificultad = dificultad;
+	      dificultadString = "";
+	      if (dificultad == 1)
+	    	  dificultadString = "Fácil";
+		  if (dificultad == 2)
+			  dificultadString = "Medio";
+		  if (dificultad == 3)
+			  dificultadString = "Difícil";
+			  
 		  // load the images for the droplet and the bucket, 64x64 pixels each 	     
 		  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 		  Texture tarroI = new Texture(Gdx.files.internal("bucket.png"));
 		  Texture tarroGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
-		  tarro = new Tarro(tarroI,hurtSound,tarroGrande);
+		  tarro = new Tarro(tarroI, hurtSound, tarroGrande);
 		 
 		  // load the drop sound effect and the rain background "music" 
 		 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-		 lluvia = new Lluvia(rainMusic);
+		 lluvia = new Lluvia(rainMusic, dificultad);
 		 
 		 //PW
 		 Texture inmortabilidad = new Texture(Gdx.files.internal("inmortabilidad.png"));
@@ -71,9 +81,11 @@ public class GameScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		//dibujar textos
-		font.draw(batch, "Gotas totales: " + tarro.getPuntos(), 5, 475);
+		font.draw(batch, "Puntaje: " + tarro.getPuntos(), 5, 475);
 		font.draw(batch, "Vidas : " + tarro.getVidas(), 670, 475);
 		font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth/2-50, 475);
+		String mensajeDificultad = "Modo: " + dificultadString;
+		font.draw(batch, mensajeDificultad, 670, 30);
 		
 		if (!tarro.estaHerido()) {
 			// movimiento del tarro desde teclado
@@ -88,7 +100,7 @@ public class GameScreen implements Screen {
 	    	  if (game.getHigherScore()<tarro.getPuntos())
 	    		  game.setHigherScore(tarro.getPuntos());  
 	    	  //ir a la ventana de finde juego y destruir la actual
-	    	  game.setScreen(new GameOverScreen(game));
+	    	  game.setScreen(new GameOverScreen(game, dificultad));
 	    	  dispose();
 	       }
 		}
