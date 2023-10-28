@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 
-public class GotaMala extends Gota {	
+public class GotaMala extends Gota {
 	public GotaMala() {
-		super(new Texture(Gdx.files.internal("dropBad.png")), 0, 300);
+		setTextura(new Texture(Gdx.files.internal("dropBad.png")));
 	}
 	
-	public boolean accionColisionTarro(Tarro tarro) {
+	
+	public int accionColisionTarro(Tarro tarro) {
 		tarro.dañar();
 		if (tarro.getVidas() <= 0)
-			return false;  // Si el tarro se queda sin vidas retorna falso / Game Over.
-		return true;
+			return -1;  // Si el tarro se queda sin vidas retorna falso / Game Over.
+		return 1;
 	}
 }

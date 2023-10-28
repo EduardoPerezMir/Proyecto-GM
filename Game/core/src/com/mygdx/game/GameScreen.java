@@ -20,6 +20,7 @@ public class GameScreen implements Screen {
 	private PowerUpManager powerUps;
 	private int dificultad;
 	private String dificultadString;
+	private Texture backgroundTexture;
 	//boolean activo = true;
 
 	public GameScreen(final GameLluviaMenu game, int dificultad) {
@@ -27,6 +28,7 @@ public class GameScreen implements Screen {
 	      this.batch = game.getBatch();
 	      this.font = game.getFont();
 	      this.dificultad = dificultad;
+	      backgroundTexture = new Texture(Gdx.files.internal("waves.jpg"));
 	      dificultadString = "";
 	      if (dificultad == 1)
 	    	  dificultadString = "Fácil";
@@ -80,6 +82,7 @@ public class GameScreen implements Screen {
 		//actualizar 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		//dibujar textos
 		font.draw(batch, "Puntaje: " + tarro.getPuntos(), 5, 475);
 		font.draw(batch, "Vidas : " + tarro.getVidas(), 670, 475);

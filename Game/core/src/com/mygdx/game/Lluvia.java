@@ -13,11 +13,12 @@ public class Lluvia {
 	private Array<Gota> gotas;
     private long lastDropTime;
     private Music rainMusic;
-    private double velY2;
-	private double velYFuncionPuntaje;
+    private float velY2;
+	private float velYFuncionPuntaje;
 	private int dificultad;
 	
 	public Lluvia(Music mm, int dificultad) {
+		gotas = new Array<Gota>();
 		rainMusic = mm;
 		velY2 = 1;
 		velYFuncionPuntaje = 1;
@@ -35,15 +36,14 @@ public class Lluvia {
 	}
 	
 	public void crear() {
-		gotas = new Array<Gota>();
 		crearGotaDeLluvia();
 	    // start the playback of the background music immediately
 	    rainMusic.setLooping(true);
 	    rainMusic.play();
 	}
 	
-	private void crearGotaDeLluvia() {
-	      Gota nuevaGota = null;
+	public void crearGotaDeLluvia() {
+		Gota nuevaGota = null;
 	      int azar = MathUtils.random(1,10);
 	      
 	      if (dificultad == 1) {
@@ -56,9 +56,7 @@ public class Lluvia {
 			    		 nuevaGota = new GotaAmarilla();
 			      }
 	      }
-	      
-	      
-	      
+	    
 	      if (dificultad == 2) {
 		      if (azar < 4)
 			    	 nuevaGota = new GotaMala();
@@ -81,53 +79,48 @@ public class Lluvia {
 			    		 nuevaGota = new GotaAmarilla();
 			      }
 	      }
-
-	      
 	      if (nuevaGota != null)
 	    	  gotas.add(nuevaGota);
 	      lastDropTime = TimeUtils.nanoTime();
-	   }
+	}
 
-public boolean actualizarMovimiento(Tarro tarro) { 
+	public boolean actualizarMovimiento(Tarro tarro) { 
 	   // generar gotas de lluvia
-	   if(TimeUtils.nanoTime() - lastDropTime > 100000000) crearGotaDeLluvia();
+	   if(TimeUtils.nanoTime() - lastDropTime > 100000000 / velYFuncionPuntaje) crearGotaDeLluvia();
 	   
-	   boolean flag = true;
 	   // revisar si las gotas cayeron al suelo o chocaron con el tarro
-	   for (int i = 0; i < gotas.size; i++ ) {
+	   for (int i = 0; i < gotas.size; i++ ) { 
 		  Gota gotaActual = gotas.get(i);
-		  Rectangle raindrop = gotaActual.getForma();
-	      raindrop.y -= gotaActual.getVelocidadCaida() * velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
-	      gotaActual.setForma(raindrop);
-	      gotas.set(i, gotaActual);
-	      //cae al suelo y se elimina
-	      if(raindrop.y + 64 < 0) {
-	    	  gotas.removeIndex(i);
-	      }
-	      
-	      if(raindrop.overlaps(tarro.getArea())){//la gota choca con el tarro
-	    	flag = gotaActual.accionColisionTarro(tarro);
+		  float velocidadActual = gotaActual.getVelocidadCaida();
+		  float posActual = gotaActual.getFormaPosY();
+		  float nuevaPos = posActual - velocidadActual * velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
+		  gotaActual.setFormaPosY(nuevaPos);
+		  if(gotaActual.getFormaPosY() + 64 < 0) {
+		  	  gotas.removeIndex(i);
+		  }
+		  
+		  int accionARealizar = gotaActual.verificarColisionTarro(tarro);
+	      if(accionARealizar != 0){
 	    	incrementoVelocidadFuncionPuntaje(tarro);
-	      	if (flag == false)
+	      	if (accionARealizar == -1)
 	      		return false;
-	    	gotas.removeIndex(i);
+	      	gotas.removeIndex(i);
 	      }
-	    }
+	  }
 	  return true;
    }
    
    public void actualizarDibujoLluvia(SpriteBatch batch) {
 	  for (int i=0; i < gotas.size; i++ ) {
 		  Gota gotaActual = gotas.get(i);
-		  Rectangle raindrop = gotaActual.getForma();
-		  Texture textura = gotaActual.getTextura();
-		  batch.draw(textura, raindrop.x, raindrop.y);
+		  gotaActual.dibujarGota(batch);
 	  }
    }
    
    public double getVelocidadLluvia() {
        return velY2 * velYFuncionPuntaje;
    }
+   
    
    public void destruir() {
       rainMusic.dispose();

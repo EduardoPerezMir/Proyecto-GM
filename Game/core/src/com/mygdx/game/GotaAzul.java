@@ -8,13 +8,14 @@ public class GotaAzul extends Gota {
 	Sound dropSound;
 	
 	public GotaAzul() {
-		super(new Texture(Gdx.files.internal("drop.png")), 10, 300);
+		setTextura(new Texture(Gdx.files.internal("drop.png")));
 		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+		setPuntaje(10);
 	}
 	
-	public boolean accionColisionTarro(Tarro tarro) {
+	public int accionColisionTarro(Tarro tarro) {
 		dropSound.play();
 		tarro.sumarPuntos(getPuntaje());
-		return true;
+		return 1;
 	}
 }

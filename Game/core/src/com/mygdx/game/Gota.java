@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
@@ -10,17 +11,17 @@ public abstract class Gota {
 	private int velocidadCaida;
 	private Rectangle forma;
 	
-	public Gota(Texture textura, int puntaje, int velocidadCaida) {
-		this.textura = textura;
-		this.puntaje = puntaje;
-		this.velocidadCaida = velocidadCaida;
+	public Gota() {
+		velocidadCaida = 300;
+		textura = null;
+		puntaje = 0;
 		forma = new Rectangle();
 		forma.x = MathUtils.random(0, 800 - 42);
 		forma.y = 480;
 		forma.width = 42;
-		forma.height = 64; 
+		forma.height = 64;
 	}
-
+	
 	public Texture getTextura() {
 		return textura;
 	}
@@ -53,21 +54,33 @@ public abstract class Gota {
 		this.forma = forma;
 	}
 	
-	public float getFormaX() {
+	public float getFormaPosX() {
 		return forma.x;
 	}
 	
-	public void setFormaX(float posX) {
+	public void setFormaPosX(float posX) {
 		this.forma.x = posX;
 	}
 	
-	public float getFormaY() {
+	public float getFormaPosY() {
 		return forma.y;
 	}
 	
-	public void setFormaY(float posY) {
+	public void setFormaPosY(float posY) {
 		this.forma.y = posY;
 	}
 	
-	public abstract boolean accionColisionTarro(Tarro tarro);
+	public abstract int accionColisionTarro(Tarro tarro);
+	
+	public int verificarColisionTarro(Tarro tarro) {
+		if(forma.overlaps(tarro.getArea())) {
+			return accionColisionTarro(tarro);
+		}
+		
+	    return 0;
+	}	
+	
+	public void dibujarGota(SpriteBatch batch) {
+		  batch.draw(textura, forma.x, forma.y);
+	}
 }
