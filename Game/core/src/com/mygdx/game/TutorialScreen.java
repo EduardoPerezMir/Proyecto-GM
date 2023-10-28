@@ -76,7 +76,7 @@ public class TutorialScreen implements Screen {
         posYTexto -= 20;
         font.draw(batch, "- Durante el Juego: Usa las teclas de flecha izquierda y derecha en tu teclado para", 100, posYTexto);
         posYTexto -= 20;
-        font.draw(batch, "  mover la cubeta y recoger las gotas de lluvia.", 100, posYTexto);
+        font.draw(batch, "  mover la cubeta y recoger las gotas de lluvia. Además, pulsa la tecla m para silenciar o activar el sonido de fondo.", 100, posYTexto);
         posYTexto -= 20;
         font.draw(batch, "- Game Over: Cuando llegues al Game Over, puedes hacer clic en cualquier parte de ", 100, posYTexto);
         posYTexto -= 20;

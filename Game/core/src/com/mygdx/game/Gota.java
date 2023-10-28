@@ -83,4 +83,8 @@ public abstract class Gota {
 	public void dibujarGota(SpriteBatch batch) {
 		  batch.draw(textura, forma.x, forma.y);
 	}
+	
+	public void destruir() {
+		textura.dispose();
+	}	
 }

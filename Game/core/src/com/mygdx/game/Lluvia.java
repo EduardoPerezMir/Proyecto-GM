@@ -2,10 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -95,15 +93,17 @@ public class Lluvia {
 		  float nuevaPos = posActual - velocidadActual * velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
 		  gotaActual.setFormaPosY(nuevaPos);
 		  if(gotaActual.getFormaPosY() + 64 < 0) {
+			  gotaActual.destruir();
 		  	  gotas.removeIndex(i);
 		  }
 		  
 		  int accionARealizar = gotaActual.verificarColisionTarro(tarro);
 	      if(accionARealizar != 0){
 	    	incrementoVelocidadFuncionPuntaje(tarro);
+	      	gotaActual.destruir();
+	      	gotas.removeIndex(i);
 	      	if (accionARealizar == -1)
 	      		return false;
-	      	gotas.removeIndex(i);
 	      }
 	  }
 	  return true;
@@ -123,7 +123,6 @@ public class Lluvia {
    public boolean hayMusica() {
 	   return rainMusic.isPlaying();
    }
-   
    
    public void destruir() {
       rainMusic.dispose();
