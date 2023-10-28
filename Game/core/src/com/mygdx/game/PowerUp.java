@@ -8,4 +8,6 @@ public interface PowerUp {
 	void quitarPowerUp(Tarro tarro,Lluvia lluvia);
 	
 	void dibujar(SpriteBatch batch, float x, float y);
+
+	void destruir();
 }

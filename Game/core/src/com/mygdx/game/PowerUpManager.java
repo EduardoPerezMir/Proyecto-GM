@@ -14,15 +14,18 @@ import java.util.List;
 
 public class PowerUpManager {
     private long lastDropTime;
+    
     Sound inicioPower;
     Sound finPower;
+    
     private float tiempoEntrePowerUps = 15.0f; // Tiempo en segundos entre PowerUps
     private float tiempoActivadoPowerUp = 0; // Tiempo de activación del power-up
     private float tiempoTranscurrido = 0;
     private float duracionPowerUp = 7.0f;
 
-    private PowerUpInfo powerUpInfo; // Almacena información sobre el power-up actualmente disponible
     private PowerUp powerUpActivo; // Almacena el power-up activo
+    private PowerUp powerUpCurrent;// Almacena el power-up mostrado en pantalla
+    Rectangle rectangulo;
 
     private BitmapFont font; // Fuente para mostrar información
 
@@ -40,26 +43,23 @@ public class PowerUpManager {
         powersDisponibles.add(new DuplicarPuntosPowerUp(duplicarPuntos));
         powersDisponibles.add(new AumentoTamañoTarroPowerDown(aumentarTarro));
         powersDisponibles.add(new AumentoVelocidadLluviaPowerDown(aumentarVelocidad));
-
+        
         font = new BitmapFont(); // Inicializa la fuente para mostrar información
     }
 
-    // Método para crear un nuevo power-up
     public void crear() {
+    	rectangulo = new Rectangle();
+    	rectangulo.width = 42;
+    	rectangulo.height = 64;
         crearPW();
         lastDropTime = TimeUtils.millis();
     }
 
     // Método privado para crear un nuevo power-up
     private void crearPW() {
-        Rectangle newRectangle = new Rectangle();
-        newRectangle.x = MathUtils.random(0, 800 - 42);
-        newRectangle.y = 480;
-        newRectangle.width = 42;
-        newRectangle.height = 64;
-
-        PowerUp randomPowerUp = powersDisponibles.get(MathUtils.random(powersDisponibles.size() - 1));
-        powerUpInfo = new PowerUpInfo(newRectangle, randomPowerUp);
+        rectangulo.x = MathUtils.random(0, 800 - 42);
+        rectangulo.y = 480;
+        powerUpCurrent = powersDisponibles.get(MathUtils.random(powersDisponibles.size() - 1));
     }
 
     // Método para activar un power-up y aplicarlo 
@@ -69,6 +69,7 @@ public class PowerUpManager {
         powerUpActivo = powerUp;
         tiempoActivadoPowerUp = TimeUtils.millis();
         tiempoTranscurrido = 0;
+        powerUpCurrent = null;
     }
 
     // Método para actualizar el movimiento de los power-ups y gestionar su activación y desactivación
@@ -82,22 +83,19 @@ public class PowerUpManager {
             lastDropTime = currentTime;
         }
 
-        if (powerUpInfo != null) {
+        if (powerUpCurrent != null) {
             // Mueve el power-up hacia arriba
-            powerUpInfo.getRectangle().y -= 300 * delta * lluvia.getVelocidadLluvia() ;
-            //powerUpInfo.getRectangle().y -= gotaActual.getVelocidadCaida() * velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
+            rectangulo.y -= 300 * delta * lluvia.getVelocidadLluvia() ;
             
             // Si el power-up está fuera de la pantalla, se elimina
-            if (powerUpInfo.getRectangle().y + 64 < 0) {
-                powerUpInfo = null;
+            if (rectangulo.y + 64 < 0) {
+            	powerUpCurrent = null;
                 return;
             }
             
             // Si el power-up se superpone con el tarro, se activa
-            if (powerUpInfo.getRectangle().overlaps(tarro.getArea())) {
-                PowerUp powerUpChoque = powerUpInfo.getPowerUp();
-                activarPowerUp(powerUpChoque, tarro,lluvia,inicioPower);
-                powerUpInfo = null;
+            if (rectangulo.overlaps(tarro.getArea())) {
+                activarPowerUp(powerUpCurrent, tarro,lluvia,inicioPower);
             }
         }
 
@@ -117,9 +115,9 @@ public class PowerUpManager {
 
     // Método para actualizar la representación gráfica de los power-ups y el tiempo restante de un power-up activo
     public void actualizarDibujo(SpriteBatch batch) {
-        if (powerUpInfo != null) {
+        if (powerUpCurrent != null) {
             // Dibuja el power-up actual si está disponible
-        	powerUpInfo.getPowerUp().dibujar(batch, powerUpInfo.getRectangle().x, powerUpInfo.getRectangle().y);
+        	powerUpCurrent.dibujar(batch, rectangulo.x, rectangulo.y);
         	
         }
 
@@ -136,6 +134,8 @@ public class PowerUpManager {
     public void destruir() {
     	inicioPower.dispose();
     	finPower.dispose();
-    	
+    	for (PowerUp powerUp : powersDisponibles) {
+            powerUp.destruir();
+        }
      }
 }

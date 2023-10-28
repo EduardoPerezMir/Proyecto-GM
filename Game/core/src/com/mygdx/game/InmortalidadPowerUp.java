@@ -21,5 +21,9 @@ public class InmortalidadPowerUp implements PowerUp {
 	public void dibujar(SpriteBatch batch, float x, float y) {
         batch.draw(textura, x, y);
     }
+	
+	public void destruir() {
+		textura.dispose();
+	}
 
 }
