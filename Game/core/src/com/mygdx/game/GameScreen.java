@@ -1,13 +1,17 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScreen implements Screen {
@@ -21,6 +25,8 @@ public class GameScreen implements Screen {
 	private int dificultad;
 	private String dificultadString;
 	private Texture backgroundTexture;
+	private Texture sonidoTexture;
+	private Sprite sonidoSprite;
 	//boolean activo = true;
 
 	public GameScreen(final GameLluviaMenu game, int dificultad) {
@@ -36,6 +42,14 @@ public class GameScreen implements Screen {
 			  dificultadString = "Medio";
 		  if (dificultad == 3)
 			  dificultadString = "Difícil";
+		  
+		  // textura sonido
+		  sonidoTexture = new Texture(Gdx.files.internal("sonido.png"));
+		  // sprite sonido
+	      sonidoSprite = new Sprite(sonidoTexture);
+		  // posiciono sprite sonido
+	      //sonidoSprite.setPosition(150,440);
+	      sonidoSprite.setPosition(0,0);
 			  
 		  // load the images for the droplet and the bucket, 64x64 pixels each 	     
 		  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
@@ -71,6 +85,7 @@ public class GameScreen implements Screen {
 		  
 		  // creacion de la lluvia
 		  lluvia.crear();
+		  
 	}
 
 	@Override
@@ -89,6 +104,27 @@ public class GameScreen implements Screen {
 		font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth/2-50, 475);
 		String mensajeDificultad = "Modo: " + dificultadString;
 		font.draw(batch, mensajeDificultad, 670, 30);
+		sonidoSprite.draw(batch);
+		
+		// Comprobar si el clic está dentro de la textura
+		if (Gdx.input.isTouched()) {
+		    float touchX = Gdx.input.getX();
+		    float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
+		            if(!Intersector.overlaps(sonidoSprite.getBoundingRectangle(), new Rectangle(touchX, touchY, 1, 1))) {
+		            	if(lluvia.hayMusica())
+		            		lluvia.pausar();
+		            	else
+		            		lluvia.continuar();
+		            }
+		} 
+
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+		       if(lluvia.hayMusica())
+		            lluvia.pausar();
+		        else
+		            lluvia.continuar();
+		}
+		
 		
 		if (!tarro.estaHerido()) {
 			// movimiento del tarro desde teclado

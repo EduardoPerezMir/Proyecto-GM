@@ -49,36 +49,35 @@ public class Lluvia {
 	      if (dificultad == 1) {
 		      if (azar < 2)
 			    	 nuevaGota = new GotaMala();
-			      else {
-			    	 if (azar < 7)
+			  else {
+			    	if (azar < 7)
 			    		 nuevaGota = new GotaAzul();
-			    	 else
+			    	else
 			    		 nuevaGota = new GotaAmarilla();
 			      }
-	      }
-	    
-	      if (dificultad == 2) {
-		      if (azar < 4)
-			    	 nuevaGota = new GotaMala();
-			      else {
-			    	 if (azar < 8)
-			    		 nuevaGota = new GotaAzul();
-			    	 else
-			    		 nuevaGota = new GotaAmarilla();
-			      }
+	      } else {
+	    	  if (dificultad == 2) {
+			      if (azar < 4)
+				    	 nuevaGota = new GotaMala();
+				   else {
+				    	if (azar < 8)
+				    	     nuevaGota = new GotaAzul();
+				    	else
+				    		 nuevaGota = new GotaAmarilla();
+				        }
+		      } else {
+			      if (azar < 7)
+				    	 nuevaGota = new GotaMala();
+				      else {
+				    	 if (azar < 9)
+				    		 nuevaGota = new GotaAzul();
+				    	 else
+				    		 nuevaGota = new GotaAmarilla();
+				      }
+		      }
 	      }
 	      
 	      
-	      if (dificultad == 3) {
-		      if (azar < 7)
-			    	 nuevaGota = new GotaMala();
-			      else {
-			    	 if (azar < 9)
-			    		 nuevaGota = new GotaAzul();
-			    	 else
-			    		 nuevaGota = new GotaAmarilla();
-			      }
-	      }
 	      if (nuevaGota != null)
 	    	  gotas.add(nuevaGota);
 	      lastDropTime = TimeUtils.nanoTime();
@@ -119,6 +118,10 @@ public class Lluvia {
    
    public double getVelocidadLluvia() {
        return velY2 * velYFuncionPuntaje;
+   }
+   
+   public boolean hayMusica() {
+	   return rainMusic.isPlaying();
    }
    
    
