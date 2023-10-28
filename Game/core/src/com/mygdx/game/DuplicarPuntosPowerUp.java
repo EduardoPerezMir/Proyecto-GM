@@ -1,13 +1,14 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DuplicarPuntosPowerUp implements PowerUp {
 	private Texture textura;
 	
-	public DuplicarPuntosPowerUp (Texture textura) {
-        this.textura = textura;
+	public DuplicarPuntosPowerUp () {
+        this.textura = new Texture(Gdx.files.internal("duplicarpuntos.png"));
     } 
 	
 	@Override

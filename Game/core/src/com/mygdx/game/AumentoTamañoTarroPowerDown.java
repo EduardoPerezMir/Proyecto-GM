@@ -1,13 +1,14 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AumentoTamañoTarroPowerDown implements PowerUp {
 	private Texture textura;
 	
-	public AumentoTamañoTarroPowerDown (Texture textura) {
-        this.textura = textura;
+	public AumentoTamañoTarroPowerDown () {
+        this.textura = new Texture(Gdx.files.internal("tamañotarro.png"));
     } 
 	
 	@Override

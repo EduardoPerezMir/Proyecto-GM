@@ -29,11 +29,12 @@ public class Tarro {
 	   
 	   private Texture tarroActivo;
 	   
-	   public Tarro(Texture tarro, Sound ss,Texture tarroGrande) {
-		   bucketImage = tarro;
-		   bucketImageGrande = tarroGrande;
+	   public Tarro() {
+		   
+		   bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+		   bucketImageGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
 		   tarroActivo = bucketImage;
-		   sonidoHerido = ss;
+		   sonidoHerido = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 	   }
 	   
 	   public void tamañoTarroGrande(boolean variable) {

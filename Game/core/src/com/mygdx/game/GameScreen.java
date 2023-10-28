@@ -24,6 +24,7 @@ public class GameScreen implements Screen {
 	private PowerUpManager powerUps;
 	private int dificultad;
 	private String dificultadString;
+	
 	private Texture backgroundTexture;
 	private Texture sonidoTexture;
 	private Sprite sonidoSprite;
@@ -51,28 +52,15 @@ public class GameScreen implements Screen {
 	      //sonidoSprite.setPosition(150,440);
 	      sonidoSprite.setPosition(0,0);
 			  
-		  // load the images for the droplet and the bucket, 64x64 pixels each 	     
-		  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-		  Texture tarroI = new Texture(Gdx.files.internal("bucket.png"));
-		  Texture tarroGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
-		  tarro = new Tarro(tarroI, hurtSound, tarroGrande);
+	      
+		  tarro = new Tarro();
 		 
 		  // load the drop sound effect and the rain background "music" 
-		 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-		 lluvia = new Lluvia(rainMusic, dificultad);
+		 lluvia = new Lluvia(dificultad);
 		 
 		 //PW
-		 Texture inmortabilidad = new Texture(Gdx.files.internal("inmortabilidad.png"));
 		 
-		 Texture velocidad = new Texture(Gdx.files.internal("velocidad.png"));
-		 Texture duplicarPuntos = new Texture(Gdx.files.internal("duplicarpuntos.png"));
-		 Texture aumentarTarro = new Texture(Gdx.files.internal("tamañotarro.png"));
-		 Texture aumentarVelocidad = new Texture(Gdx.files.internal("velocidadlluvia.png"));
-		 
-		 Sound inicioPower = Gdx.audio.newSound(Gdx.files.internal("soundinmortal.mp3"));
-		 Sound finPower = Gdx.audio.newSound(Gdx.files.internal("endpower.mp3"));
-		 
-		 powerUps = new PowerUpManager(inmortabilidad,inicioPower,finPower,velocidad,duplicarPuntos,aumentarTarro,aumentarVelocidad);
+		 powerUps = new PowerUpManager();
 		 
 		  // camera
 		  camera = new OrthographicCamera();

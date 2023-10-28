@@ -31,18 +31,18 @@ public class PowerUpManager {
 
     private List<PowerUp> powersDisponibles; // Lista de power-ups disponibles
 
-    public PowerUpManager(Texture inmortalidad,Sound inicioPower,Sound finPower, Texture velocidad, Texture duplicarPuntos,Texture aumentarTarro,Texture aumentarVelocidad) {
-    	this.inicioPower = inicioPower;
-        this.finPower = finPower;
+    public PowerUpManager() {
+    	this.inicioPower = Gdx.audio.newSound(Gdx.files.internal("soundinmortal.mp3"));
+        this.finPower = Gdx.audio.newSound(Gdx.files.internal("endpower.mp3"));
         
         powersDisponibles = new ArrayList<>();
 
         // Agrega los diferentes tipos de power-ups disponibles a la lista
-        powersDisponibles.add(new InmortalidadPowerUp(inmortalidad));
-        powersDisponibles.add(new AumentoVelocidadPowerUp(velocidad));
-        powersDisponibles.add(new DuplicarPuntosPowerUp(duplicarPuntos));
-        powersDisponibles.add(new AumentoTamañoTarroPowerDown(aumentarTarro));
-        powersDisponibles.add(new AumentoVelocidadLluviaPowerDown(aumentarVelocidad));
+        powersDisponibles.add(new InmortalidadPowerUp());
+        powersDisponibles.add(new AumentoVelocidadPowerUp());
+        powersDisponibles.add(new DuplicarPuntosPowerUp());
+        powersDisponibles.add(new AumentoTamañoTarroPowerDown());
+        powersDisponibles.add(new AumentoVelocidadLluviaPowerDown());
         
         font = new BitmapFont(); // Inicializa la fuente para mostrar información
     }

@@ -1,13 +1,14 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AumentoVelocidadLluviaPowerDown implements PowerUp {
 	private Texture textura;
 	
-	public AumentoVelocidadLluviaPowerDown (Texture textura) {
-        this.textura = textura;
+	public AumentoVelocidadLluviaPowerDown () {
+        this.textura = new Texture(Gdx.files.internal("velocidadlluvia.png"));
     } 
 	
 	@Override

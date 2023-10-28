@@ -15,9 +15,9 @@ public class Lluvia {
 	private float velYFuncionPuntaje;
 	private int dificultad;
 	
-	public Lluvia(Music mm, int dificultad) {
+	public Lluvia(int dificultad) {
 		gotas = new Array<Gota>();
-		rainMusic = mm;
+		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 		velY2 = 1;
 		velYFuncionPuntaje = 1;
 		this.dificultad = dificultad;
