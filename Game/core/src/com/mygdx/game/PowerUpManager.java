@@ -84,7 +84,8 @@ public class PowerUpManager {
 
         if (powerUpInfo != null) {
             // Mueve el power-up hacia arriba
-            powerUpInfo.getRectangle().y -= 300 * delta;
+            powerUpInfo.getRectangle().y -= 300 * delta * lluvia.getVelocidadLluvia() ;
+            //powerUpInfo.getRectangle().y -= gotaActual.getVelocidadCaida() * velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
             
             // Si el power-up está fuera de la pantalla, se elimina
             if (powerUpInfo.getRectangle().y + 64 < 0) {

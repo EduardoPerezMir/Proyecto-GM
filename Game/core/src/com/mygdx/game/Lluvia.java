@@ -125,6 +125,10 @@ public boolean actualizarMovimiento(Tarro tarro) {
 	  }
    }
    
+   public double getVelocidadLluvia() {
+       return velY2 * velYFuncionPuntaje;
+   }
+   
    public void destruir() {
       rainMusic.dispose();
    }
