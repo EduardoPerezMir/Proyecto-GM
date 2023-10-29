@@ -59,7 +59,6 @@ public class GameScreen implements Screen {
 		 lluvia = new Lluvia(dificultad);
 		 
 		 //PW
-		 
 		 powerUps = new PowerUpManager();
 		 
 		  // camera
@@ -69,6 +68,7 @@ public class GameScreen implements Screen {
 		  // creacion del tarro
 		  tarro.crear();
 		  
+		  //creacion de powers
 		  powerUps.crear();
 		  
 		  // creacion de la lluvia
@@ -94,7 +94,7 @@ public class GameScreen implements Screen {
 		font.draw(batch, mensajeDificultad, 670, 30);
 		sonidoSprite.draw(batch);
 		
-		// Comprobar si el clic está dentro de la textura
+		/*Comprobar si el clic está dentro de la textura
 		if (Gdx.input.isTouched()) {
 		    float touchX = Gdx.input.getX();
 		    float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
@@ -104,7 +104,7 @@ public class GameScreen implements Screen {
 		            	else
 		            		lluvia.continuar();
 		            }
-		} 
+		}*/ 
 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
 		       if(lluvia.hayMusica())

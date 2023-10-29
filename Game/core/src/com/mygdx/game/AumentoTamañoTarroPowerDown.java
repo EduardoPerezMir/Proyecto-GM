@@ -5,26 +5,31 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AumentoTamañoTarroPowerDown implements PowerUp {
-	private Texture textura;
-	
-	public AumentoTamañoTarroPowerDown () {
-        this.textura = new Texture(Gdx.files.internal("tamañotarro.png"));
-    } 
-	
-	@Override
-	public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
-		tarro.tamañoTarroGrande(true);
-	}
+    private Texture textura; // Textura para el power-up
 
-	public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
-		tarro.tamañoTarroGrande(false);
-	}
-	
-	public void dibujar(SpriteBatch batch, float x, float y) {
+    // Constructor: inicializa la textura con la imagen del power-up
+    public AumentoTamañoTarroPowerDown() {
+        this.textura = new Texture(Gdx.files.internal("tamañotarro.png"));
+    }
+
+    // Aplica el power-up para aumentar el tamaño del tarro
+    @Override
+    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
+        tarro.tamañoTarroGrande(true);
+    }
+
+    // Quita el efecto del power-up, restaurando el tamaño del tarro
+    public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
+        tarro.tamañoTarroGrande(false);
+    }
+
+    // Dibuja el power-up en pantalla en la posición (x, y)
+    public void dibujar(SpriteBatch batch, float x, float y) {
         batch.draw(textura, x, y);
     }
-	
-	public void destruir() {
-		textura.dispose();;
-	}
+
+    // Libera los recursos al destruir el power-up
+    public void destruir() {
+        textura.dispose();
+    }
 }

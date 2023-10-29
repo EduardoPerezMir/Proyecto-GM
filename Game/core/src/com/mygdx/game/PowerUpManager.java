@@ -18,7 +18,7 @@ public class PowerUpManager {
     Sound inicioPower;
     Sound finPower;
     
-    private float tiempoEntrePowerUps = 15.0f; // Tiempo en segundos entre PowerUps
+    private float tiempoEntrePowerUps = 12.0f; // Tiempo en segundos entre PowerUps
     private float tiempoActivadoPowerUp = 0; // Tiempo de activación del power-up
     private float tiempoTranscurrido = 0;
     private float duracionPowerUp = 7.0f;
