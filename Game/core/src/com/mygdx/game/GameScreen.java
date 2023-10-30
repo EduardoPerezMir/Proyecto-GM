@@ -80,10 +80,11 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		//limpia la pantalla con color azul obscuro.
 		ScreenUtils.clear(0, 0, 0.2f, 1);
+		
 		//actualizar matrices de la cámara
 		camera.update();
-		//actualizar 
 		batch.setProjectionMatrix(camera.combined);
+		
 		batch.begin();
 		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		//dibujar textos
@@ -169,7 +170,6 @@ public class GameScreen implements Screen {
       tarro.destruir();
       lluvia.destruir();
       powerUps.destruir();
-
 	}
 
 }

@@ -24,7 +24,7 @@ public class TutorialScreen implements Screen {
     
     public TutorialScreen(final GameLluviaMenu game) {
         this.game = game;
-        this.batch = game.getBatch();
+        this.batch = game.getBatch2();
         this.font = game.getFont3(); // Color amarillo
         this.font2 = game.getFont2(); // Color magenta
         this.lastFont = game.getFont(); // color blanco
@@ -37,6 +37,7 @@ public class TutorialScreen implements Screen {
     private void setupCamera() {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+        camera.zoom = 1.0f;
     }
 
     private void createStage() {
@@ -59,8 +60,9 @@ public class TutorialScreen implements Screen {
 	@Override
 	public void render(float delta) {
         // Limpiar la pantalla
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-        
+		
+		ScreenUtils.clear(0, 0, 0, 1);
+		
         // Texto explicativo del juego (Tutorial)
         batch.begin();
         batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

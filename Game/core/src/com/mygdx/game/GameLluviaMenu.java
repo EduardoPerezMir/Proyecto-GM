@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 	public class GameLluviaMenu extends Game {
 		private SpriteBatch batch;
+		private SpriteBatch batch2;
 		private BitmapFont font;
 		private BitmapFont font2;
 		private BitmapFont font3;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 		public void create() {
 			batch = new SpriteBatch();
+			batch2 = new SpriteBatch();
 			font = new BitmapFont(); // use libGDX's default Arial font
 			font2 = new BitmapFont();
 			font2.setColor(255, 0, 255, 50);
@@ -27,11 +29,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 		public void dispose() {
 			batch.dispose();
+			batch2.dispose();
 			font.dispose();
+			font2.dispose();
+			font3.dispose();
 		}
 
 		public SpriteBatch getBatch() {
 			return batch;
+		}
+		
+		public SpriteBatch getBatch2() {
+			return batch2;
 		}
 
 		public BitmapFont getFont() {
