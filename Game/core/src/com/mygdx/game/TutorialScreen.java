@@ -25,9 +25,9 @@ public class TutorialScreen implements Screen {
     public TutorialScreen(final GameLluviaMenu game) {
         this.game = game;
         this.batch = game.getBatch();
-        this.font = game.getFont3();
-        this.font2 = game.getFont2();
-        this.lastFont = game.getFont();
+        this.font = game.getFont3(); // Color amarillo
+        this.font2 = game.getFont2(); // Color magenta
+        this.lastFont = game.getFont(); // color blanco
         setupCamera();
         createStage();
         setupBackground();
@@ -44,6 +44,8 @@ public class TutorialScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    // La imagen de fondo del tutorial fue realizada a través de prueba y error, hasta lograr
+    // que calzara y que se viera la explicación del juego visualmente legible.
     private void setupBackground() {
         backgroundImage = new Texture(Gdx.files.internal("backgroundTutorial.jpg"));
     }
@@ -58,11 +60,13 @@ public class TutorialScreen implements Screen {
 	public void render(float delta) {
         // Limpiar la pantalla
         ScreenUtils.clear(0, 0, 0.2f, 1);
+        
+        // Texto explicativo del juego (Tutorial)
         batch.begin();
         batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         int posYTexto = 680;
         posYTexto -= 20;
-        font2.draw(batch, "Tutorial GameLluvia", 300, posYTexto);
+        font2.draw(batch, "Tutorial GameLluvia", 300, posYTexto); 
         posYTexto -= 20;
         font2.draw(batch, "Objetivo del Juego", 305, posYTexto);
         posYTexto -= 20;
@@ -121,6 +125,8 @@ public class TutorialScreen implements Screen {
         
         batch.end();
         
+        // La siguiente condición se encarga de verificar si se presionó la tecla Esc, en caso de
+        // ser verdadero, se vuelve al menú inicial (se designa la pantalla a ver).
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
 	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal

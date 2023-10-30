@@ -6,22 +6,24 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
 public abstract class Gota {
+	// Atributos que serán heredados por las clases hijas
 	private Texture textura;
 	private int puntaje;
 	private int velocidadCaida;
 	private Rectangle forma;
 	
 	public Gota() {
-		velocidadCaida = 300;
+		velocidadCaida = 300; // Atributo pre-definido, todas las gotas tendrán esta velocidad de caída.
 		textura = null;
 		puntaje = 0;
-		forma = new Rectangle();
+		forma = new Rectangle(); // Atributo pre-definido, todas las gotas deberán tener estas dimensiones y posición
 		forma.x = MathUtils.random(0, 800 - 42);
 		forma.y = 480;
 		forma.width = 42;
 		forma.height = 64;
 	}
 	
+	//Getters & Setters
 	public Texture getTextura() {
 		return textura;
 	}
@@ -70,20 +72,23 @@ public abstract class Gota {
 		this.forma.y = posY;
 	}
 	
+	// Método Abstracto
 	public abstract int accionColisionTarro(Tarro tarro);
 	
+	// Verifica si una Gota en particular colisionó con el tarro
 	public int verificarColisionTarro(Tarro tarro) {
 		if(forma.overlaps(tarro.getArea())) {
 			return accionColisionTarro(tarro);
-		}
-		
+		}	
 	    return 0;
-	}	
+	}
 	
+	// La Gota se dibuja a sí misma.
 	public void dibujarGota(SpriteBatch batch) {
 		  batch.draw(textura, forma.x, forma.y);
 	}
 	
+	// Se libera memoria.
 	public void destruir() {
 		textura.dispose();
 	}	

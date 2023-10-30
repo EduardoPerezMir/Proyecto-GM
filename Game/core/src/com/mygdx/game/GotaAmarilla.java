@@ -5,14 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.audio.Sound;
 
 public class GotaAmarilla extends Gota {
-	Sound dropSound;
+	Sound dropSound; // Las Gotas Amarillas tienen sonido propio
 	
 	public GotaAmarilla() {
+		// Se asigna el sonido y la textura de la gota amarilla desde los assets.
 		setTextura(new Texture(Gdx.files.internal("dropYellow.png")));
 		dropSound = Gdx.audio.newSound(Gdx.files.internal("dropYellow.mp3"));
+		// Se asigna un puntaje.
 		setPuntaje(30);
 	}
 	
+	// Implementación concreta del método abstracto.
 	public int accionColisionTarro(Tarro tarro) {
 		dropSound.play();
 		tarro.sumarPuntos(getPuntaje());

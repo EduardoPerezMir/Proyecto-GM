@@ -36,6 +36,8 @@ public class GameOverScreen implements Screen {
 		font.draw(batch, "Presione ESC para volver al menú inicial.", 100, 100);
 		batch.end();
 
+        // La siguiente condición se encarga de verificar si se presionó la tecla Esc, en caso de
+        // ser verdadero, se vuelve al menú inicial (se designa la pantalla a ver).
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
 	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
