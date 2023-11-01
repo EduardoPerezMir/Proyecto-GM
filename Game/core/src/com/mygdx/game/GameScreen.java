@@ -3,15 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScreen implements Screen {
@@ -24,7 +21,6 @@ public class GameScreen implements Screen {
 	private PowerUpManager powerUps;
 	private int dificultad;
 	private String dificultadString;
-	
 	private Texture backgroundTexture;
 	private Texture sonidoTexture;
 	private Sprite sonidoSprite;
@@ -51,7 +47,6 @@ public class GameScreen implements Screen {
 		  // posiciono sprite sonido
 	      //sonidoSprite.setPosition(150,440);
 	      sonidoSprite.setPosition(0,0);
-			  
 	      
 		  tarro = new Tarro();
 		 
@@ -114,13 +109,18 @@ public class GameScreen implements Screen {
 		            lluvia.continuar();
 		}
 		
+        // La siguiente condición se encarga de verificar si se presionó la tecla P, en caso de
+        // ser verdadero, se pausa el juego.
+		if (Gdx.input.isKeyJustPressed(Keys.P)) {
+			pause();
+	    }	
 		
 		if (!tarro.estaHerido()) {
 			// movimiento del tarro desde teclado
 	        tarro.actualizarMovimiento();
 	        
 	        //Caida de PW
-	        powerUps.actualizarMovimiento(tarro,lluvia);
+	        powerUps.actualizarMovimiento(tarro, lluvia);
 	        
 			// caida de la lluvia 
 	       if (!lluvia.actualizarMovimiento(tarro)) {

@@ -2,8 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -13,34 +14,38 @@ public class PausaScreen implements Screen {
 	private final GameLluviaMenu game;
 	private GameScreen juego;
 	private SpriteBatch batch;	   
-	private BitmapFont font;
 	private OrthographicCamera camera;
+	private Texture backgroundTexture;
 
 	public PausaScreen (final GameLluviaMenu game, GameScreen juego) {
 		this.game = game;
         this.juego = juego;
-        this.batch = game.getBatch();
-        this.font = game.getFont();
+        this.batch = game.getBatch2();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
+		backgroundTexture = new Texture(Gdx.files.internal("pausa.png"));
 	}
 
 	@Override
 	public void render(float delta) {
-		ScreenUtils.clear(0, 0, 1.0f, 0.5f);
-
-		camera.update();
-		batch.setProjectionMatrix(camera.combined);
+		ScreenUtils.clear(0, 0, 0, 1);
 
 		batch.begin();
-		font.draw(batch, "Juego en Pausa ", 100, 150);
-		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 100);
-		batch.end();
+		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
+	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
+	        game.setHigherScore(0);
+	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
+	    }		
+		
+		
 		if (Gdx.input.isTouched()) {
 			game.setScreen(juego);
 			dispose();
 		}
+		batch.end();
 	}
 
 	@Override

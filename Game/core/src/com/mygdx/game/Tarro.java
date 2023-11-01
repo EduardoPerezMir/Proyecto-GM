@@ -10,10 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 
 public class Tarro {
-		
 	   private Rectangle bucket;
 	   private Texture bucketImage;
-	   
 	   private Texture bucketImageGrande;
 	   private int tamaño=64;
 	   private Sound sonidoHerido;
@@ -24,8 +22,8 @@ public class Tarro {
 	   private int tiempoHeridoMax=50;
 	   private int tiempoHerido;
 	   
-	   private boolean esInmortal=false;
-	   private boolean seDebeAumentar=false;
+	   private boolean esInmortal = false;
+	   private boolean seDebeAumentar = false;
 	   
 	   private Texture tarroActivo;
 	   
@@ -87,14 +85,12 @@ public class Tarro {
 	   public void dibujar(SpriteBatch batch) {
 		   if (!herido) {
 			   batch.draw(tarroActivo, bucket.x, bucket.y);
-			   
 		   }
 		   else {
-			   batch.draw(tarroActivo, bucket.x, bucket.y+ MathUtils.random(-5,5));
+			   batch.draw(tarroActivo, bucket.x, bucket.y + MathUtils.random(-5,5));
 			   tiempoHerido--;
-			   if (tiempoHerido<=0) herido = false;
+			   if (tiempoHerido <= 0) herido = false;
 		   }
-		
 	   }
 	   
 	   public void setInmortal(boolean inmortal) {
@@ -134,5 +130,4 @@ public class Tarro {
    public boolean estaHerido() {
 	   return herido;
    }
-	   
 }
