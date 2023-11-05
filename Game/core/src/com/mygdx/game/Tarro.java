@@ -13,7 +13,7 @@ public class Tarro {
 	   private Rectangle bucket;
 	   private Texture bucketImage;
 	   private Texture bucketImageGrande;
-	   private int tamaño=64;
+	   private int tamaño=49;
 	   private Sound sonidoHerido;
 	   private int vidas = 3;
 	   private int puntos = 0;
@@ -37,11 +37,11 @@ public class Tarro {
 	   
 	   public void tamañoTarroGrande(boolean variable) {
 		   if (variable) {
-			   tamaño=100;
+			   tamaño=80;
 			   tarroActivo = bucketImageGrande;
 		   }
 		   else {
-			   tamaño=64;
+			   tamaño=49;
 			   tarroActivo = bucketImage;
 		   }
 		   bucket.width = tamaño;

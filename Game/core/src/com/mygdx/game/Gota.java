@@ -19,8 +19,8 @@ public abstract class Gota {
 		forma = new Rectangle(); // Atributo pre-definido, todas las gotas deberán tener estas dimensiones y posición
 		forma.x = MathUtils.random(0, 800 - 42);
 		forma.y = 480;
-		forma.width = 42;
-		forma.height = 64;
+		forma.width = 32;
+		forma.height = 48;
 	}
 	
 	//Getters & Setters

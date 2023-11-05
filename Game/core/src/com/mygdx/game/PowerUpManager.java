@@ -48,8 +48,8 @@ public class PowerUpManager {
 
     public void crear() {
     	rectangulo = new Rectangle();
-    	rectangulo.width = 42;
-    	rectangulo.height = 64;
+    	rectangulo.width = 49;
+    	rectangulo.height = 49;
         crearPW();
         lastDropTime = TimeUtils.millis();
     }
