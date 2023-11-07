@@ -6,10 +6,18 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class NivelFacil extends NivelDificultad{
+	private int velInicial;
+	
+	public NivelFacil() {
+		velInicial = 450;
+		setVelInicial(velInicial);
+		setBackgroundTexture(new Texture(Gdx.files.internal("fondoMedio.jpg")));
+	}
+	
+	
 	public void crearGotaDeLluvia() {
 		Gota nuevaGota = null;
 		int azar = MathUtils.random(1,10);
-		int velInicial = 300;
 
 	    if (azar < 2)
 	    	nuevaGota = new GotaMala(velInicial);
@@ -22,8 +30,6 @@ public class NivelFacil extends NivelDificultad{
 	    if (nuevaGota != null)
 	    	addArray(nuevaGota);
 	    setLastDropTime(TimeUtils.nanoTime());
-	    setVelInicial(velInicial);
-		setBackgroundTexture(new Texture(Gdx.files.internal("fondoFacil.jpg")));
 	}
 	
 	public void velTarroAcordeNivel(Tarro tarro) {
