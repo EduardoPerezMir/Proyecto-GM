@@ -105,24 +105,21 @@ public class Lluvia {
 	   if(TimeUtils.nanoTime() - lastDropTime > 100000000 / velYFuncionPuntaje) crearGotaDeLluvia();
 	   
 	   // revisar si las gotas cayeron al suelo o chocaron con el tarro
-	   for (int i = 0; i < gotas.size; i++ ) { 
+	   for (int i = 0; i < gotas.size; i++ ) {
 		  Gota gotaActual = gotas.get(i);
-		  float velocidadActual = gotaActual.getVelocidadCaida();
-		  float posActual = gotaActual.getFormaPosY();
-		  float nuevaPos = posActual - velocidadActual * velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
-		  gotaActual.setFormaPosY(nuevaPos);
-		  if(gotaActual.getFormaPosY() + 64 < 0) {
-			  gotaActual.destruir();
-		  	  gotas.removeIndex(i);
-		  }
 		  
-		  int accionARealizar = gotaActual.verificarColisionTarro(tarro);
-	      if(accionARealizar != 0){
-	    	incrementoVelocidadFuncionPuntaje(tarro);
-	      	gotaActual.destruir();
+		  float ponderadorVelocidad = velY2 * velYFuncionPuntaje * Gdx.graphics.getDeltaTime();
+		  int accionARealizar = gotaActual.verificarColisionTarro(tarro, ponderadorVelocidad);
+	      
+		  if (accionARealizar != 0){
+	    	if (accionARealizar == 1)
+	    		incrementoVelocidadFuncionPuntaje(tarro);
+	      	
+	    	gotaActual.destruir();
 	      	gotas.removeIndex(i);
+		    
 	      	if (accionARealizar == -1)
-	      		return false;
+		    	return false;
 	      }
 	  }
 	  return true;

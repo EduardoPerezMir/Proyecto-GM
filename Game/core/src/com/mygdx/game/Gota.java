@@ -76,10 +76,16 @@ public abstract class Gota {
 	public abstract int accionColisionTarro(Tarro tarro);
 	
 	// Verifica si una Gota en particular colisionó con el tarro
-	public int verificarColisionTarro(Tarro tarro) {
+	public int verificarColisionTarro(Tarro tarro, float pond) {
 		if(forma.overlaps(tarro.getArea())) {
 			return accionColisionTarro(tarro);
-		}	
+		}
+		
+		forma.y = forma.y - velocidadCaida * pond;
+		
+		if (forma.y + forma.height < 0)
+			return 2;
+		
 	    return 0;
 	}
 	
