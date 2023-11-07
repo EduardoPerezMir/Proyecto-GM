@@ -12,8 +12,8 @@ public abstract class Gota {
 	private int velocidadCaida;
 	private Rectangle forma;
 	
-	public Gota() {
-		velocidadCaida = 300; // Atributo pre-definido, todas las gotas tendrán esta velocidad de caída.
+	public Gota(int velocidadCaida) {
+		this.velocidadCaida = velocidadCaida; // Atributo pre-definido, todas las gotas tendrán esta velocidad de caída.
 		textura = null;
 		puntaje = 0;
 		forma = new Rectangle(); // Atributo pre-definido, todas las gotas deberán tener estas dimensiones y posición

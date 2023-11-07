@@ -96,8 +96,16 @@ public class Tarro {
 	   public void setInmortal(boolean inmortal) {
 		   esInmortal = inmortal;
 	   }
-	   public void setVelocidad(double velo) {
+	   public void multiplicarVelocidad(double velo) {
 		   velx*=velo;
+	   }
+	   
+	   public void setVelocidad(int velx) {
+		   this.velx = velx;
+	   }
+	   
+	   public int getVelocidad() {
+		   return velx;
 	   }
 	   
 	   public void setAumentoPuntos(boolean variable) {

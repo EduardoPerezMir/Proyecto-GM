@@ -24,8 +24,8 @@ public class AumentoVelocidadPowerUp implements PowerUp {
      * @param lluvia El objeto Lluvia en el juego.
      */
     @Override
-    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.setVelocidad(1.6);
+    public void aplicarPowerUp(Tarro tarro, NivelDificultad lluvia) {
+        tarro.multiplicarVelocidad(1.6);
     }
 
     /**
@@ -33,8 +33,8 @@ public class AumentoVelocidadPowerUp implements PowerUp {
      * @param tarro El objeto Tarro al que se le quita el power-up.
      * @param lluvia El objeto Lluvia en el juego.
      */
-    public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.setVelocidad(0.625);
+    public void quitarPowerUp(Tarro tarro, NivelDificultad lluvia) {
+        tarro.multiplicarVelocidad(0.625);
     }
     
     /**

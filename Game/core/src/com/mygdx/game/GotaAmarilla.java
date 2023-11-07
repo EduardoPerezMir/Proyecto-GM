@@ -7,7 +7,8 @@ import com.badlogic.gdx.audio.Sound;
 public class GotaAmarilla extends Gota {
 	Sound dropSound; // Las Gotas Amarillas tienen sonido propio
 	
-	public GotaAmarilla() {
+	public GotaAmarilla(int velocidadCaida) {
+		super(velocidadCaida);
 		// Se asigna el sonido y la textura de la gota amarilla desde los assets.
 		setTextura(new Texture(Gdx.files.internal("dropYellow.png")));
 		dropSound = Gdx.audio.newSound(Gdx.files.internal("dropYellow.mp3"));

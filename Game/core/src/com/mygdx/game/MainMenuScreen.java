@@ -209,6 +209,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		backgroundImage.dispose();
 		stage.dispose();
 		// TODO Auto-generated method stub
 		
