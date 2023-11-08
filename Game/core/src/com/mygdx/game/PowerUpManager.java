@@ -62,9 +62,9 @@ public class PowerUpManager {
     }
 
     // Método para activar un power-up y aplicarlo 
-    public void activarPowerUp(PowerUp powerUp, Tarro tarro, NivelDificultad nivel,Sound inicioPower) {
+    public void activarPowerUp(PowerUp powerUp, Tarro tarro, Lluvia lluvia,Sound inicioPower) {
     	inicioPower.play();
-    	powerUp.aplicarPowerUp(tarro, nivel);
+    	powerUp.aplicarPowerUp(tarro, lluvia);
         powerUpActivo = powerUp;
         tiempoActivadoPowerUp = TimeUtils.millis();
         tiempoTranscurrido = 0;
@@ -72,7 +72,7 @@ public class PowerUpManager {
     }
 
     // Método para actualizar el movimiento de los power-ups y gestionar su activación y desactivación
-    public void actualizarMovimiento(Tarro tarro, NivelDificultad nivel) {
+    public void actualizarMovimiento(Tarro tarro, Lluvia lluvia) {
         long currentTime = TimeUtils.millis();
         float delta = Gdx.graphics.getDeltaTime();
         
@@ -84,7 +84,7 @@ public class PowerUpManager {
 
         if (powerUpCurrent != null) {
             // Mueve el power-up hacia arriba
-            rectangulo.y -= nivel.getVelInicial() * delta * nivel.getVelocidadLluvia() ;
+            rectangulo.y -= lluvia.getVelInicial() * delta * lluvia.getVelocidadLluvia() ;
             
             // Si el power-up está fuera de la pantalla, se elimina
             if (rectangulo.y + 64 < 0) {
@@ -94,7 +94,7 @@ public class PowerUpManager {
             
             // Si el power-up se superpone con el tarro, se activa
             if (rectangulo.overlaps(tarro.getArea())) {
-                activarPowerUp(powerUpCurrent, tarro, nivel,inicioPower);
+                activarPowerUp(powerUpCurrent, tarro, lluvia,inicioPower);
             }
         }
 
@@ -105,7 +105,7 @@ public class PowerUpManager {
             // Si ha pasado suficiente tiempo, se desactiva el power-up
             if (tiempoTranscurrido >= duracionPowerUp * 1000) {
             	finPower.play();
-            	powerUpActivo.quitarPowerUp(tarro, nivel);
+            	powerUpActivo.quitarPowerUp(tarro, lluvia);
                 tiempoActivadoPowerUp = 0;
                 tiempoTranscurrido = 0;
             }

@@ -14,12 +14,12 @@ public class DuplicarPuntosPowerUp implements PowerUp {
 
     // Aplica el power-up para duplicar los puntos del tarro
     @Override
-    public void aplicarPowerUp(Tarro tarro, NivelDificultad lluvia) {
+    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
         tarro.setAumentoPuntos(true);
     }
 
     // Quita el efecto del power-up, restaurando los puntos normales del tarro
-    public void quitarPowerUp(Tarro tarro, NivelDificultad lluvia) {
+    public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
         tarro.setAumentoPuntos(false);
     }
 

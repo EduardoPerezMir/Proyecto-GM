@@ -14,12 +14,12 @@ public class AumentoVelocidadLluviaPowerDown implements PowerUp {
 
     // Método para aplicar el power-up y aumentar la velocidad de la lluvia
     @Override
-    public void aplicarPowerUp(Tarro tarro, NivelDificultad lluvia) {
+    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
         lluvia.setVelocidad(2);
     }
 
     // Método para quitar el power-up y restaurar la velocidad de la lluvia
-    public void quitarPowerUp(Tarro tarro, NivelDificultad lluvia) {
+    public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
         lluvia.setVelocidad(0.5);
     }
 

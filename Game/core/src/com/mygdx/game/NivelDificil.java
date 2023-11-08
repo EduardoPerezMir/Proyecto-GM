@@ -3,38 +3,46 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.TimeUtils;
 
-public class NivelDificil extends NivelDificultad {
-	private int velInicial;
+public class NivelDificil implements NivelDificultad {
+	private int velInicialLluvia;
+	private int velTarro;
+	private Texture backgroundTexture;
 	
 	public NivelDificil() {
-		velInicial = 400;
-		setVelInicial(velInicial);
-		setBackgroundTexture(new Texture(Gdx.files.internal("fondoDificil.jpg")));
+		velInicialLluvia = 450;
+		velTarro = 475;
+		backgroundTexture = new Texture(Gdx.files.internal("fondoDificil.jpg"));
 	}
 	
-	public void crearGotaDeLluvia() {
+	public Gota crearGotaDeLluvia() {
 		Gota nuevaGota = null;
 		int azar = MathUtils.random(1,10);
 		
 	    if (azar < 7)
 	    	if (azar > 1)
-	    		nuevaGota = new GotaMala(velInicial);
+	    		nuevaGota = new GotaMala(velInicialLluvia);
 	    	else
-	    		nuevaGota = new GotaMortal(velInicial);
+	    		nuevaGota = new GotaMortal(velInicialLluvia);
 		else {
 			if (azar < 9)
-				nuevaGota = new GotaAzul(velInicial);
+				nuevaGota = new GotaAzul(velInicialLluvia);
 		    else
-		    	nuevaGota = new GotaAmarilla(velInicial);
+		    	nuevaGota = new GotaAmarilla(velInicialLluvia);
 		}
-	    if (nuevaGota != null)
-	    	addArray(nuevaGota);
-	    setLastDropTime(TimeUtils.nanoTime());
+	    
+	    return nuevaGota;
 	}
 	
-	public void velTarroAcordeNivel(Tarro tarro) {
-		tarro.setVelocidad(475);
+	public void setVelTarroAcordeNivel(Tarro tarro) {
+		tarro.setVelocidad(velTarro);
+	}
+	
+	public void setVelLluviaInicialAcordeNivel(Lluvia lluvia) {
+		lluvia.setVelInicial(velInicialLluvia);
+	}
+	
+	public void setBackgroundTextureGame(GameScreen gameScreen) {
+		gameScreen.setBackgroundTexture(backgroundTexture);
 	}
 }

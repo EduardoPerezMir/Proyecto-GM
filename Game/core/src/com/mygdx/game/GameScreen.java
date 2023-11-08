@@ -17,14 +17,14 @@ public class GameScreen implements Screen {
 	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private Tarro tarro;
-	private NivelDificultad nivel;
+	private Lluvia lluvia;
 	private PowerUpManager powerUps;
 	private int dificultad;
 	private String dificultadString;
 	private Texture backgroundTexture;
 	private Texture sonidoTexture;
 	private Sprite sonidoSprite;
-	//boolean activo = true;
+	private NivelDificultad nivel;
 
 	public GameScreen(final GameLluviaMenu game, int dificultad) {
 		  this.game = game;
@@ -36,20 +36,25 @@ public class GameScreen implements Screen {
 	      backgroundTexture = new Texture(Gdx.files.internal("fondoDefault.jpg"));
 	      
 	      if (dificultad == 1)
-	      {
-	    	  nivel = new NivelFacil();
 	    	  dificultadString = "Fácil";
-	      }
 	      if (dificultad == 2)
-	      {
-	    	  nivel = new NivelMedio();
 	    	  dificultadString = "Medio";
-	      }
 		  if (dificultad == 3)
-		  {
-			  nivel = new NivelDificil();
 			  dificultadString = "Difícil";
+		  
+		  if (dificultad == 1)
+			  nivel = new NivelFacil();
+		  else
+		  {
+			  if (dificultad == 2)
+				  nivel = new NivelMedio();
+			  else
+				  nivel = new NivelDificil();
 		  }
+		  
+		  
+		  lluvia = new Lluvia(nivel);
+		  
 		  
 		  // textura sonido
 		  sonidoTexture = new Texture(Gdx.files.internal("sonido.png"));
@@ -77,12 +82,9 @@ public class GameScreen implements Screen {
 		  powerUps.crear();
 		  
 		  // creacion de la lluvia
-		  nivel.crear();
+		  lluvia.crear();
 		  
-		  Texture texturaX = nivel.getBackgroundTexture();
-		  
-		  if (texturaX != null)
-			  backgroundTexture = texturaX;
+		  nivel.setBackgroundTextureGame(this);
 	}
 
 	@Override
@@ -117,10 +119,10 @@ public class GameScreen implements Screen {
 		}*/ 
 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-		       if(nivel.hayMusica())
-		    	   nivel.pausar();
+		       if(lluvia.hayMusica())
+		    	   lluvia.pausar();
 		        else
-		        	nivel.continuar();
+		        	lluvia.continuar();
 		}
 		
         // La siguiente condición se encarga de verificar si se presionó la tecla P, en caso de
@@ -134,10 +136,10 @@ public class GameScreen implements Screen {
 	        tarro.actualizarMovimiento();
 	        
 	        //Caida de PW
-	        powerUps.actualizarMovimiento(tarro, nivel);
+	        powerUps.actualizarMovimiento(tarro, lluvia);
 	        
 			// caida de la lluvia 
-	       if (!nivel.actualizarMovimiento(tarro)) {
+	       if (!lluvia.actualizarMovimiento(tarro)) {
 	    	  game.setScreen(new GameOverScreen(game, dificultad));
 	    	  //actualizar HigherScore
 	    	  if (game.getHigherScore() < tarro.getPuntos())
@@ -148,9 +150,17 @@ public class GameScreen implements Screen {
 		}
 		powerUps.actualizarDibujo(batch);
 		tarro.dibujar(batch);
-		nivel.actualizarDibujoLluvia(batch);
+		lluvia.actualizarDibujoLluvia(batch);
 		
 		batch.end();
+	}
+
+	public Texture getBackgroundTexture() {
+		return backgroundTexture;
+	}
+
+	public void setBackgroundTexture(Texture backgroundTexture) {
+		this.backgroundTexture = backgroundTexture;
 	}
 
 	@Override
@@ -160,7 +170,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 	  // continuar con sonido de lluvia
-		nivel.continuar();
+		lluvia.continuar();
 	}
 
 	@Override
@@ -170,7 +180,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void pause() {
-		nivel.pausar();
+		lluvia.pausar();
 		game.setScreen(new PausaScreen(game, this)); 
 	}
 
@@ -182,7 +192,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void dispose() {
 	  backgroundTexture.dispose();
-      nivel.destruir();
+	  lluvia.destruir();
       powerUps.destruir();
       tarro.destruir(); 
 	}
