@@ -14,8 +14,8 @@ import java.util.List;
 public class PowerUpManager {
     private long lastDropTime;
     
-    Sound inicioPower;
-    Sound finPower;
+    private Sound inicioPower;
+    private Sound finPower;
     
     private float tiempoEntrePowerUps = 12.0f; // Tiempo en segundos entre PowerUps
     private float tiempoActivadoPowerUp = 0; // Tiempo de activación del power-up
@@ -24,7 +24,7 @@ public class PowerUpManager {
 
     private PowerUp powerUpActivo; // Almacena el power-up activo
     private PowerUp powerUpCurrent;// Almacena el power-up mostrado en pantalla
-    Rectangle rectangulo;
+    private Rectangle rectangulo;
 
     private BitmapFont font; // Fuente para mostrar información
 

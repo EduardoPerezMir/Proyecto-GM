@@ -15,8 +15,10 @@ public class Lluvia {
     private int velInicial;
     private NivelDificultad nivel;
     
+    private static Lluvia instance;
+    
     // Constructor que inicializa parámetros iniciales
-	public Lluvia(NivelDificultad nivel) {
+    private Lluvia(NivelDificultad nivel) {
 		gotas = new Array<Gota>();
 		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 		velY2 = 1;
@@ -25,6 +27,13 @@ public class Lluvia {
 		
 		nivel.setVelLluviaInicialAcordeNivel(this);
 	}
+    
+    public static Lluvia getLluvia(NivelDificultad nivel) {
+        if (instance == null) {
+            instance = new Lluvia(nivel);
+        }
+        return instance;
+    }
 	
 	// Método para ajustar la velocidad de las gotas
 
@@ -133,6 +142,7 @@ public class Lluvia {
 
     public void destruir() {
         rainMusic.dispose();
+        instance = null;
     }
 
     public void pausar() {

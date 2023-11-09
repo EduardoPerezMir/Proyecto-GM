@@ -53,7 +53,7 @@ public class GameScreen implements Screen {
 		  }
 		  
 		  
-		  lluvia = new Lluvia(nivel);
+		  lluvia = Lluvia.getLluvia(nivel);
 		  
 		  
 		  // textura sonido
@@ -64,7 +64,7 @@ public class GameScreen implements Screen {
 	      //sonidoSprite.setPosition(150,440);
 	      sonidoSprite.setPosition(0,0);
 	      
-		  tarro = new Tarro();
+		  tarro = Tarro.getTarro();
 		 
 		  // load the drop sound effect and the rain background "music" 
 		 

@@ -27,13 +27,22 @@ public class Tarro {
 	   
 	   private Texture tarroActivo;
 	   
-	   public Tarro() {
+	   private static Tarro instance;
+	   
+	   private Tarro() {
 		   
 		   bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 		   bucketImageGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
 		   tarroActivo = bucketImage;
 		   sonidoHerido = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 	   }
+	   
+	   public static Tarro getTarro() {
+	        if (instance == null) {
+	            instance = new Tarro();
+	        }
+	        return instance;
+	    }
 	   
 	   public void tamañoTarroGrande(boolean variable) {
 		   if (variable) {
@@ -133,6 +142,7 @@ public class Tarro {
 		    bucketImage.dispose();
 		    bucketImageGrande.dispose();
 		    tarroActivo.dispose();
+		    instance = null;
 	   }
 	
    public boolean estaHerido() {
