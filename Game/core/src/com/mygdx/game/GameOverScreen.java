@@ -14,14 +14,16 @@ public class GameOverScreen implements Screen {
 	private BitmapFont font;
 	private OrthographicCamera camera;
 	private int dificultad;
+	private GameScreen gameScreen;
 	
-	public GameOverScreen(final GameLluviaMenu game, int dificultad) {
+	public GameOverScreen(final GameLluviaMenu game, int dificultad,GameScreen gameScreen) {
 		this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 		this.dificultad = dificultad;
+		this.gameScreen = gameScreen;
 	}
 
 	@Override
@@ -42,11 +44,13 @@ public class GameOverScreen implements Screen {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
 	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
 	        game.setHigherScore(0);
+	        gameScreen.dispose();
 	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
 	    }		
 		
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game, dificultad));
+			gameScreen.reset();
+			game.setScreen(gameScreen);
 			dispose();
 		}
 	}

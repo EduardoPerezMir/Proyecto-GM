@@ -35,26 +35,25 @@ public class GameScreen implements Screen {
 	      
 	      backgroundTexture = new Texture(Gdx.files.internal("fondoDefault.jpg"));
 	      
-	      if (dificultad == 1)
-	    	  dificultadString = "Fácil";
-	      if (dificultad == 2)
-	    	  dificultadString = "Medio";
-		  if (dificultad == 3)
-			  dificultadString = "Difícil";
-		  
-		  if (dificultad == 1)
-			  nivel = new NivelFacil();
+		  if (dificultad == 1) {
+			  dificultadString = "Fácil";
+			  nivel = new NivelFacil(); 
+		  }	
 		  else
 		  {
-			  if (dificultad == 2)
+			  if (dificultad == 2) {
+				  dificultadString = "Medio";
 				  nivel = new NivelMedio();
-			  else
+			  }
+			  else {
+				  dificultadString = "Difícil";
 				  nivel = new NivelDificil();
+			  }
 		  }
 		  
 		  
 		  lluvia = Lluvia.getLluvia(nivel);
-		  
+
 		  
 		  // textura sonido
 		  sonidoTexture = new Texture(Gdx.files.internal("sonido.png"));
@@ -140,12 +139,13 @@ public class GameScreen implements Screen {
 	        
 			// caida de la lluvia 
 	       if (!lluvia.actualizarMovimiento(tarro)) {
-	    	  game.setScreen(new GameOverScreen(game, dificultad));
+	    	  game.setScreen(new GameOverScreen(game, dificultad,this));
 	    	  //actualizar HigherScore
 	    	  if (game.getHigherScore() < tarro.getPuntos())
 	    		  game.setHigherScore(tarro.getPuntos());  
 	    	  //ir a la ventana de finde juego y destruir la actual
-	    	  dispose();
+	    	  lluvia.pausar();
+	    	  //dispose();
 	       }
 		}
 		powerUps.actualizarDibujo(batch);
@@ -195,6 +195,13 @@ public class GameScreen implements Screen {
 	  lluvia.destruir();
       powerUps.destruir();
       tarro.destruir(); 
+	}
+
+	public void reset() {
+		powerUps.reset(lluvia, tarro);
+		lluvia.reset();
+		tarro.reset();
+		
 	}
 
 }

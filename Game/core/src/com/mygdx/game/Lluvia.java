@@ -153,4 +153,11 @@ public class Lluvia {
         rainMusic.play();
     
     }
+
+	public void reset() {
+		velY2 = 1;
+		velYFuncionPuntaje = 1;
+		gotas.clear();
+		
+	}
 }

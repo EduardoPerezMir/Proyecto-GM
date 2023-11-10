@@ -137,4 +137,12 @@ public class PowerUpManager {
             powerUp.destruir();
         }
      }
+
+	public void reset(Lluvia lluvia, Tarro tarro) {
+		if ( powerUpActivo!=null ) {
+			powerUpActivo.quitarPowerUp(tarro, lluvia);
+	        tiempoActivadoPowerUp = 0;
+	        tiempoTranscurrido = 0;
+		}
+	}
 }

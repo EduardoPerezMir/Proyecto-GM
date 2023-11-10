@@ -148,4 +148,12 @@ public class Tarro {
    public boolean estaHerido() {
 	   return herido;
    }
+
+	public void reset() {
+		vidas = 3;
+		puntos = 0;
+		velx = 475;
+		herido = false;
+		
+	}
 }
