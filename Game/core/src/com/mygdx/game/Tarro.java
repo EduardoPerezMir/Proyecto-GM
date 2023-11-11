@@ -120,7 +120,7 @@ public class Tarro {
 	   public void setAumentoPuntos(boolean variable) {
 		   seDebeAumentar = variable;
 	   }
-	   public void actualizarMovimiento() { 
+	   public boolean actualizarMovimiento() { 
 		   // movimiento desde mouse/touch
 		   /*if(Gdx.input.isTouched()) {
 			      Vector3 touchPos = new Vector3();
@@ -128,13 +128,18 @@ public class Tarro {
 			      camera.unproject(touchPos);
 			      bucket.x = touchPos.x - tamaño / 2;
 			}*/
+		   
 		   //movimiento desde teclado
 		   
-		   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= velx * Gdx.graphics.getDeltaTime();
-		   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += velx * Gdx.graphics.getDeltaTime();
-		   // que no se salga de los bordes izq y der
-		   if(bucket.x < 0) bucket.x = 0;
-		   if(bucket.x > 800 - tamaño) bucket.x = 800 - tamaño;
+		   if(!herido) {
+			   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= velx * Gdx.graphics.getDeltaTime();
+			   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += velx * Gdx.graphics.getDeltaTime();
+			   // que no se salga de los bordes izq y der
+			   if(bucket.x < 0) bucket.x = 0;
+			   if(bucket.x > 800 - tamaño) bucket.x = 800 - tamaño;
+			   return true;
+		   }
+		   return false; 
 	   }
 	    
 

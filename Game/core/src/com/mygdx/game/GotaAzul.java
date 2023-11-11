@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.audio.Sound;
 
 public class GotaAzul extends Gota {
-	Sound dropSound; // Las Gotas Amarillas tienen sonido propio
+	private Sound dropSound; // Las Gotas Amarillas tienen sonido propio
 	
 	public GotaAzul(int velocidadCaida) {
 		super(velocidadCaida);

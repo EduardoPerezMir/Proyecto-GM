@@ -104,19 +104,9 @@ public class GameScreen implements Screen {
 		String mensajeDificultad = "Modo: " + dificultadString;
 		font.draw(batch, mensajeDificultad, 670, 30);
 		sonidoSprite.draw(batch);
-		
-		/*Comprobar si el clic está dentro de la textura
-		if (Gdx.input.isTouched()) {
-		    float touchX = Gdx.input.getX();
-		    float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
-		            if(!Intersector.overlaps(sonidoSprite.getBoundingRectangle(), new Rectangle(touchX, touchY, 1, 1))) {
-		            	if(lluvia.hayMusica())
-		            		lluvia.pausar();
-		            	else
-		            		lluvia.continuar();
-		            }
-		}*/ 
 
+		// La siguiente condición se encarga de verificar si se presionó la tecla M, en caso de
+        // ser verdadero, se pausa la musica de la lluvia.
 		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
 		       if(lluvia.hayMusica())
 		    	   lluvia.pausar();
@@ -130,22 +120,20 @@ public class GameScreen implements Screen {
 			pause();
 	    }	
 		
-		if (!tarro.estaHerido()) {
-			// movimiento del tarro desde teclado
-	        tarro.actualizarMovimiento();
-	        
+		// movimiento del tarro desde teclado
+		if (tarro.actualizarMovimiento()) {
 	        //Caida de PW
 	        powerUps.actualizarMovimiento(tarro, lluvia);
 	        
 			// caida de la lluvia 
-	       if (!lluvia.actualizarMovimiento(tarro)) {
-	    	  game.setScreen(new GameOverScreen(game, dificultad,this));
-	    	  //actualizar HigherScore
-	    	  if (game.getHigherScore() < tarro.getPuntos())
-	    		  game.setHigherScore(tarro.getPuntos());  
-	    	  //ir a la ventana de finde juego y destruir la actual
-	    	  lluvia.pausar();
-	    	  //dispose();
+	        if (!lluvia.actualizarMovimiento(tarro)) {
+	    	    game.setScreen(new GameOverScreen(game, dificultad,this));
+	    	    //actualizar HigherScore
+	    	    if (game.getHigherScore() < tarro.getPuntos())
+	    		    game.setHigherScore(tarro.getPuntos());  
+	    	    //ir a la ventana de finde juego y destruir la actual
+	    	    lluvia.pausar();
+	    	    //dispose();
 	       }
 		}
 		powerUps.actualizarDibujo(batch);
