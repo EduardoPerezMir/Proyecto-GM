@@ -24,15 +24,20 @@ public class MainMenuScreen implements Screen {
 	private OrthographicCamera camera;
 	private Stage stage;
     private Texture backgroundImage;
+    
     private Skin basicSkinBotones;
     private Skin basicSkinTitulos;
     private Skin basicSkinTutorial;
+    private Skin basicSkinIdioma;
+    
     private TextButton bienvenida;
     private TextButton tutorial;
     private TextButton niveles;
+    
     private TextButton optionButton1;
     private TextButton optionButton2;
     private TextButton optionButton3;
+    private TextButton optionButton4;
     private TextButton exitButton;
     private Table table;
     
@@ -67,15 +72,21 @@ public class MainMenuScreen implements Screen {
     
     private void createTableAndButtons() {
         table = new Table();
+        
         basicSkinBotones = createBasicSkin(1);
         basicSkinTitulos = createBasicSkin(2);
         basicSkinTutorial = createBasicSkin(3);
+        basicSkinIdioma = createBasicSkin(4);
+        
         bienvenida = new TextButton("Bienvenido a GameLluvia!!!", basicSkinTitulos);
         tutorial = new TextButton("Tutorial", basicSkinTutorial);
         niveles = new TextButton("Niveles", basicSkinTitulos);
+        
         optionButton1 = new TextButton("Fácil", basicSkinBotones);
         optionButton2 = new TextButton("Medio", basicSkinBotones);
         optionButton3 = new TextButton("Difícil", basicSkinBotones);
+        optionButton4 = new TextButton("Idioma", basicSkinIdioma);
+        
         exitButton = new TextButton("Salir", basicSkinBotones);
         table.setFillParent(true);
         table.center();
@@ -90,6 +101,8 @@ public class MainMenuScreen implements Screen {
         table.add(optionButton2).pad(10);
         table.row();
         table.add(optionButton3).pad(10);
+        table.row();
+        table.add(optionButton4).pad(10);
         table.row();
         table.add(exitButton).pad(10);
         stage.addActor(table);
@@ -127,6 +140,14 @@ public class MainMenuScreen implements Screen {
             }
         });
         
+        optionButton4.addListener(new ClickListener() {
+        	@Override
+            public void clicked(InputEvent event, float x, float y) {
+            	game.setScreen(new IdiomaScreen(game)); 
+    	        dispose();
+            }
+        });
+        
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -141,10 +162,16 @@ public class MainMenuScreen implements Screen {
 	        Skin skin = new Skin();
 	        String nombreArchivo = "degrade.jpg";
 	        if (indicador == 2)
-		        nombreArchivo = "faded.jpg";	
-	        if (indicador == 3)
-	        	nombreArchivo = "colorTutorial.jpg";
+	        	nombreArchivo = "faded.jpg";
 
+	        if (indicador == 3)
+		        nombreArchivo = "colorTutorial.jpg";
+	        		
+	        if(indicador == 4) {
+	        		nombreArchivo = "colorIdioma.jpg";
+	 		}
+		        	
+	        
 	        // Configurar el estilo de botón
 	        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
 	        buttonStyle.font = font; // Usar la fuente que ya tienes
