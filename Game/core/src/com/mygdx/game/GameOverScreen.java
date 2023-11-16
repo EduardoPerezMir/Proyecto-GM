@@ -18,7 +18,7 @@ public class GameOverScreen implements Screen {
 	
 	private IdiomaStrategy idioma;
 	
-	public GameOverScreen(final GameLluviaMenu game, int dificultad,GameScreen gameScreen) {
+	public GameOverScreen(final GameLluviaMenu game, int dificultad,GameScreen gameScreen,IdiomaStrategy idioma) {
 		this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
@@ -26,6 +26,7 @@ public class GameOverScreen implements Screen {
 		camera.setToOrtho(false, 800, 480);
 		this.dificultad = dificultad;
 		this.gameScreen = gameScreen;
+		this.idioma = idioma;
 	}
 
 	@Override

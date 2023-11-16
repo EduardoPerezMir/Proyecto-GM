@@ -126,7 +126,7 @@ public class GameScreen implements Screen {
 	        powerUps.actualizarMovimiento(tarro, lluvia);
 			// caida de la lluvia 
 	        if (!lluvia.actualizarMovimiento(tarro)) {
-	    	    game.setScreen(new GameOverScreen(game, dificultad,this));
+	    	    game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
 	    	    //actualizar HigherScore
 	    	    if (game.getHigherScore() < tarro.getPuntos())
 	    		    game.setHigherScore(tarro.getPuntos());  

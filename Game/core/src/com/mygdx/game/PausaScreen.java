@@ -39,6 +39,7 @@ public class PausaScreen implements Screen {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
 	        game.setScreen(new MainMenuScreen(game,idioma)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
 	        game.setHigherScore(0);
+	        juego.dispose();
 	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
 	    }		
 		
