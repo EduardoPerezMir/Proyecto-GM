@@ -30,7 +30,6 @@ public class Tarro {
 	   private static Tarro instance;
 	   
 	   private Tarro() {
-		   
 		   bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 		   bucketImageGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
 		   tarroActivo = bucketImage;
@@ -55,7 +54,6 @@ public class Tarro {
 		   }
 		   bucket.width = tamaño;
 		   bucket.height = tamaño;
-		   
 	   }
 	   
 		public int getVidas() {

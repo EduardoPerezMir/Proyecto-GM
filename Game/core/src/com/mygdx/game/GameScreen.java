@@ -25,13 +25,16 @@ public class GameScreen implements Screen {
 	private Texture sonidoTexture;
 	private Sprite sonidoSprite;
 	private NivelDificultad nivel;
+	private IdiomaStrategy idioma;
 
-	public GameScreen(final GameLluviaMenu game, int dificultad) {
+	public GameScreen(final GameLluviaMenu game, int dificultad, IdiomaStrategy idioma) {
 		  this.game = game;
 	      this.batch = game.getBatch();
 	      this.font = game.getFont();
 	      this.dificultad = dificultad;
+	      this.idioma = idioma;
 	      dificultadString = "";
+	      
 	      
 	      backgroundTexture = new Texture(Gdx.files.internal("fondoDefault.jpg"));
 	      
@@ -98,11 +101,13 @@ public class GameScreen implements Screen {
 		batch.begin();
 		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		//dibujar textos
+		idioma.idiomaGameScreen(batch,font,tarro.getPuntos(),tarro.getVidas(),game.getHigherScore(),dificultadString, camera.viewportWidth/2-50);
+		/*
 		font.draw(batch, "Puntaje: " + tarro.getPuntos(), 5, 475);
 		font.draw(batch, "Vidas : " + tarro.getVidas(), 670, 475);
 		font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth/2-50, 475);
 		String mensajeDificultad = "Modo: " + dificultadString;
-		font.draw(batch, mensajeDificultad, 670, 30);
+		font.draw(batch, mensajeDificultad, 670, 30); */
 		sonidoSprite.draw(batch);
 
 		// La siguiente condición se encarga de verificar si se presionó la tecla M, en caso de
@@ -124,7 +129,6 @@ public class GameScreen implements Screen {
 		if (tarro.actualizarMovimiento()) {
 	        //Caida de PW
 	        powerUps.actualizarMovimiento(tarro, lluvia);
-	        
 			// caida de la lluvia 
 	        if (!lluvia.actualizarMovimiento(tarro)) {
 	    	    game.setScreen(new GameOverScreen(game, dificultad,this));

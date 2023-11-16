@@ -35,8 +35,11 @@ public class MainMenuScreen implements Screen {
     private TextButton optionButton3;
     private TextButton exitButton;
     private Table table;
+    
+    private IdiomaStrategy idioma;
 
     public MainMenuScreen(final GameLluviaMenu game) {
+    	idioma = new Español();
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
@@ -44,6 +47,8 @@ public class MainMenuScreen implements Screen {
         createStage();
         setupBackground();
         createTableAndButtons();
+        
+        idioma = new Español();
     }
 
     private void setupCamera() {
@@ -101,7 +106,7 @@ public class MainMenuScreen implements Screen {
         optionButton1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 1));
+    			game.setScreen(new GameScreen(game, 1,idioma));
     			dispose();
             }
         });
@@ -109,7 +114,7 @@ public class MainMenuScreen implements Screen {
         optionButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 2));
+    			game.setScreen(new GameScreen(game, 2,idioma));
     			dispose();
             }
         });
@@ -117,7 +122,7 @@ public class MainMenuScreen implements Screen {
         optionButton3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 3));
+    			game.setScreen(new GameScreen(game, 3,idioma));
     			dispose();
             }
         });
