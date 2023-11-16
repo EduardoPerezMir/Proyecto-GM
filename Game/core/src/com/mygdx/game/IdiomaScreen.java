@@ -34,13 +34,15 @@ public class IdiomaScreen implements Screen {
     private BitmapFont font;
     
     private Table table;
+    private IdiomaStrategy idioma;
     
     
     
-    public IdiomaScreen(final GameLluviaMenu game) {
+    public IdiomaScreen(final GameLluviaMenu game, IdiomaStrategy idioma) {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
+        this.idioma = idioma;
         setupCamera();
         createStage();
         setupBackground();
@@ -62,19 +64,19 @@ public class IdiomaScreen implements Screen {
         table.add(optionButton2).pad(10);
         stage.addActor(table);
         
-        /*
+        
         optionButton1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            	
+            	game.setScreen(new MainMenuScreen(game,new Español()));
     	        dispose();
             }
-        }); */
+        }); 
         
         optionButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            	game.setScreen(new MainMenuScreen(game));
+            	game.setScreen(new MainMenuScreen(game,new Ingles()));
     			dispose();
             }
         });
@@ -142,7 +144,7 @@ public class IdiomaScreen implements Screen {
         // ser verdadero, se vuelve al menú inicial (se designa la pantalla a ver).
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
-	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
+	        game.setScreen(new MainMenuScreen(game,idioma)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
 	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
 	    }
         

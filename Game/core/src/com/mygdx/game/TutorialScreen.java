@@ -17,10 +17,13 @@ public class TutorialScreen implements Screen {
 	private Stage stage;
     private Texture backgroundImage;
     
+    private IdiomaStrategy idioma;
     
-    public TutorialScreen(final GameLluviaMenu game) {
+    
+    public TutorialScreen(final GameLluviaMenu game, IdiomaStrategy idioma) {
         this.game = game;
         this.batch = game.getBatch2();
+        this.idioma = idioma;
         setupCamera();
         createStage();
         setupBackground();
@@ -65,7 +68,7 @@ public class TutorialScreen implements Screen {
         // ser verdadero, se vuelve al menú inicial (se designa la pantalla a ver).
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
-	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
+	        game.setScreen(new MainMenuScreen(game,idioma)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
 	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
 	    }
         

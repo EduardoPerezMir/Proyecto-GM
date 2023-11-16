@@ -16,14 +16,16 @@ public class PausaScreen implements Screen {
 	private SpriteBatch batch;	   
 	private OrthographicCamera camera;
 	private Texture backgroundTexture;
+	private IdiomaStrategy idioma;
 
-	public PausaScreen (final GameLluviaMenu game, GameScreen juego) {
+	public PausaScreen (final GameLluviaMenu game, GameScreen juego, IdiomaStrategy idioma) {
 		this.game = game;
         this.juego = juego;
         this.batch = game.getBatch2();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 		backgroundTexture = new Texture(Gdx.files.internal("pausa.png"));
+		this.idioma = idioma;
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class PausaScreen implements Screen {
 
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
-	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
+	        game.setScreen(new MainMenuScreen(game,idioma)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
 	        game.setHigherScore(0);
 	        dispose(); // Limpia los recursos de la pantalla actual si es necesario
 	    }		

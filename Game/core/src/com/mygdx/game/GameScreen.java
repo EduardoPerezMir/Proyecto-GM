@@ -168,7 +168,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void pause() {
 		lluvia.pausar();
-		game.setScreen(new PausaScreen(game, this)); 
+		game.setScreen(new PausaScreen(game, this, idioma)); 
 	}
 
 	@Override

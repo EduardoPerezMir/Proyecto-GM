@@ -16,6 +16,8 @@ public class GameOverScreen implements Screen {
 	private int dificultad;
 	private GameScreen gameScreen;
 	
+	private IdiomaStrategy idioma;
+	
 	public GameOverScreen(final GameLluviaMenu game, int dificultad,GameScreen gameScreen) {
 		this.game = game;
         this.batch = game.getBatch();
@@ -42,7 +44,7 @@ public class GameOverScreen implements Screen {
         // ser verdadero, se vuelve al menú inicial (se designa la pantalla a ver).
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 	        // Cuando se presiona ESC, cambia a la pantalla del menú principal
-	        game.setScreen(new MainMenuScreen(game)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
+	        game.setScreen(new MainMenuScreen(game,idioma)); // Reemplaza "MainMenuScreen" con el nombre de tu pantalla principal
 	        game.setHigherScore(0);
 	        gameScreen.dispose();
 	        dispose(); // Limpia los recursos de la pantalla actual si es necesario

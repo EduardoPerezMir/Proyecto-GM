@@ -20,7 +20,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 			font2.setColor(255, 0, 255, 50); // Color amarillo
 			font3 = new BitmapFont();
 			font3.setColor(255, 255, 0, 255); // Color magenta
-			this.setScreen(new MainMenuScreen(this));
+			this.setScreen(new MainMenuScreen(this, new Español()));
 		}
 
 		public void render() {
