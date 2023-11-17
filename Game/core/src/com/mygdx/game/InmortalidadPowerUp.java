@@ -14,13 +14,14 @@ public class InmortalidadPowerUp implements PowerUp {
     
     // Método para aplicar el power-up de inmortalidad a un "Tarro" (posiblemente un jugador) y a la "Lluvia" (posiblemente un entorno)
     @Override
-    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.setInmortal(true); // Establece al tarro como inmortal
+    public Tarro aplicarPowerUp() {
+        //tarro.setInmortal(true); // Establece al tarro como inmortal
+    	return null;
     }
     
     // Método para quitar el efecto del power-up de inmortalidad al "Tarro" y a la "Lluvia"
     public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.setInmortal(false); // Quita la inmortalidad al tarro
+        //tarro.setInmortal(false); // Quita la inmortalidad al tarro
     }
     
     // Método para dibujar la textura del power-up en una posición (x, y) específica usando un SpriteBatch

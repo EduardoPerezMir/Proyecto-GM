@@ -15,38 +15,40 @@ public class Lluvia {
     private int velInicial;
     private NivelDificultad nivel;
     
+    private ObjetosFactory crear;
+    
     private static Lluvia instance;
     
     // Constructor que inicializa parámetros iniciales
-    private Lluvia(NivelDificultad nivel) {
+    private Lluvia(NivelDificultad nivel, ObjetosFactory crear) {
 		gotas = new Array<Gota>();
 		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 		velY2 = 1;
 		velYFuncionPuntaje = 1;
 		this.nivel = nivel;
+		this.crear = crear;
 		
 		nivel.setVelLluviaInicialAcordeNivel(this);
+			
 	}
     
-    public static Lluvia getLluvia(NivelDificultad nivel) {
+    public static Lluvia getLluvia(NivelDificultad nivel, ObjetosFactory crear) {
         if (instance == null) {
-            instance = new Lluvia(nivel);
+            instance = new Lluvia(nivel,crear);
         }
         return instance;
     }
-	
-	// Método para ajustar la velocidad de las gotas
 
 	public int getVelInicial() {
 		return velInicial;
 	}
+	
+	public long getLastDropTime() {
+		return lastDropTime;
+	}
 
 	public void setVelInicial(int velInicial) {
 		this.velInicial = velInicial;
-	}
-
-	public long getLastDropTime() {
-		return lastDropTime;
 	}
 
 	public void setLastDropTime(long lastDropTime) {
@@ -81,7 +83,7 @@ public class Lluvia {
     Luego se agrega la nueva gota al conjunto de gotas
     y se registra el tiempo asociado a la creación de la gota*/
 	public void crearGotaDeLluvia() {
-		Gota nuevaGota = nivel.crearGotaDeLluvia();
+		Gota nuevaGota = crear.crearGota(velInicial);
 	    if (nuevaGota != null)
 	    	gotas.add(nuevaGota);
 	    
@@ -158,6 +160,5 @@ public class Lluvia {
 		velY2 = 1;
 		velYFuncionPuntaje = 1;
 		gotas.clear();
-		
 	}
 }

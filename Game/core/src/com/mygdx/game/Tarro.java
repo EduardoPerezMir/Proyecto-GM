@@ -9,51 +9,63 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
 
-public class Tarro {
+public abstract class Tarro {
 	   private Rectangle bucket;
 	   private Texture bucketImage;
-	   private Texture bucketImageGrande;
-	   private int tamaño=49;
+	   private int tamañox;
+	   private int tamañoy;
 	   private Sound sonidoHerido;
 	   private int vidas = 3;
 	   private int puntos = 0;
-	   private int velx = 475;
-	   private boolean herido = false;
-	   private int tiempoHeridoMax=50;
+	   private int multiplicadorAumentoPuntos;
+	   private int velx;
+	   private int multiplicadorVel;
+	   
+	   //private int tiempoHeridoMax=50;
 	   private int tiempoHerido;
 	   
-	   private boolean esInmortal = false;
-	   private boolean seDebeAumentar = false;
+	   private boolean herido = false;
+	   private boolean esInmortal;
+	  
 	   
-	   private Texture tarroActivo;
-	   
-	   private static Tarro instance;
-	   
-	   private Tarro() {
-		   bucketImage = new Texture(Gdx.files.internal("bucket.png"));
-		   bucketImageGrande = new Texture(Gdx.files.internal("bucketgrande.png"));
-		   tarroActivo = bucketImage;
+	   public Tarro() {
+
 		   sonidoHerido = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 	   }
 	   
-	   public static Tarro getTarro() {
-	        if (instance == null) {
-	            instance = new Tarro();
-	        }
-	        return instance;
-	    }
+
+	   public void setBucket() {
+		   bucket = new Rectangle();
+		   bucket.x = 800 / 2 - tamañox / 2;
+		   bucket.y = 20;
+		   bucket.width = tamañox;
+		   bucket.height = tamañoy;  
+	   }
 	   
-	   public void tamañoTarroGrande(boolean variable) {
-		   if (variable) {
-			   tamaño=80;
-			   tarroActivo = bucketImageGrande;
-		   }
-		   else {
-			   tamaño=49;
-			   tarroActivo = bucketImage;
-		   }
-		   bucket.width = tamaño;
-		   bucket.height = tamaño;
+	   
+	   public void setMultiplicadorVel(int multiplicadorVel) {
+		   this.multiplicadorVel = multiplicadorVel;
+	   }
+	   
+	   public void setTamañox(int tamañox) {
+		   this.tamañox = tamañox;
+	   }
+	   
+	   public void setTamañoy(int tamañoy) {
+		   this.tamañoy = tamañoy;
+	   }
+	   
+	   public void setTextura(Texture textura) {
+		   bucketImage = textura;
+	   }
+	   
+	   public void setVidas(int vidas) {
+		   this.vidas = vidas;
+	   }
+	   
+	   public void setEsInmortal(boolean esInmortal) {
+		   this.esInmortal = esInmortal;
+		   
 	   }
 	   
 		public int getVidas() {
@@ -63,48 +75,32 @@ public class Tarro {
 		public int getPuntos() {
 			return puntos;
 		}
+		
 		public Rectangle getArea() {
 			return bucket;
 		}
+		
 		public void sumarPuntos(int pp) {
-			if (seDebeAumentar)puntos+=(pp*2);
-			else puntos+=pp;	
+			puntos += (pp * multiplicadorAumentoPuntos);
 		}
 		
-	   public void crear() {
-		      bucket = new Rectangle();
-		      bucket.x = 800 / 2 - tamaño / 2;
-		      bucket.y = 20;
-		      bucket.width = tamaño;
-		      bucket.height = tamaño;
-		      
-		      
-	   }
-	   public void dañar() {
-		   if (!esInmortal) {
-			   vidas--;
-			   herido = true;
-			   tiempoHerido=tiempoHeridoMax;
-			   sonidoHerido.play(); 
-		   }
-	   }
+		public void setAumentoPuntos(int multiplicadorAumentoPuntos) {
+			this.multiplicadorAumentoPuntos = multiplicadorAumentoPuntos;
+		}
+		
+		
+	   //public abstract void dañar();
 	   
 	   public void dibujar(SpriteBatch batch) {
 		   if (!herido) {
-			   batch.draw(tarroActivo, bucket.x, bucket.y);
+			   batch.draw(bucketImage, bucket.x, bucket.y);
 		   }
 		   else {
-			   batch.draw(tarroActivo, bucket.x, bucket.y + MathUtils.random(-5,5));
+			   batch.draw(bucketImage, bucket.x, bucket.y + MathUtils.random(-5,5));
 			   tiempoHerido--;
 			   if (tiempoHerido <= 0) herido = false;
 		   }
-	   }
-	   
-	   public void setInmortal(boolean inmortal) {
-		   esInmortal = inmortal;
-	   }
-	   public void multiplicarVelocidad(double velo) {
-		   velx*=velo;
+		   
 	   }
 	   
 	   public void setVelocidad(int velx) {
@@ -115,37 +111,50 @@ public class Tarro {
 		   return velx;
 	   }
 	   
-	   public void setAumentoPuntos(boolean variable) {
-		   seDebeAumentar = variable;
+	   public void setTiempoHerido(int tiempoHerido) {
+		   this.tiempoHerido = tiempoHerido;
 	   }
-	   public boolean actualizarMovimiento() { 
-		   // movimiento desde mouse/touch
-		   /*if(Gdx.input.isTouched()) {
-			      Vector3 touchPos = new Vector3();
-			      touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			      camera.unproject(touchPos);
-			      bucket.x = touchPos.x - tamaño / 2;
-			}*/
-		   
-		   //movimiento desde teclado
-		   
+	   
+	   public void setHerido(boolean herido) {
+		   this.herido = herido;
+	   }
+	   
+	   public boolean actualizarMovimiento() {  
 		   if(!herido) {
-			   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= velx * Gdx.graphics.getDeltaTime();
-			   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += velx * Gdx.graphics.getDeltaTime();
+			   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= (velx * multiplicadorVel ) * Gdx.graphics.getDeltaTime();
+			   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += (velx * multiplicadorVel) * Gdx.graphics.getDeltaTime();
+			   
 			   // que no se salga de los bordes izq y der
 			   if(bucket.x < 0) bucket.x = 0;
-			   if(bucket.x > 800 - tamaño) bucket.x = 800 - tamaño;
+			   if(bucket.x > 800 - tamañox) bucket.x = 800 - tamañox;
 			   return true;
 		   }
 		   return false; 
-	   }
+	 }
+	   
+	  public void dañar() {
+		  if(!esInmortal) {
+			  sumarVidas(-1);
+			  setHerido(true);
+			  setTiempoHerido(50);
+			  //tiempoHerido=tiempoHeridoMax;
+			  sonidoHeridoPlay(); 
+		  }
+	}
+	   
+	   
 	    
+	public void sonidoHeridoPlay() {
+		sonidoHerido.play();
+	}
 
+	public void sumarVidas(int vidas) {
+		this.vidas += vidas;
+		
+	}
+	   
 	public void destruir() {
 		    bucketImage.dispose();
-		    bucketImageGrande.dispose();
-		    tarroActivo.dispose();
-		    instance = null;
 	   }
 	
    public boolean estaHerido() {

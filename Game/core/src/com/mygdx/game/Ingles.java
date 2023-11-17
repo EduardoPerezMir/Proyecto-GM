@@ -1,9 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Ingles implements IdiomaStrategy{
@@ -25,7 +23,6 @@ public class Ingles implements IdiomaStrategy{
 	
 	public void setDificultad(int num) {
 		switch(num) {
-		
 			case 1:
 				dificultad = "easy";
 				break;
@@ -45,7 +42,7 @@ public class Ingles implements IdiomaStrategy{
 		tutorial.setText("Tutorial");
 		niveles.setText("Levels");
 		b1.setText("Easy");
-	    b2.setText("Midle");
+	    b2.setText("Middle");
 	    b3.setText("Hard");  
 	    b4.setText("Idioms");
 	    exitButton.setText("Exit");

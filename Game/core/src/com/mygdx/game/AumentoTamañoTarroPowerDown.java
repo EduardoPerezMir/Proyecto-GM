@@ -14,13 +14,14 @@ public class AumentoTamañoTarroPowerDown implements PowerUp {
 
     // Aplica el power-up para aumentar el tamaño del tarro
     @Override
-    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.tamañoTarroGrande(true);
+    public Tarro aplicarPowerUp() {
+        //tarro.tamañoTarroGrande(true);
+    	return null;
     }
 
     // Quita el efecto del power-up, restaurando el tamaño del tarro
     public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.tamañoTarroGrande(false);
+        //tarro.tamañoTarroGrande(false);
     }
 
     // Dibuja el power-up en pantalla en la posición (x, y)

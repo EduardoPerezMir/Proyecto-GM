@@ -14,14 +14,15 @@ public class DuplicarPuntosPowerUp implements PowerUp {
 
     // Aplica el power-up para duplicar los puntos del tarro
     @Override
-    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.setAumentoPuntos(true);
+    public Tarro aplicarPowerUp() {
+        return new TarroPuntajeDoble();
     }
 
     // Quita el efecto del power-up, restaurando los puntos normales del tarro
-    public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.setAumentoPuntos(false);
-    }
+    /*
+    public void quitarPowerUp(GameScreen game, Lluvia lluvia) {
+        //tarro.setAumentoPuntos(false);
+    } */
 
     // Dibuja el power-up en pantalla en la posición (x, y)
     public void dibujar(SpriteBatch batch, float x, float y) {
@@ -32,4 +33,10 @@ public class DuplicarPuntosPowerUp implements PowerUp {
     public void destruir() {
         textura.dispose();
     }
+
+	@Override
+	public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -66,19 +66,21 @@ public class PowerUpManager {
     }
 
     // Método para activar un power-up y aplicarlo 
+
     public void activarPowerUp(PowerUp powerUp, Tarro tarro, Lluvia lluvia,Sound inicioPower) {
     	inicioPower.play();
-    	powerUp.aplicarPowerUp(tarro, lluvia);
+    	powerUp.aplicarPowerUp();
         powerUpActivo = powerUp;
         tiempoActivadoPowerUp = TimeUtils.millis();
         tiempoTranscurrido = 0;
         powerUpCurrent = null;
-    }
+    } 
 
     // Método para actualizar el movimiento de los power-ups y gestionar su activación y desactivación
-    public void actualizarMovimiento(Tarro tarro, Lluvia lluvia) {
+    public Tarro actualizarMovimiento(Tarro tarro, Lluvia lluvia) {
         long currentTime = TimeUtils.millis();
         float delta = Gdx.graphics.getDeltaTime();
+        Tarro cambio = null;
         
         // Si ha pasado suficiente tiempo, se crea un nuevo power-up
         if (currentTime - lastDropTime > (tiempoEntrePowerUps * 1000)) {
@@ -93,12 +95,13 @@ public class PowerUpManager {
             // Si el power-up está fuera de la pantalla, se elimina
             if (rectangulo.y + 64 < 0) {
             	powerUpCurrent = null;
-                return;
+                return null;
             }
             
             // Si el power-up se superpone con el tarro, se activa
             if (rectangulo.overlaps(tarro.getArea())) {
-                activarPowerUp(powerUpCurrent, tarro, lluvia,inicioPower);
+                cambio = powerUpCurrent.aplicarPowerUp();
+                powerUpActivo = powerUpCurrent;
             }
         }
 
@@ -114,6 +117,8 @@ public class PowerUpManager {
                 tiempoTranscurrido = 0;
             }
         }
+        
+        return cambio;
     }
 
     // Método para actualizar la representación gráfica de los power-ups y el tiempo restante de un power-up activo

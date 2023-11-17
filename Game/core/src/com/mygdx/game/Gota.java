@@ -12,6 +12,10 @@ public abstract class Gota {
 	private int velocidadCaida;
 	private Rectangle forma;
 	
+	private boolean esInmortal;
+	
+
+	
 	public Gota(int velocidadCaida) {
 		this.velocidadCaida = velocidadCaida; // Atributo pre-definido, todas las gotas tendrán esta velocidad de caída.
 		textura = null;
@@ -28,22 +32,34 @@ public abstract class Gota {
 		return textura;
 	}
 
-	public void setTextura(Texture textura) {
-		this.textura = textura;
-	}
-
 	public int getPuntaje() {
 		return puntaje;
-	}
-
-	public void setPuntaje(int puntaje) {
-		this.puntaje = puntaje;
 	}
 	
 	public int getVelocidadCaida() {
 		return velocidadCaida;
 	}
+	
+	public void setTextura(Texture textura) {
+		this.textura = textura;
+	}
 
+	public void setEsInmortal(boolean esInmortal) {
+		this.esInmortal = esInmortal;
+	}
+	
+	public void setFormaPosY(float posY) {
+		this.forma.y = posY;
+	}
+	
+	public void setFormaPosX(float posX) {
+		this.forma.x = posX;
+	}
+	
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
+	}
+	
 	public void setVelocidadCaida(int velocidadCaida) {
 		this.velocidadCaida = velocidadCaida;
 	}
@@ -60,17 +76,10 @@ public abstract class Gota {
 		return forma.x;
 	}
 	
-	public void setFormaPosX(float posX) {
-		this.forma.x = posX;
-	}
-	
 	public float getFormaPosY() {
 		return forma.y;
 	}
 	
-	public void setFormaPosY(float posY) {
-		this.forma.y = posY;
-	}
 	
 	// Método Abstracto
 	public abstract int accionColisionTarro(Tarro tarro);

@@ -24,15 +24,22 @@ public class GameScreen implements Screen {
 	private Texture backgroundTexture;
 	private Texture sonidoTexture;
 	private Sprite sonidoSprite;
+	
+	
 	private NivelDificultad nivel;
 	private IdiomaStrategy idioma;
+    private ObjetosFactory crear;
 
+    
 	public GameScreen(final GameLluviaMenu game, int dificultad, IdiomaStrategy idioma) {
 		  this.game = game;
 	      this.batch = game.getBatch();
 	      this.font = game.getFont();
 	      this.dificultad = dificultad;
 	      this.idioma = idioma;
+	      
+	      
+	      
 	      dificultadString = "";
 	      
 	      
@@ -41,23 +48,26 @@ public class GameScreen implements Screen {
 		  if (dificultad == 1) {
 			  dificultadString = "Fácil";
 			  nivel = new NivelFacil(); 
+			  crear = new creacionNivelUno();
 		  }	
 		  else
 		  {
 			  if (dificultad == 2) {
 				  dificultadString = "Medio";
 				  nivel = new NivelMedio();
+				  crear = new creacionNivelDos();
 			  }
 			  else {
 				  dificultadString = "Difícil";
 				  nivel = new NivelDificil();
+				  crear = new creacionNivelTres();
 			  }
 		  }
 		  
 		  idioma.setDificultad(dificultad);
 		  
 		  
-		  lluvia = Lluvia.getLluvia(nivel);
+		  lluvia = Lluvia.getLluvia(nivel,crear);
 
 		  
 		  // textura sonido
@@ -68,7 +78,6 @@ public class GameScreen implements Screen {
 	      //sonidoSprite.setPosition(150,440);
 	      sonidoSprite.setPosition(0,0);
 	      
-		  tarro = Tarro.getTarro();
 		 
 		  // load the drop sound effect and the rain background "music" 
 		 
@@ -80,7 +89,7 @@ public class GameScreen implements Screen {
 		  camera.setToOrtho(false, 800, 480);
 		  batch = new SpriteBatch();
 		  // creacion del tarro
-		  tarro.crear();
+		  tarro = crear.crearTarro();
 		  
 		  //creacion de powers
 		  powerUps.crear();
@@ -122,10 +131,12 @@ public class GameScreen implements Screen {
 			pause();
 	    }	
 		
+		
+		Tarro auxiliar = null;
 		// movimiento del tarro desde teclado
 		if (tarro.actualizarMovimiento()) {
 	        //Caida de PW
-	        powerUps.actualizarMovimiento(tarro, lluvia);
+	        auxiliar = powerUps.actualizarMovimiento(tarro, lluvia);
 			// caida de la lluvia 
 	        if (!lluvia.actualizarMovimiento(tarro)) {
 	    	    game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
@@ -136,6 +147,9 @@ public class GameScreen implements Screen {
 	    	    lluvia.pausar();
 	    	    //dispose();
 	       }
+	        
+	       if(auxiliar != null)
+	    	   setTarro(auxiliar);
 		}
 		powerUps.actualizarDibujo(batch);
 		tarro.dibujar(batch);
@@ -144,6 +158,10 @@ public class GameScreen implements Screen {
 		batch.end();
 	}
 
+	 public void setTarro(Tarro tarro) {
+	    	this.tarro = tarro;
+	  }
+	
 	public Texture getBackgroundTexture() {
 		return backgroundTexture;
 	}

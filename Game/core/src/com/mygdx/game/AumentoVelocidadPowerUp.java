@@ -24,8 +24,9 @@ public class AumentoVelocidadPowerUp implements PowerUp {
      * @param lluvia El objeto Lluvia en el juego.
      */
     @Override
-    public void aplicarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.multiplicarVelocidad(1.6);
+    public Tarro aplicarPowerUp() {
+        //tarro.multiplicarVelocidad(1.6);
+    	return null;
     }
 
     /**
@@ -34,7 +35,7 @@ public class AumentoVelocidadPowerUp implements PowerUp {
      * @param lluvia El objeto Lluvia en el juego.
      */
     public void quitarPowerUp(Tarro tarro, Lluvia lluvia) {
-        tarro.multiplicarVelocidad(0.625);
+        //tarro.multiplicarVelocidad(0.625);
     }
     
     /**
