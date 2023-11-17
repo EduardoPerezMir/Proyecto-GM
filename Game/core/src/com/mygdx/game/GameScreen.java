@@ -54,6 +54,8 @@ public class GameScreen implements Screen {
 			  }
 		  }
 		  
+		  idioma.setDificultad(dificultad);
+		  
 		  
 		  lluvia = Lluvia.getLluvia(nivel);
 
@@ -71,7 +73,7 @@ public class GameScreen implements Screen {
 		  // load the drop sound effect and the rain background "music" 
 		 
 		 //PW
-		 powerUps = new PowerUpManager();
+		 powerUps = new PowerUpManager(idioma);
 		 
 		  // camera
 		  camera = new OrthographicCamera();
@@ -101,7 +103,7 @@ public class GameScreen implements Screen {
 		batch.begin();
 		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		//dibujar textos
-		idioma.idiomaGameScreen(batch,font,tarro.getPuntos(),tarro.getVidas(),game.getHigherScore(),dificultadString, camera.viewportWidth/2-50);
+		idioma.idiomaGameScreen(batch,font,tarro.getPuntos(),tarro.getVidas(),game.getHigherScore(), camera.viewportWidth/2-50);
 
 		sonidoSprite.draw(batch);
 

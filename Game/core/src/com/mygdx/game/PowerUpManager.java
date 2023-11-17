@@ -29,8 +29,10 @@ public class PowerUpManager {
     private BitmapFont font; // Fuente para mostrar información
 
     private List<PowerUp> powersDisponibles; // Lista de power-ups disponibles
+    
+    private IdiomaStrategy idioma;
 
-    public PowerUpManager() {
+    public PowerUpManager(IdiomaStrategy idioma) {
     	this.inicioPower = Gdx.audio.newSound(Gdx.files.internal("soundinmortal.mp3"));
         this.finPower = Gdx.audio.newSound(Gdx.files.internal("endpower.mp3"));
         
@@ -44,6 +46,8 @@ public class PowerUpManager {
         powersDisponibles.add(new AumentoVelocidadLluviaPowerDown());
         
         font = new BitmapFont(); // Inicializa la fuente para mostrar información
+        
+        this.idioma = idioma;
     }
 
     public void crear() {
@@ -124,8 +128,9 @@ public class PowerUpManager {
             // Muestra el tiempo restante de un power-up activo
             float tiempoRestante = duracionPowerUp * 1000 - tiempoTranscurrido;
             if (tiempoRestante > 0) {
-                String formattedTime = String.format("Tiempo restante de power up: %.0fs", (tiempoRestante / 1000));
-                font.draw(batch, formattedTime, 10, 30);
+            	
+
+            	idioma.idiomaTiempoPower(batch, font, (tiempoRestante / 1000));
             }
         }
     }

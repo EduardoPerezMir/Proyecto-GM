@@ -35,8 +35,7 @@ public class IdiomaScreen implements Screen {
     
     private Table table;
     private IdiomaStrategy idioma;
-    
-    
+      
     
     public IdiomaScreen(final GameLluviaMenu game, IdiomaStrategy idioma) {
         this.game = game;

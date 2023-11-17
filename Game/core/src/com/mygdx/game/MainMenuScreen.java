@@ -47,12 +47,11 @@ public class MainMenuScreen implements Screen {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
+        this.idioma = idioma;
         setupCamera();
         createStage();
         setupBackground();
         createTableAndButtons();
-    
-        this.idioma = idioma;
     }
 
     private void setupCamera() {
@@ -77,16 +76,19 @@ public class MainMenuScreen implements Screen {
         basicSkinTutorial = createBasicSkin(3);
         basicSkinIdioma = createBasicSkin(4);
         
-        bienvenida = new TextButton("Bienvenido a GameLluvia!!!", basicSkinTitulos);
-        tutorial = new TextButton("Tutorial", basicSkinTutorial);
-        niveles = new TextButton("Niveles", basicSkinTitulos);
+        bienvenida = new TextButton("", basicSkinTitulos);
+        tutorial = new TextButton("", basicSkinTutorial);
+        niveles = new TextButton("", basicSkinTitulos);
         
-        optionButton1 = new TextButton("Fácil", basicSkinBotones);
-        optionButton2 = new TextButton("Medio", basicSkinBotones);
-        optionButton3 = new TextButton("Difícil", basicSkinBotones);
-        optionButton4 = new TextButton("Idioma", basicSkinIdioma);
+        optionButton1 = new TextButton("", basicSkinBotones);
+        optionButton2 = new TextButton("", basicSkinBotones);
+        optionButton3 = new TextButton("", basicSkinBotones);
+        optionButton4 = new TextButton("", basicSkinIdioma);
         
-        exitButton = new TextButton("Salir", basicSkinBotones);
+        exitButton = new TextButton("", basicSkinBotones);
+        
+        idioma.botonesMenu(bienvenida, tutorial, niveles, optionButton1, optionButton2, optionButton3, optionButton4, exitButton);
+        
         table.setFillParent(true);
         table.center();
         table.add(bienvenida).pad(10);
