@@ -15,7 +15,7 @@ public class NivelDificil implements NivelDificultad {
 		backgroundTexture = new Texture(Gdx.files.internal("fondoDificil.jpg"));
 	}
 	
-	public Gota crearGotaDeLluvia() {
+	/*public Gota crearGotaDeLluvia() {
 		Gota nuevaGota = null;
 		int azar = MathUtils.random(1,10);
 		
@@ -36,7 +36,7 @@ public class NivelDificil implements NivelDificultad {
 	
 	public void setVelTarroAcordeNivel(Tarro tarro) {
 		tarro.setVelocidad(velTarro);
-	}
+	}*/
 	
 	public void setVelLluviaInicialAcordeNivel(Lluvia lluvia) {
 		lluvia.setVelInicial(velInicialLluvia);

@@ -1,8 +1,9 @@
 package com.mygdx.game;
 
 public interface ObjetosFactory {
-	public Gota crearGota(int velInicialLluvia);
+	public GotaBuena crearGotaBuena(int velInicialLluvia);
+	public GotaMala crearGotaMala(int velInicialLluvia);
+	public PowerDown crearPowerDown();
+	public PowerUp crearPowerUp();
 	public Tarro crearTarro();
-	//public Lluvia crearLluvia();
-	//public PowerUp crearPowerUp();
 }

@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public interface GotaMala {
+public interface GotaBuena {
     public int accionColisionTarro(Tarro tarro);
 
     public int verificarColisionTarro(Tarro tarro, float pond);

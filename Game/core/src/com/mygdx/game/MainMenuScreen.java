@@ -120,7 +120,7 @@ public class MainMenuScreen implements Screen {
         optionButton1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 1,idioma));
+    			game.setScreen(new GameScreen(game, 1,idioma,new ObjetosNivelUno()));
     			dispose();
             }
         });
@@ -128,7 +128,7 @@ public class MainMenuScreen implements Screen {
         optionButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 2,idioma));
+    			game.setScreen(new GameScreen(game, 2,idioma,new ObjetosNivelDos()));
     			dispose();
             }
         });
@@ -136,7 +136,7 @@ public class MainMenuScreen implements Screen {
         optionButton3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 3,idioma));
+    			game.setScreen(new GameScreen(game, 3,idioma,new ObjetosNivelTres()));
     			dispose();
             }
         });

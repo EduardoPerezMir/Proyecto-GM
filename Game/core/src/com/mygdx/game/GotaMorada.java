@@ -7,14 +7,14 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.audio.Sound;
 
-public class GotaAzul implements GotaBuena {
+public class GotaMorada implements GotaBuena {
     private Texture textura;
     private int puntaje;
     private int velocidadCaida;
     private Rectangle forma;
     private Sound dropSound;
 
-    public GotaAzul(int velocidadCaida) {
+    public GotaMorada(int velocidadCaida) {
         this.velocidadCaida = velocidadCaida;
         forma = new Rectangle();
         forma.x = MathUtils.random(0, 800 - 42);
@@ -23,17 +23,17 @@ public class GotaAzul implements GotaBuena {
         forma.height = 48;
         
         // Cargar assets y configurar propiedades iniciales.
-        setTextura(new Texture(Gdx.files.internal("drop.png")));
-        dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+        setTextura(new Texture(Gdx.files.internal("dropPurple.png")));
+        dropSound = Gdx.audio.newSound(Gdx.files.internal("dropYellow.mp3"));
         
-        // Puntaje predeterminado para la gota azul.
-        puntaje = 25;
+        // Puntaje predeterminado para la gota morada.
+        puntaje = 50;
     }
 
     // Implementación concreta del método abstracto.
     public int accionColisionTarro(Tarro tarro) {
         dropSound.play();
-        tarro.sumarPuntos(puntaje);
+        tarro.sumarPuntos(getPuntaje());
         return 1;
     }
 

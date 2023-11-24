@@ -18,7 +18,6 @@ public class GameScreen implements Screen {
 	private BitmapFont font;
 	private Tarro tarro;
 	private Lluvia lluvia;
-	private PowerUpManager powerUps;
 	private int dificultad;
 	private String dificultadString;
 	private Texture backgroundTexture;
@@ -26,18 +25,18 @@ public class GameScreen implements Screen {
 	private Sprite sonidoSprite;
 	
 	
-	private NivelDificultad nivel;
+	//private NivelDificultad nivel;
 	private IdiomaStrategy idioma;
     private ObjetosFactory crear;
 
     
-	public GameScreen(final GameLluviaMenu game, int dificultad, IdiomaStrategy idioma) {
+	public GameScreen(final GameLluviaMenu game, int dificultad, IdiomaStrategy idioma, ObjetosFactory crear) {
 		  this.game = game;
 	      this.batch = game.getBatch();
 	      this.font = game.getFont();
 	      this.dificultad = dificultad;
 	      this.idioma = idioma;
-	      
+	      this.crear = crear;
 	      
 	      
 	      dificultadString = "";
@@ -47,27 +46,27 @@ public class GameScreen implements Screen {
 	      
 		  if (dificultad == 1) {
 			  dificultadString = "Fácil";
-			  nivel = new NivelFacil(); 
-			  crear = new creacionNivelUno();
+			  //nivel = new NivelFacil(); 
+			  crear = new ObjetosNivelUno();
 		  }	
 		  else
 		  {
 			  if (dificultad == 2) {
 				  dificultadString = "Medio";
-				  nivel = new NivelMedio();
-				  crear = new creacionNivelDos();
+				  //nivel = new NivelMedio();
+				  crear = new ObjetosNivelDos();
 			  }
 			  else {
 				  dificultadString = "Difícil";
-				  nivel = new NivelDificil();
-				  crear = new creacionNivelTres();
+				  //nivel = new NivelDificil();
+				  crear = new ObjetosNivelTres();
 			  }
 		  }
 		  
 		  idioma.setDificultad(dificultad);
 		  
 		  
-		  lluvia = Lluvia.getLluvia(nivel,crear);
+		  lluvia = Lluvia.getLluvia(crear);
 
 		  
 		  // textura sonido
@@ -79,10 +78,7 @@ public class GameScreen implements Screen {
 	      sonidoSprite.setPosition(0,0);
 	      
 		 
-		  // load the drop sound effect and the rain background "music" 
-		 
-		 //PW
-		 powerUps = new PowerUpManager(idioma);
+		  // load the drop sound effect and the rain background "music"
 		 
 		  // camera
 		  camera = new OrthographicCamera();
@@ -91,13 +87,11 @@ public class GameScreen implements Screen {
 		  // creacion del tarro
 		  tarro = crear.crearTarro();
 		  
-		  //creacion de powers
-		  powerUps.crear();
 		  
 		  // creacion de la lluvia
 		  lluvia.crear();
 		  
-		  nivel.setBackgroundTextureGame(this);
+		  setBackgroundTexture(new Texture(Gdx.files.internal("fondoFacil.jpg")));
 	}
 
 	@Override
@@ -132,11 +126,9 @@ public class GameScreen implements Screen {
 	    }	
 		
 		
-		Tarro auxiliar = null;
 		// movimiento del tarro desde teclado
 		if (tarro.actualizarMovimiento()) {
 	        //Caida de PW
-	        auxiliar = powerUps.actualizarMovimiento(tarro, lluvia);
 			// caida de la lluvia 
 	        if (!lluvia.actualizarMovimiento(tarro)) {
 	    	    game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
@@ -147,11 +139,8 @@ public class GameScreen implements Screen {
 	    	    lluvia.pausar();
 	    	    //dispose();
 	       }
-	        
-	       if(auxiliar != null)
-	    	   setTarro(auxiliar);
 		}
-		powerUps.actualizarDibujo(batch);
+	        
 		tarro.dibujar(batch);
 		lluvia.actualizarDibujoLluvia(batch);
 		
@@ -200,14 +189,12 @@ public class GameScreen implements Screen {
 	public void dispose() {
 	  backgroundTexture.dispose();
 	  lluvia.destruir();
-      powerUps.destruir();
       tarro.destruir(); 
 	}
 
 	public void reset() {
-		powerUps.reset(lluvia, tarro);
 		lluvia.reset();
-		tarro.reset();
+		//tarro.reset();
 		
 	}
 

@@ -16,7 +16,7 @@ public class NivelMedio implements NivelDificultad {
 	}
 
 	
-	public Gota crearGotaDeLluvia() {
+	/*public Gota crearGotaDeLluvia() {
 		Gota nuevaGota = null;
 		int azar = MathUtils.random(1,10);
 
@@ -35,7 +35,7 @@ public class NivelMedio implements NivelDificultad {
 	
 	public void setVelTarroAcordeNivel(Tarro tarro) {
 		tarro.setVelocidad(velTarro);
-	}
+	}*/
 	
 	public void setVelLluviaInicialAcordeNivel(Lluvia lluvia) {
 		lluvia.setVelInicial(velInicialLluvia);

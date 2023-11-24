@@ -7,14 +7,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.audio.Sound;
 
-public class GotaAzul implements GotaBuena {
+public class GotaRoja implements GotaMala {
     private Texture textura;
-    private int puntaje;
     private int velocidadCaida;
     private Rectangle forma;
-    private Sound dropSound;
 
-    public GotaAzul(int velocidadCaida) {
+    public GotaRoja(int velocidadCaida) {
         this.velocidadCaida = velocidadCaida;
         forma = new Rectangle();
         forma.x = MathUtils.random(0, 800 - 42);
@@ -23,27 +21,19 @@ public class GotaAzul implements GotaBuena {
         forma.height = 48;
         
         // Cargar assets y configurar propiedades iniciales.
-        setTextura(new Texture(Gdx.files.internal("drop.png")));
-        dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+        setTextura(new Texture(Gdx.files.internal("dropBad.png")));
         
-        // Puntaje predeterminado para la gota azul.
-        puntaje = 25;
     }
 
-    // Implementación concreta del método abstracto.
+
     public int accionColisionTarro(Tarro tarro) {
-        dropSound.play();
-        tarro.sumarPuntos(puntaje);
+        tarro.dañar();
         return 1;
     }
 
     // Getters & Setters
     public Texture getTextura() {
         return textura;
-    }
-
-    public int getPuntaje() {
-        return puntaje;
     }
 
     public int getVelocidadCaida() {
@@ -60,10 +50,6 @@ public class GotaAzul implements GotaBuena {
 
     public void setFormaPosX(float posX) {
         this.forma.x = posX;
-    }
-
-    public void setPuntaje(int puntaje) {
-        this.puntaje = puntaje;
     }
 
     public void setVelocidadCaida(int velocidadCaida) {
