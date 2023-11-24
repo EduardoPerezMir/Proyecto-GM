@@ -130,6 +130,18 @@ public class GameScreen implements Screen {
 		if (tarro.actualizarMovimiento()) {
 	        //Caida de PW
 			// caida de la lluvia 
+			
+			if (tarro.estaMuerto()) {
+				game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
+	    	    //actualizar HigherScore
+	    	    if (game.getHigherScore() < tarro.getPuntos())
+	    		    game.setHigherScore(tarro.getPuntos());  
+	    	    //ir a la ventana de finde juego y destruir la actual
+	    	    lluvia.pausar();
+			}
+			lluvia.actualizarMovimiento(tarro);
+			
+			/*
 	        if (!lluvia.actualizarMovimiento(tarro)) {
 	    	    game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
 	    	    //actualizar HigherScore
@@ -138,11 +150,11 @@ public class GameScreen implements Screen {
 	    	    //ir a la ventana de finde juego y destruir la actual
 	    	    lluvia.pausar();
 	    	    //dispose();
-	       }
+	       }*/
 		}
 	        
 		tarro.dibujar(batch);
-		lluvia.actualizarDibujoLluvia(batch);
+		lluvia.actualizarDibujoLluvia(batch,font,idioma);
 		
 		batch.end();
 	}
@@ -193,8 +205,8 @@ public class GameScreen implements Screen {
 	}
 
 	public void reset() {
-		lluvia.reset();
-		//tarro.reset();
+		lluvia.reset(tarro);
+		tarro.reset();
 		
 	}
 

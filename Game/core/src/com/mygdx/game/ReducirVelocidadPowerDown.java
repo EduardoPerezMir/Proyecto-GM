@@ -19,12 +19,12 @@ public class ReducirVelocidadPowerDown implements PowerDown{
 
 	@Override
 	public void quitarPowerDown(Tarro tarro) {
-		tarro.setMultiplicadorVel(1.6);
+		tarro.setMultiplicadorVel(1);
 	}
 
 	@Override
 	public void dibujar(SpriteBatch batch, float x, float y) {
-		
+		batch.draw(textura, x, y);
 	}
 
 	@Override

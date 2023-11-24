@@ -14,7 +14,7 @@ public class ObjetosNivelDos implements ObjetosFactory {
 	}
 	
 	public PowerDown crearPowerDown() {
-		return new InvertirPuntosPowerDown();
+		return new ReducirVelocidadPowerDown();
 	}
 	
 	public Tarro crearTarro() {

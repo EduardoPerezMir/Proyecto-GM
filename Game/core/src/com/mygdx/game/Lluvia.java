@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -239,7 +240,7 @@ public class Lluvia {
    /*Método para actualizar el dibujo de la lluvia
    Dibuja todas las gotas de lluvia presentes en el conjunto de gotas
    utilizando un objeto SpriteBatch para el dibujo*/
-    public void actualizarDibujoLluvia(SpriteBatch batch) {
+    public void actualizarDibujoLluvia(SpriteBatch batch,BitmapFont font,IdiomaStrategy idioma) {
         for (int i = 0; i < gotasB.size; i++) {
             GotaBuena gotaActual = gotasB.get(i);
             gotaActual.dibujarGota(batch);
@@ -255,19 +256,12 @@ public class Lluvia {
         	if (activoP == 0) powerDown.dibujar(batch, rectangulo.x, rectangulo.y);
         	else powerUp.dibujar(batch, rectangulo.x, rectangulo.y);
         	
-            // Dibuja el power-up actual si está disponible
-        	//powerUpCurrent.dibujar(batch, rectangulo.x, rectangulo.y);
-        	
         }
 
         if (tiempoActivadoPowerUp > 0) {
             // Muestra el tiempo restante de un power-up activo
             float tiempoRestante = duracionPowerUp * 1000 - tiempoTranscurrido;
-            if (tiempoRestante > 0) {
-            	
-
-            	//idioma.idiomaTiempoPower(batch, font, (tiempoRestante / 1000));
-            }
+            if (tiempoRestante > 0) idioma.idiomaTiempoPower(batch, font, (tiempoRestante / 1000));
         }
     }
 
@@ -281,6 +275,9 @@ public class Lluvia {
 
     public void destruir() {
         rainMusic.dispose();
+        instance = null;
+        powerUp.destruir();
+        powerDown.destruir();
     }
 
     public void pausar() {
@@ -292,9 +289,18 @@ public class Lluvia {
     
     }
 
-	public void reset() {
+	public void reset(Tarro tarro) {
 		velY2 = 1;
 		velYFuncionPuntaje = 1;
-		//gotas.clear();
+		gotasB.clear(); 
+		gotasM.clear();
+		
+		if (tiempoTranscurrido != 0) {
+        	if (activoP == 0) powerDown.quitarPowerDown(tarro);
+        	else powerUp.quitarPowerUp(tarro);
+            tiempoActivadoPowerUp = 0;
+            tiempoTranscurrido = 0;
+        }
+		
 	}
 }

@@ -14,17 +14,17 @@ private Texture textura;
 	
 	@Override
 	public void aplicarPowerDown(Tarro tarro) {
-		
+		tarro.setAumentoPuntos(-1);
 	}
 
 	@Override
 	public void quitarPowerDown(Tarro tarro) {
-		
+		tarro.setAumentoPuntos(1);
 	}
 
 	@Override
 	public void dibujar(SpriteBatch batch, float x, float y) {
-		
+		batch.draw(textura, x, y);
 	}
 
 	@Override

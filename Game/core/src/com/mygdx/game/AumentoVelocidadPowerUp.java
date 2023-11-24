@@ -19,7 +19,7 @@ public class AumentoVelocidadPowerUp implements PowerUp {
     
 	@Override
 	public void quitarPowerUp(Tarro tarro) {
-		tarro.setMultiplicadorVel(0.625);
+		tarro.setMultiplicadorVel(1);
 	}
 
 	@Override

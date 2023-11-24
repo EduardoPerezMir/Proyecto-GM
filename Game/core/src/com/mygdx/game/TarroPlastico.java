@@ -153,6 +153,11 @@ public class TarroPlastico implements Tarro {
     public boolean estaHerido() {
         return herido;
     }
+    
+    public boolean estaMuerto() {
+    	if (vidas <= 0)return true;
+    	return false;
+    }
 
     public void reset() {
         vidas = 4;

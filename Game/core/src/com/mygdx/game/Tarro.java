@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.Rectangle;
 
 public interface Tarro {
 
-    public void dibujar(SpriteBatch batch);
+    
+
+	public void dibujar(SpriteBatch batch);
 
     public boolean actualizarMovimiento();
     
@@ -27,5 +29,9 @@ public interface Tarro {
     public void dañar();
     
     public void destruir();
+    
+    public boolean estaMuerto();
+    
+    public void reset();
 
 }

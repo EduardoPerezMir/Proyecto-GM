@@ -19,7 +19,7 @@ public class DuplicarPuntosPowerUp implements PowerUp {
     
 	@Override
 	public void quitarPowerUp(Tarro tarro) {
-		tarro.setAumentoPuntos(0.5);
+		tarro.setAumentoPuntos(1);
 	}
 
 	@Override
