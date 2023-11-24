@@ -36,9 +36,7 @@ public class GameOverScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.draw(batch, "GAME OVER ", 350, 300);
-		font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 200);
-		font.draw(batch, "Presione ESC para volver al menú inicial.", 100, 100);
+		idioma.gameOverMensaje(batch, font);
 		batch.end();
 
         // La siguiente condición se encarga de verificar si se presionó la tecla Esc, en caso de

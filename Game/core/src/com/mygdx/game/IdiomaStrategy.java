@@ -10,5 +10,6 @@ public interface IdiomaStrategy {
 	public void idiomaTiempoPower(SpriteBatch batch, BitmapFont font, float seg);
 	public void setDificultad(int num);
 	public void botonesMenu(TextButton bienvenida, TextButton tutorial, TextButton niveles, TextButton b1, TextButton b2, TextButton b3, TextButton b4, TextButton exitButton);
+	public void gameOverMensaje(SpriteBatch batch, BitmapFont font);
 }
 

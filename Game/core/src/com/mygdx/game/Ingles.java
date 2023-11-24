@@ -47,5 +47,11 @@ public class Ingles implements IdiomaStrategy{
 	    b4.setText("Idioms");
 	    exitButton.setText("Exit");
 	}
+	
+	public void gameOverMensaje(SpriteBatch batch, BitmapFont font) {
+		font.draw(batch, "GAME OVER", 350, 300);
+		font.draw(batch, "Tap anywhere to restart.", 100, 200);
+		font.draw(batch, "Press ESC to return to the initial menu.", 100, 100);
+}
 
 }

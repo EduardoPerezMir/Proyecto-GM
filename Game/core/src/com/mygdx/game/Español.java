@@ -47,4 +47,10 @@ public class Español implements IdiomaStrategy{
 	    b4.setText("Idiomas");
 	    exitButton.setText("Salir");
 	}
+	
+	public void gameOverMensaje(SpriteBatch batch, BitmapFont font) {
+		font.draw(batch, "JUEGO TERMINADO ", 350, 300);
+		font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 200);
+		font.draw(batch, "Presione ESC para volver al menú inicial.", 100, 100);
+	}
 }
