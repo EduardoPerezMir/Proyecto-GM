@@ -33,7 +33,7 @@ public class GotaMorada implements GotaBuena {
     // Implementación concreta del método abstracto.
     public int accionColisionTarro(Tarro tarro) {
         dropSound.play();
-        tarro.sumarPuntos(getPuntaje());
+        tarro.sumarPuntos(puntaje);
         return 1;
     }
 

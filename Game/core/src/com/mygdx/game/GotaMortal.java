@@ -26,7 +26,7 @@ public class GotaMortal implements GotaMala {
     }
 
     public int accionColisionTarro(Tarro tarro) {
-        tarro.dañar();
+        tarro.dañar(tarro.getVidas());
         return 1;
     }
 

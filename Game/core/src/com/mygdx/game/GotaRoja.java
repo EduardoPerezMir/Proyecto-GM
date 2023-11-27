@@ -11,6 +11,7 @@ public class GotaRoja implements GotaMala {
     private Texture textura;
     private int velocidadCaida;
     private Rectangle forma;
+    private int daño;
 
     public GotaRoja(int velocidadCaida) {
         this.velocidadCaida = velocidadCaida;
@@ -23,11 +24,12 @@ public class GotaRoja implements GotaMala {
         // Cargar assets y configurar propiedades iniciales.
         setTextura(new Texture(Gdx.files.internal("dropBad.png")));
         
+        daño = 1;
     }
 
 
     public int accionColisionTarro(Tarro tarro) {
-        tarro.dañar();
+        tarro.dañar(daño);
         return 1;
     }
 

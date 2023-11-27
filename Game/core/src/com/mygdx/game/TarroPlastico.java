@@ -129,9 +129,9 @@ public class TarroPlastico implements Tarro {
         return false;
     }
 
-    public void dañar() {
+    public void dañar(int daño) {
     	if(!esInmortal) {
-	    	sumarVidas(-1);
+	    	sumarVidas(-daño);
 	        setHerido(true);
 	        setTiempoHerido(50);
 	        sonidoHeridoPlay();
