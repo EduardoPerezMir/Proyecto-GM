@@ -29,7 +29,8 @@ public class IdiomaScreen implements Screen {
     
     private TextButton optionButton1;
     private TextButton optionButton2;
-    //private TextButton optionButton3;
+    private TextButton optionButton3;
+    private TextButton optionButton4;
     
     private BitmapFont font;
     
@@ -55,12 +56,18 @@ public class IdiomaScreen implements Screen {
         
         optionButton1 = new TextButton("Español", basicSkinBotones);
         optionButton2 = new TextButton("Ingles", basicSkinBotones);
+        optionButton3 = new TextButton("Frances", basicSkinBotones);
+        optionButton4 = new TextButton("Portugués", basicSkinBotones);
 
         table.setFillParent(true);
         table.center();
         table.add(optionButton1).pad(10);
         table.row();
         table.add(optionButton2).pad(10);
+        table.row();
+        table.add(optionButton3).pad(10);
+        table.row();
+        table.add(optionButton4).pad(10);
         stage.addActor(table);
         
         
@@ -76,6 +83,21 @@ public class IdiomaScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
             	game.setScreen(new MainMenuScreen(game,new Ingles()));
+    			dispose();
+            }
+        });
+        
+        optionButton3.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	game.setScreen(new MainMenuScreen(game,new Frances()));
+    			dispose();
+            }
+        });
+        optionButton4.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	game.setScreen(new MainMenuScreen(game,new Portugues()));
     			dispose();
             }
         });

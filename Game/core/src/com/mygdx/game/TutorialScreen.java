@@ -44,7 +44,7 @@ public class TutorialScreen implements Screen {
     // La imagen de fondo del tutorial fue realizada a través de prueba y error, hasta lograr
     // que calzara y que se viera la explicación del juego visualmente legible.
     private void setupBackground() {
-        backgroundImage = new Texture(Gdx.files.internal("backgroundTutorial.png"));
+        backgroundImage = idioma.setTutorial();
     }
 	
 	@Override

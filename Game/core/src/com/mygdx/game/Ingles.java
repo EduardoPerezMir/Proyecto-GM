@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -52,6 +54,14 @@ public class Ingles implements IdiomaStrategy{
 		font.draw(batch, "GAME OVER", 350, 300);
 		font.draw(batch, "Tap anywhere to restart.", 100, 200);
 		font.draw(batch, "Press ESC to return to the initial menu.", 100, 100);
-}
+	}
+	
+	public Texture setTutorial() {
+		return new Texture(Gdx.files.internal("tutorialIngles.png"));	
+	}
+	
+	public Texture setPausa() {
+		return new Texture(Gdx.files.internal("pausaIngles.png"));	
+	}
 
 }

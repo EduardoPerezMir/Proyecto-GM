@@ -24,8 +24,8 @@ public class PausaScreen implements Screen {
         this.batch = game.getBatch2();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
-		backgroundTexture = new Texture(Gdx.files.internal("pausa.png"));
 		this.idioma = idioma;
+		backgroundTexture = idioma.setPausa();
 	}
 
 	@Override
