@@ -176,11 +176,6 @@ public abstract class NivelDificultad {
                 tiempoTranscurrido = 0;
             }
         }
-        
-        if (tiempoActivadoPowerUp > 0) {
-            // Muestra el tiempo restante de un power-up activo
-            
-        }
        
         // generar gotas de lluvia
         if (TimeUtils.nanoTime() - lastDropTime > 100000000 / velYFuncionPuntaje) 
@@ -189,10 +184,8 @@ public abstract class NivelDificultad {
         	lastDropTime = TimeUtils.nanoTime();
        	}
         
-        // revisar si las gotas cayeron al suelo o chocaron con el tarro
         int i = 0;
         int cantGotasBuenas = getCantGotasBuenas();
-        
         while (i < cantGotasBuenas)
         {
             GotaBuena gotaActual = getGotaBuenaActual(i);
@@ -201,16 +194,14 @@ public abstract class NivelDificultad {
             int accionARealizar = gotaActual.verificarColisionTarro(tarro, ponderadorVelocidad);
 
             if (accionARealizar != 0) {
+            	borrarGotaBuenaActual(gotaActual);
+            	gotaActual.destruir();
                 if (accionARealizar == 1)
                     incrementoVelocidadFuncionPuntaje(tarro);
 
-                borrarGotaBuenaActual(i);
-
                 if (accionARealizar == -1)
                     return false;
-            
             }
-            
             i++;
             cantGotasBuenas = getCantGotasBuenas();
         }
@@ -225,10 +216,10 @@ public abstract class NivelDificultad {
             int accionARealizar = gotaActual.verificarColisionTarro(tarro, ponderadorVelocidad);
 
             if (accionARealizar != 0) {
+            	borrarGotaMalaActual(gotaActual);
                 if (accionARealizar == 1)
                     incrementoVelocidadFuncionPuntaje(tarro);
-
-                borrarGotaMalaActual(i);
+                
                 if (accionARealizar == -1)
                     return false;
                 
@@ -240,15 +231,7 @@ public abstract class NivelDificultad {
         return true;
 	}
 	
-	public abstract void crearGotaDeLluvia(ObjetosFactory crear);
-	public abstract void crearArrayGotas();
-	public abstract GotaBuena getGotaBuenaActual(int i);
-	public abstract GotaMala getGotaMalaActual(int i);
-	public abstract int getCantGotasBuenas();
-	public abstract int getCantGotasMalas();
-	public abstract void borrarGotaBuenaActual(int i);
-	public abstract void borrarGotaMalaActual(int i);
-	public abstract void borrarArrayGotas();
+
 	
     public boolean hayMusica() {
         return rainMusic.isPlaying();
@@ -258,6 +241,7 @@ public abstract class NivelDificultad {
         rainMusic.dispose();
         powerUp.destruir();
         powerDown.destruir();
+        borrarArrayGotas();
     }
 
     public void pausar() {
@@ -279,4 +263,14 @@ public abstract class NivelDificultad {
             tiempoTranscurrido = 0;
         }
 	}
+	
+	public abstract void crearGotaDeLluvia(ObjetosFactory crear);
+	public abstract void crearArrayGotas();
+	public abstract GotaBuena getGotaBuenaActual(int i);
+	public abstract GotaMala getGotaMalaActual(int i);
+	public abstract int getCantGotasBuenas();
+	public abstract int getCantGotasMalas();
+	public abstract void borrarGotaBuenaActual(GotaBuena gota);
+	public abstract void borrarGotaMalaActual(GotaMala gota);
+	public abstract void borrarArrayGotas();
 }

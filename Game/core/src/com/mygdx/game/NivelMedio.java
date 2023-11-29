@@ -42,14 +42,13 @@ public class NivelMedio extends NivelDificultad {
 		return gotasM.size;
 	}
 	
-	public void borrarGotaBuenaActual(int i) {
-		getGotaBuenaActual(i).destruir();
-		gotasB.removeIndex(i);
+	public void borrarGotaBuenaActual(GotaBuena gota) {
+		gotasB.removeValue(gota, true);
+		gota.destruir();
 	}
 
-	public void borrarGotaMalaActual(int i) {
-		getGotaMalaActual(i).destruir();
-		gotasM.removeIndex(i);
+	public void borrarGotaMalaActual(GotaMala gota) {
+		gotasM.removeValue(gota, true);
 	}
 	
 	public void borrarArrayGotas() {

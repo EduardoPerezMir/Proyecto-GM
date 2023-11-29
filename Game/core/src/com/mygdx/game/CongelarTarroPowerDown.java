@@ -30,6 +30,5 @@ public class CongelarTarroPowerDown implements PowerDown{
 	@Override
 	public void destruir() {
 		textura.dispose();
-		
 	}
 }
