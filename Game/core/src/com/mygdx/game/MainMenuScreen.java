@@ -40,7 +40,6 @@ public class MainMenuScreen implements Screen {
     private TextButton optionButton4;
     private TextButton exitButton;
     private Table table;
-    
     private IdiomaStrategy idioma;
 
     public MainMenuScreen(final GameLluviaMenu game, IdiomaStrategy idioma) {
@@ -120,7 +119,10 @@ public class MainMenuScreen implements Screen {
         optionButton1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 1,idioma,new ObjetosNivelUno()));
+            	ObjetosFactory crear = new ObjetosNivelUno();
+            	Tarro tarro = crear.crearTarro();
+            	NivelDificultad nivel = new NivelFacil(crear, tarro);
+    			game.setScreen(new GameScreen(game, 1, idioma, nivel));
     			dispose();
             }
         });
@@ -128,7 +130,10 @@ public class MainMenuScreen implements Screen {
         optionButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 2,idioma,new ObjetosNivelDos()));
+            	ObjetosFactory crear = new ObjetosNivelDos();
+            	Tarro tarro = crear.crearTarro();
+            	NivelDificultad nivel = new NivelMedio(crear, tarro);
+    			game.setScreen(new GameScreen(game, 2, idioma, nivel));
     			dispose();
             }
         });
@@ -136,7 +141,10 @@ public class MainMenuScreen implements Screen {
         optionButton3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-    			game.setScreen(new GameScreen(game, 3,idioma,new ObjetosNivelTres()));
+            	ObjetosFactory crear = new ObjetosNivelTres();
+            	Tarro tarro = crear.crearTarro();
+            	NivelDificultad nivel = new NivelDificil(crear, tarro);
+    			game.setScreen(new GameScreen(game, 3, idioma, nivel));
     			dispose();
             }
         });

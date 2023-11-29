@@ -118,16 +118,14 @@ public class TarroMetal implements Tarro {
         this.herido = herido;
     }
 
-    public boolean actualizarMovimiento() {
+    public void actualizarMovimiento() {
         if (!herido) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= (velx * multiplicadorVel) * Gdx.graphics.getDeltaTime();
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += (velx * multiplicadorVel) * Gdx.graphics.getDeltaTime();
 
             if (bucket.x < 0) bucket.x = 0;
             if (bucket.x > 800 - tamañox) bucket.x = 800 - tamañox;
-            return true;
         }
-        return false;
     }
 
     public void dañar(int daño) {

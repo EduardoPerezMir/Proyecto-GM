@@ -1,7 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.math.MathUtils;
-
 public class ObjetosNivelTres implements ObjetosFactory {
 	public GotaBuena crearGotaBuena(int velInicialLluvia) {
 		return new GotaAzul(velInicialLluvia);

@@ -17,9 +17,7 @@ public class GameScreen implements Screen {
 	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private Tarro tarro;
-	private Lluvia lluvia;
 	private int dificultad;
-	private String dificultadString;
 	private Texture backgroundTexture;
 	private Texture sonidoTexture;
 	private Sprite sonidoSprite;
@@ -27,47 +25,21 @@ public class GameScreen implements Screen {
 	
 	//private NivelDificultad nivel;
 	private IdiomaStrategy idioma;
-    private ObjetosFactory crear;
+    private NivelDificultad nivel;
 
     
-	public GameScreen(final GameLluviaMenu game, int dificultad, IdiomaStrategy idioma, ObjetosFactory crear) {
+	public GameScreen(final GameLluviaMenu game, int dificultad, IdiomaStrategy idioma, NivelDificultad nivel) {
 		  this.game = game;
 	      this.batch = game.getBatch();
 	      this.font = game.getFont();
 	      this.dificultad = dificultad;
 	      this.idioma = idioma;
-	      this.crear = crear;
-	      
-	      
-	      dificultadString = "";
+	      this.nivel = nivel;
 	      
 	      
 	      backgroundTexture = new Texture(Gdx.files.internal("fondoDefault.jpg"));
-	      
-		  if (dificultad == 1) {
-			  dificultadString = "Fácil";
-			  //nivel = new NivelFacil(); 
-			  crear = new ObjetosNivelUno();
-		  }	
-		  else
-		  {
-			  if (dificultad == 2) {
-				  dificultadString = "Medio";
-				  //nivel = new NivelMedio();
-				  crear = new ObjetosNivelDos();
-			  }
-			  else {
-				  dificultadString = "Difícil";
-				  //nivel = new NivelDificil();
-				  crear = new ObjetosNivelTres();
-			  }
-		  }
 		  
 		  idioma.setDificultad(dificultad);
-		  
-		  
-		  lluvia = Lluvia.getLluvia(crear);
-
 		  
 		  // textura sonido
 		  sonidoTexture = new Texture(Gdx.files.internal("sonido.png"));
@@ -84,14 +56,9 @@ public class GameScreen implements Screen {
 		  camera = new OrthographicCamera();
 		  camera.setToOrtho(false, 800, 480);
 		  batch = new SpriteBatch();
-		  // creacion del tarro
-		  tarro = crear.crearTarro();
 		  
-		  
-		  // creacion de la lluvia
-		  lluvia.crear();
-		  
-		  setBackgroundTexture(new Texture(Gdx.files.internal("fondoFacil.jpg")));
+		  nivel.crearNivel(this);
+		  tarro = nivel.getTarro();
 	}
 
 	@Override
@@ -113,10 +80,10 @@ public class GameScreen implements Screen {
 		// La siguiente condición se encarga de verificar si se presionó la tecla M, en caso de
         // ser verdadero, se pausa la musica de la lluvia.
 		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-		       if(lluvia.hayMusica())
-		    	   lluvia.pausar();
+		       if(nivel.hayMusica())
+		    	   nivel.pausar();
 		        else
-		        	lluvia.continuar();
+		        	nivel.continuar();
 		}
 		
         // La siguiente condición se encarga de verificar si se presionó la tecla P, en caso de
@@ -125,36 +92,17 @@ public class GameScreen implements Screen {
 			pause();
 	    }	
 		
-		
-		// movimiento del tarro desde teclado
-		if (tarro.actualizarMovimiento()) {
-	        //Caida de PW
-			// caida de la lluvia 
-			
-			if (tarro.estaMuerto()) {
-				game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
-	    	    //actualizar HigherScore
-	    	    if (game.getHigherScore() < tarro.getPuntos())
-	    		    game.setHigherScore(tarro.getPuntos());  
-	    	    //ir a la ventana de finde juego y destruir la actual
-	    	    lluvia.pausar();
-			}
-			lluvia.actualizarMovimiento(tarro);
-			
-			/*
-	        if (!lluvia.actualizarMovimiento(tarro)) {
-	    	    game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
-	    	    //actualizar HigherScore
-	    	    if (game.getHigherScore() < tarro.getPuntos())
-	    		    game.setHigherScore(tarro.getPuntos());  
-	    	    //ir a la ventana de finde juego y destruir la actual
-	    	    lluvia.pausar();
-	    	    //dispose();
-	       }*/
+		if (tarro.estaMuerto()) {
+			game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
+    	    //actualizar HigherScore
+    	    if (game.getHigherScore() < tarro.getPuntos())
+    		    game.setHigherScore(tarro.getPuntos());  
+    	    //ir a la ventana de finde juego y destruir la actual
+    	    nivel.pausar();
 		}
 	        
 		tarro.dibujar(batch);
-		lluvia.actualizarDibujoLluvia(batch,font,idioma);
+		nivel.disponerNivel(batch, font, idioma);
 		
 		batch.end();
 	}
@@ -178,7 +126,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 	  // continuar con sonido de lluvia
-		lluvia.continuar();
+		nivel.continuar();
 	}
 
 	@Override
@@ -188,7 +136,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void pause() {
-		lluvia.pausar();
+		nivel.pausar();
 		game.setScreen(new PausaScreen(game, this, idioma)); 
 	}
 
@@ -200,12 +148,12 @@ public class GameScreen implements Screen {
 	@Override
 	public void dispose() {
 	  backgroundTexture.dispose();
-	  lluvia.destruir();
+	  nivel.destruir();
       tarro.destruir(); 
 	}
 
 	public void reset() {
-		lluvia.reset(tarro);
+		nivel.reset();
 		tarro.reset();
 		
 	}
