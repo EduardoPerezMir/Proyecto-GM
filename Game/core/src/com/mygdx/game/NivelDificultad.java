@@ -18,20 +18,17 @@ public abstract class NivelDificultad implements Screen {
 	private BitmapFont font;
 	private Tarro tarro;
 	private Lluvia lluvia;
-	private int dificultad;
 	private Texture backgroundTexture;
 	private Texture sonidoTexture;
 	private Sprite sonidoSprite;
 	
 	private IdiomaStrategy idioma;
-    private ObjetosFactory crear;
-
     public NivelDificultad(final GameLluviaMenu game,int dificultad, IdiomaStrategy idioma, ObjetosFactory crear) {
     	this.game = game;
 	    this.batch = game.getBatch();
 	    this.font = game.getFont();
 	    
-	    setGame(dificultad,idioma,crear, backgroundTexture);
+	    this.idioma = idioma;
 	    
 	    idioma.setDificultad(dificultad);
 		  
@@ -62,12 +59,6 @@ public abstract class NivelDificultad implements Screen {
 
     }
     
-	public void setGame(int dificultad, IdiomaStrategy idioma, ObjetosFactory crear, Texture backgroundTexture) {
-		this.dificultad = dificultad;
-		this.idioma = idioma;
-	    this.crear = crear;
-	    this.backgroundTexture = backgroundTexture;
-	}
 	
 	
 	public void render(float delta) {
@@ -107,7 +98,7 @@ public abstract class NivelDificultad implements Screen {
 			// caida de la lluvia 
 			
 			if (tarro.estaMuerto()) {
-				game.setScreen(new GameOverScreen(game, dificultad,this,idioma));
+				game.setScreen(new GameOverScreen(game,this,idioma));
 	    	    //actualizar HigherScore
 	    	    if (game.getHigherScore() < tarro.getPuntos())
 	    		    game.setHigherScore(tarro.getPuntos());  

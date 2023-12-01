@@ -13,18 +13,16 @@ public class GameOverScreen implements Screen {
 	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private OrthographicCamera camera;
-	private int dificultad;
 	private NivelDificultad gameScreen;
 	
 	private IdiomaStrategy idioma;
 	
-	public GameOverScreen(final GameLluviaMenu game, int dificultad,NivelDificultad gameScreen, IdiomaStrategy idioma) {
+	public GameOverScreen(final GameLluviaMenu game,NivelDificultad gameScreen, IdiomaStrategy idioma) {
 		this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
-		this.dificultad = dificultad;
 		this.gameScreen = gameScreen;
 		this.idioma = idioma;
 	}
