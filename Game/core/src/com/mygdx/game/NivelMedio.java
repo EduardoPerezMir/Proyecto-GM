@@ -8,12 +8,18 @@ import com.badlogic.gdx.math.MathUtils;
 public class NivelMedio extends NivelDificultad {
 
 	public NivelMedio(final GameLluviaMenu game, int dificultad, IdiomaStrategy idioma, ObjetosFactory crear) {
-		 super(game,dificultad,idioma,crear, new Texture(Gdx.files.internal("fondoMedio.jpg")));
+		super(game,dificultad,idioma,crear);
 	}
 	
-	public void inicializarNivel(Lluvia lluvia) {
-        setBackgroundTexture(new Texture(Gdx.files.internal("fondoFacil.jpg")));
-        lluvia.crear(250);
-
+	public void inicializarFondo() {
+        setBackgroundTexture(new Texture(Gdx.files.internal("fondoMedio.jpg")));
 	}
+	public void inicializarVelocidadLluvia(Lluvia lluvia) {
+        lluvia.crear(250);
+        lluvia.setTiempoEntrePowers(15.0f);
+	}
+	public void inicializarVelocidadTarro(Tarro tarro) {
+        tarro.setVelocidad(445);
+	}
+	
 }

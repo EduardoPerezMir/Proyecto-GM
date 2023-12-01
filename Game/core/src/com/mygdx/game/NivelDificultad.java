@@ -26,7 +26,7 @@ public abstract class NivelDificultad implements Screen {
 	private IdiomaStrategy idioma;
     private ObjetosFactory crear;
 
-    public NivelDificultad(final GameLluviaMenu game,int dificultad, IdiomaStrategy idioma, ObjetosFactory crear, Texture backgroundTexture) {
+    public NivelDificultad(final GameLluviaMenu game,int dificultad, IdiomaStrategy idioma, ObjetosFactory crear) {
     	this.game = game;
 	    this.batch = game.getBatch();
 	    this.font = game.getFont();
@@ -56,7 +56,9 @@ public abstract class NivelDificultad implements Screen {
 		// creacion del tarro
 		tarro = crear.crearTarro();
 		  
-		inicializarNivel(lluvia);
+		inicializarFondo();
+		inicializarVelocidadLluvia(lluvia);
+		inicializarVelocidadTarro(tarro);
 
     }
     
@@ -122,7 +124,9 @@ public abstract class NivelDificultad implements Screen {
 		batch.end();
 	}
 
-	public abstract void inicializarNivel(Lluvia lluvia);
+	public abstract void inicializarFondo();
+	public abstract void inicializarVelocidadLluvia(Lluvia lluvia) ;
+	public abstract void inicializarVelocidadTarro(Tarro tarro);
 	
 	 public void setTarro(Tarro tarro) {
 	    	this.tarro = tarro;

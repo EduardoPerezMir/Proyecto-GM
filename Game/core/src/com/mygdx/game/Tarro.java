@@ -31,5 +31,7 @@ public interface Tarro {
     public boolean estaMuerto();
     
     public void reset();
+    
+    public void setVelocidad(int velx);
 
 }

@@ -43,6 +43,7 @@ public class TarroPlastico implements Tarro {
         crearTarro();
     }
 
+    
     public void sumarPuntos(int pp) {
         puntos += (pp * multiplicadorAumentoPuntos);
     }

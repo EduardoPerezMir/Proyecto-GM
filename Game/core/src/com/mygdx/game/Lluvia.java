@@ -72,7 +72,9 @@ public class Lluvia {
         crearPW();
         lastDropTimePower = TimeUtils.millis(); 
     }
-    
+    public void setTiempoEntrePowers(float tiempo) {
+    	tiempoEntrePowerUps = tiempo;
+    }
     private void crearPW() {
         rectangulo.x = MathUtils.random(0, 800 - 42);
         rectangulo.y = 480;
@@ -167,7 +169,7 @@ public class Lluvia {
             }
             // Si el power-up se superpone con el tarro, se activa
             if (rectangulo.overlaps(tarro.getArea()) && dibujarPower) {
-                if (activoP == 0) powerDown.aplicarPowerDown(tarro);
+                if (activoP == 1) powerDown.aplicarPowerDown(tarro);
                 else powerUp.aplicarPowerUp(tarro);
 
                 inicioPower.play();
@@ -186,7 +188,7 @@ public class Lluvia {
             // Si ha pasado suficiente tiempo, se desactiva el power-up
             if (tiempoTranscurrido >= duracionPowerUp * 1000) {
             	finPower.play();
-            	if (activoP == 0) powerDown.quitarPowerDown(tarro);
+            	if (activoP == 1) powerDown.quitarPowerDown(tarro);
             	else powerUp.quitarPowerUp(tarro);
                 tiempoActivadoPowerUp = 0;
                 tiempoTranscurrido = 0;
@@ -253,7 +255,7 @@ public class Lluvia {
         
         if (dibujarPower) {
         	
-        	if (activoP == 0) powerDown.dibujar(batch, rectangulo.x, rectangulo.y);
+        	if (activoP == 1) powerDown.dibujar(batch, rectangulo.x, rectangulo.y);
         	else powerUp.dibujar(batch, rectangulo.x, rectangulo.y);
         	
         }
@@ -296,7 +298,7 @@ public class Lluvia {
 		gotasM.clear();
 		
 		if (tiempoTranscurrido != 0) {
-        	if (activoP == 0) powerDown.quitarPowerDown(tarro);
+        	if (activoP == 1) powerDown.quitarPowerDown(tarro);
         	else powerUp.quitarPowerUp(tarro);
             tiempoActivadoPowerUp = 0;
             tiempoTranscurrido = 0;

@@ -43,6 +43,7 @@ public class TarroMadera implements Tarro {
         crearTarro();
         esInmortal = false;
     }
+    
 
     public void sumarPuntos(int pp) {
         puntos += (pp * multiplicadorAumentoPuntos);
