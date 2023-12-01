@@ -14,11 +14,11 @@ public class GameOverScreen implements Screen {
 	private BitmapFont font;
 	private OrthographicCamera camera;
 	private int dificultad;
-	private GameScreen gameScreen;
+	private NivelDificultad gameScreen;
 	
 	private IdiomaStrategy idioma;
 	
-	public GameOverScreen(final GameLluviaMenu game, int dificultad,GameScreen gameScreen, IdiomaStrategy idioma) {
+	public GameOverScreen(final GameLluviaMenu game, int dificultad,NivelDificultad gameScreen, IdiomaStrategy idioma) {
 		this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();

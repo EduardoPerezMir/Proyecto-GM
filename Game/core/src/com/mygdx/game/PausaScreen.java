@@ -12,13 +12,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class PausaScreen implements Screen {
 
 	private final GameLluviaMenu game;
-	private GameScreen juego;
+	private NivelDificultad juego;
 	private SpriteBatch batch;	   
 	private OrthographicCamera camera;
 	private Texture backgroundTexture;
 	private IdiomaStrategy idioma;
 
-	public PausaScreen (final GameLluviaMenu game, GameScreen juego, IdiomaStrategy idioma) {
+	public PausaScreen (final GameLluviaMenu game, NivelDificultad juego, IdiomaStrategy idioma) {
 		this.game = game;
         this.juego = juego;
         this.batch = game.getBatch2();

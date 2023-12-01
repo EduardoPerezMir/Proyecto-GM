@@ -8,7 +8,7 @@ public interface Tarro {
 
 	public void dibujar(SpriteBatch batch);
 
-    public void actualizarMovimiento();
+    public boolean actualizarMovimiento();
     
     public void sumarPuntos(int puntos);
     
@@ -19,8 +19,6 @@ public interface Tarro {
     public void setAumentoPuntos(double multiplicadorAumentoPuntos);
     
     public void setMultiplicadorVel(double d);
-    
-    public void setVelocidad(int velx);
     
     public void setEsInmortal(boolean inmortal);
     
